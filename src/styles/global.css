@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* Roobert (Displaay) — versión TRIAL, solo para la propuesta; comprar licencia antes de producción */
+@font-face {
+  font-family: "Roobert";
+  src: url("/assets/Fonts/RoobertTRIALVF-BF67243fd545701.ttf") format("truetype");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-terza-lime: #bcdc00;
+  --color-terza-forest: #00514a;
+  --color-terza-light: #f0fae5;
+  --color-terza-black: #000000;
+  --color-terza-gray: #555555;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Roobert", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-white font-sans text-terza-gray;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-terza-black;
+    letter-spacing: -0.03em;
+  }
+
+  ::selection {
+    @apply bg-terza-lime text-terza-black;
+  }
+}
+
+@layer components {
+  /* Etiqueta pequeña sobre títulos */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-terza-forest;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply block h-px w-8 bg-current;
+  }
+
+  .btn-lime {
+    @apply inline-flex items-center gap-3 rounded-full bg-terza-lime px-7 py-4 text-sm font-semibold text-terza-black transition-all duration-500 ease-silk hover:gap-5 hover:bg-terza-black hover:text-terza-lime;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-3 rounded-full border border-terza-black/15 px-7 py-4 text-sm font-semibold text-terza-black transition-all duration-500 ease-silk hover:border-terza-black hover:gap-5;
+  }
+
+  /* Header glassmorphism al hacer scroll */
+  .site-header.is-scrolled {
+    @apply bg-white/75 shadow-[0_1px_30px_rgba(0,0,0,0.04)] backdrop-blur-xl;
+  }
+
+  /* Enlaces del menú con indicador triangular sobre la línea inferior (estilo TheRatio) */
+  .nav-link {
+    @apply relative px-3 text-[0.8rem] font-medium uppercase tracking-[0.14em] text-terza-black transition-colors hover:text-terza-forest;
+  }
+  .nav-link::after {
+    content: "";
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1 border-x-[6px] border-b-[6px] border-x-transparent border-b-terza-black opacity-0 transition-all duration-300;
+  }
+  .nav-link:hover::after,
+  .group\/mega:hover > .nav-link::after {
+    @apply translate-y-0 opacity-100;
+  }
+}
+
+/* Estados iniciales de animación: solo si JS está activo, para no ocultar contenido sin GSAP */
+.js .reveal-line > span {
+  display: inline-block;
+  transform: translateY(110%);
+}
+.js [data-reveal] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal-line > span { transform: none; }
+  .js [data-reveal] { opacity: 1; }
+}
+
+/* Swiper: barra de progreso con color de marca (vive fuera de .products-swiper) */
+.products-progress.swiper-pagination-progressbar {
+  background: rgb(0 0 0 / 0.08);
+}
+.products-progress.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: var(--color-terza-lime);
+}

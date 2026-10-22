@@ -1,0 +1,701 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const navLinks = [
+  { label: 'Pisos', href: '#productos', mega: true },
+  { label: 'Flexiroc', href: '#productos' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Visualizador', href: '#visualizador' },
+  { label: 'Ideas', href: '#ideas' },
+  { label: 'Contacto', href: '#contacto' },
+];
+
+const pisosCategorias = [
+  { name: 'Laminado', desc: 'Resistencia diaria con vetas naturales', img: '/assets/images/pisos-laminado.jpg', href: '#' },
+  { name: 'Madera', desc: 'Ingeniería y calidez en cada tablón', img: '/assets/images/pisos-madera.jpg', href: '#' },
+  { name: 'Vinil', desc: 'Silencioso, cálido y a prueba de agua', img: '/assets/images/pisos-vinil.jpg', href: '#' },
+  { name: 'Deck exterior', desc: 'Terrazas que soportan sol y lluvia', img: '/assets/images/pisos-deck.jpg', href: '#' },
+];
+
+const socials = [
+  { icon: 'ph-instagram-logo', label: 'Instagram', href: '#' },
+  { icon: 'ph-facebook-logo', label: 'Facebook', href: '#' },
+  { icon: 'ph-youtube-logo', label: 'YouTube', href: '#' },
+  { icon: 'ph-linkedin-logo', label: 'LinkedIn', href: '#' },
+];
+
+const productos = [
+  { name: 'Arenisca', tone: 'Tonos cálidos · Textura granulada', img: '/assets/images/flexiroc-arenisca.jpg' },
+  { name: 'Caliza', tone: 'Marfil luminoso · Veta suave', img: '/assets/images/flexiroc-caliza.jpg' },
+  { name: 'Pizarra', tone: 'Gris grafito · Relieve laminar', img: '/assets/images/flexiroc-pizarra.jpg' },
+  { name: 'Travertino', tone: 'Crema clásico · Poro natural', img: '/assets/images/flexiroc-travertino.jpg' },
+  { name: 'Cantera', tone: 'Rosa terroso · Acabado mate', img: '/assets/images/flexiroc-cantera.jpg' },
+  { name: 'Basalto', tone: 'Negro volcánico · Grano fino', img: '/assets/images/flexiroc-basalto.jpg' },
+];
+
+const stats = [
+  { value: '+45', label: 'años de experiencia' },
+  { value: '4', label: 'showrooms en México' },
+  { value: '+10k', label: 'proyectos entregados' },
+];
+
+const shawSectores = [
+  { name: 'Workplace', desc: 'Oficinas y corporativos', img: '/assets/images/shaw-workplace.webp', pos: 'object-[35%_center]' },
+  { name: 'Hospitality', desc: 'Hoteles y restaurantes', img: '/assets/images/hospitality.webp', pos: 'object-[40%_center]' },
+  { name: 'Education', desc: 'Escuelas y universidades', img: '/assets/images/education.webp', pos: 'object-[60%_center]' },
+  { name: 'Healthcare', desc: 'Hospitales y clínicas', img: '/assets/images/healthcare.webp', pos: 'object-center' },
+];
+
+const posts = [
+  {
+    cat: 'Tendencias',
+    title: 'Piedra flexible: el material que está redefiniendo las fachadas contemporáneas',
+    img: '/assets/images/blog-tendencias.jpg',
+    href: '#',
+  },
+  {
+    cat: 'Exteriores',
+    title: 'Cómo elegir el deck ideal para una terraza que vive al sol todo el año',
+    img: '/assets/images/blog-exterior.jpg',
+    href: '#',
+  },
+  {
+    cat: 'Cuidado',
+    title: 'Guía de mantenimiento para pisos de madera que lucen nuevos por décadas',
+    img: '/assets/images/blog-mantenimiento.jpg',
+    href: '#',
+  },
+];
+
+const footerCols = [
+  {
+    title: 'Productos',
+    links: ['Flexiroc', 'Pisos laminados', 'Pisos de madera', 'Vinil', 'Deck exterior', 'Alfombras'],
+  },
+  {
+    title: 'Empresa',
+    links: ['Nosotros', 'Proyectos', 'Material LAB', 'Blog', 'Bolsa de trabajo'],
+  },
+  {
+    title: 'Showrooms',
+    links: ['Monterrey', 'Guadalajara', 'Ciudad de México', 'Puebla'],
+  },
+];
+---
+
+<Layout>
+  <!-- ============ A. BARRA LATERAL (escritorio) ============ -->
+  <aside class="site-rail fixed inset-y-0 left-0 z-[60] hidden w-24 flex-col border-r border-terza-black/20 lg:flex" aria-label="Terza en redes sociales">
+    <a href="/" class="block size-24 shrink-0" aria-label="Terza, inicio">
+      <img src="/assets/images/icono_medio_cuadro.svg" alt="" width="96" height="96" class="size-full" />
+    </a>
+    <ul class="flex flex-1 flex-col-reverse items-center justify-center gap-12">
+      {socials.map((s) => (
+        <li>
+          <a
+            href={s.href}
+            class="block rotate-180 text-[0.7rem] font-medium uppercase tracking-[0.25em] text-terza-black transition-colors [writing-mode:vertical-rl] hover:text-terza-forest"
+          >
+            {s.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+
+  <!-- ============ A. HEADER ============ -->
+  <header
+    id="site-header"
+    class="site-header fixed right-0 top-0 left-0 z-50 border-b border-terza-black/20 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-silk lg:left-24"
+  >
+    <div class="flex h-20 items-stretch justify-between lg:h-24">
+      <!-- Marca -->
+      <a href="/" class="flex shrink-0 items-center gap-3 px-5 md:px-10 lg:border-r lg:border-terza-black/20" aria-label="Terza, inicio">
+        <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-8 w-auto lg:h-9" />
+      </a>
+
+      <!-- Navegación central -->
+      <nav aria-label="Principal" class="hidden flex-1 justify-center lg:flex">
+        <ul class="flex items-stretch gap-2 xl:gap-6">
+          {navLinks.map((link) => (
+            link.mega ? (
+              <li class="group/mega static flex">
+                <a
+                  href={link.href}
+                  class="nav-link flex items-center gap-1.5"
+                  aria-haspopup="true"
+                >
+                  {link.label}
+                  <i class="ph ph-caret-down text-xs transition-transform duration-300 group-hover/mega:rotate-180"></i>
+                </a>
+
+                <!-- Mega menú -->
+                <div class="invisible absolute inset-x-0 top-full translate-y-2 border-t border-terza-black/5 bg-white/95 opacity-0 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-all duration-500 ease-silk group-hover/mega:visible group-hover/mega:translate-y-0 group-hover/mega:opacity-100 group-focus-within/mega:visible group-focus-within/mega:translate-y-0 group-focus-within/mega:opacity-100">
+                  <div class="mx-auto grid max-w-[1440px] grid-cols-12 gap-8 px-10 py-10">
+                    <div class="col-span-3 flex flex-col justify-between">
+                      <div>
+                        <p class="eyebrow">Pisos</p>
+                        <p class="mt-5 text-2xl font-light leading-snug text-terza-black">
+                          Cada paso, una decisión de diseño.
+                        </p>
+                      </div>
+                      <a href="#productos" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-terza-forest">
+                        Ver toda la colección <i class="ph ph-arrow-right"></i>
+                      </a>
+                    </div>
+                    <ul class="col-span-9 grid grid-cols-4 gap-5">
+                      {pisosCategorias.map((cat) => (
+                        <li>
+                          <a href={cat.href} class="group/cat block">
+                            <div class="aspect-[4/3] overflow-hidden rounded-xl bg-terza-light">
+                              <img
+                                src={cat.img}
+                                alt={`Pisos de ${cat.name.toLowerCase()}`}
+                                loading="lazy"
+                                class="size-full object-cover transition-transform duration-700 ease-silk group-hover/cat:scale-105"
+                              />
+                            </div>
+                            <p class="mt-3 flex items-center justify-between text-sm font-semibold text-terza-black">
+                              {cat.name}
+                              <i class="ph ph-arrow-up-right opacity-0 transition-opacity group-hover/cat:opacity-100"></i>
+                            </p>
+                            <p class="mt-1 text-xs">{cat.desc}</p>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            ) : (
+              <li class="flex">
+                <a href={link.href} class="nav-link flex items-center">
+                  {link.label}
+                </a>
+              </li>
+            )
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Teléfono (escritorio) + menú móvil -->
+      <div class="flex items-center xl:border-l xl:border-terza-black/20">
+        <a href="tel:8002283792" class="hidden items-center gap-3 px-10 text-sm font-medium text-terza-black transition-colors hover:text-terza-forest xl:flex">
+          <i class="ph-light ph-phone text-lg"></i> 800 228 3792
+        </a>
+        <button
+          id="menu-toggle"
+          type="button"
+          class="mr-3 grid size-11 place-items-center rounded-full text-2xl text-terza-black md:mr-7 lg:hidden"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <i class="ph-light ph-list"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="hidden border-t border-terza-black/5 bg-white lg:hidden">
+      <nav aria-label="Móvil" class="px-5 pb-8 pt-4">
+        <ul class="divide-y divide-terza-black/5">
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="flex items-center justify-between py-4 text-lg font-medium text-terza-black">
+                {link.label} <i class="ph-light ph-arrow-right text-base"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <ul class="mt-6 flex gap-2">
+          {socials.map((s) => (
+            <li>
+              <a href={s.href} aria-label={s.label} class="grid size-11 place-items-center rounded-full border border-terza-black/20 text-lg text-terza-black">
+                <i class={`ph-light ${s.icon}`}></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lg:pl-24">
+    <!-- ============ B. HERO ============ -->
+    <section class="relative flex min-h-screen items-end overflow-hidden lg:-ml-24 lg:pl-24" aria-labelledby="hero-title">
+      <img
+        src="/assets/images/img_hero_actual.webp"
+        alt="Muro recubierto con piedra flexible Flexi ROC en una terraza con sillón y mesa de madera"
+        width="1730"
+        height="708"
+        class="hero-img absolute inset-0 size-full object-cover object-[70%_center]"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-white/10 to-white/30"></div>
+
+      <div class="relative mx-auto w-full max-w-[1440px] px-5 pb-16 pt-32 md:px-10 md:pb-24">
+        <p class="hero-eyebrow eyebrow mb-6" data-reveal>Nuevo · Flexi ROC</p>
+        <h1
+          id="hero-title"
+          class="max-w-5xl text-[clamp(2.75rem,8.5vw,8rem)] font-light leading-[0.95] tracking-[-0.05em] text-terza-black"
+        >
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>La piedra,</span></span>
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>ahora <em class="font-medium not-italic">flexible.</em></span></span>
+        </h1>
+
+        <div class="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <p class="hero-copy max-w-md text-base leading-relaxed text-terza-black/70 md:text-lg" data-reveal>
+            Láminas de piedra natural de apenas 2&nbsp;mm que se adaptan a muros curvos, columnas y fachadas. La nobleza de la roca, sin su peso.
+          </p>
+          <div class="hero-ctas flex flex-wrap gap-3" data-reveal>
+            <a href="#productos" class="btn-lime">Explorar Flexi ROC <i class="ph ph-arrow-right"></i></a>
+            <a href="#visualizador" class="btn-ghost bg-white/50 backdrop-blur">Visualizar en mi espacio</a>
+          </div>
+        </div>
+      </div>
+
+      <a
+        href="#productos"
+        class="absolute bottom-8 right-5 hidden items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-terza-black md:right-10 xl:flex"
+        aria-label="Bajar a productos"
+      >
+        <span class="scroll-cue block h-12 w-px origin-top bg-terza-black/40"></span>
+      </a>
+    </section>
+
+    <!-- ============ C. PRODUCTOS (GALERÍA) ============ -->
+    <section id="productos" class="overflow-hidden py-24 md:py-36" aria-labelledby="productos-title">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div class="mx-auto max-w-2xl text-center" data-reveal>
+          <p class="eyebrow justify-center">Colección Flexiroc</p>
+          <h2 id="productos-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
+            Seis canteras. <span class="font-medium">Una sola lámina.</span>
+          </h2>
+          <p class="mt-6 text-base leading-relaxed md:text-lg">
+            Cada pieza conserva la veta, el poro y el relieve de la roca original. Elige el carácter que tu proyecto merece.
+          </p>
+        </div>
+      </div>
+
+      <div class="products-swiper swiper mt-16 !overflow-visible px-5 md:mt-20 md:px-10" data-reveal>
+        <div class="swiper-wrapper">
+          {productos.map((p) => (
+            <article class="swiper-slide !h-auto">
+              <a href="#" class="group block h-full rounded-2xl bg-white shadow-sm transition-shadow duration-700 ease-silk hover:shadow-xl">
+                <div class="aspect-[4/5] overflow-hidden rounded-t-2xl">
+                  <img
+                    src={p.img}
+                    alt={`Textura Flexiroc ${p.name}`}
+                    loading="lazy"
+                    class="size-full object-cover transition-transform duration-1000 ease-silk group-hover:scale-105"
+                  />
+                </div>
+                <div class="flex items-end justify-between gap-4 p-6">
+                  <div>
+                    <h3 class="text-xl font-medium">Flexiroc {p.name}</h3>
+                    <p class="mt-1 text-sm">{p.tone}</p>
+                  </div>
+                  <span class="grid size-11 shrink-0 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-all duration-500 group-hover:border-terza-lime group-hover:bg-terza-lime">
+                    <i class="ph ph-arrow-up-right"></i>
+                  </span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="mx-auto mt-12 flex max-w-[1440px] items-center gap-8 px-5 md:px-10">
+        <div class="products-progress swiper-pagination !static !h-0.5 flex-1"></div>
+        <div class="flex gap-2">
+          <button type="button" class="products-prev grid size-12 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-colors hover:bg-terza-black hover:text-white disabled:opacity-30" aria-label="Anterior">
+            <i class="ph ph-arrow-left"></i>
+          </button>
+          <button type="button" class="products-next grid size-12 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-colors hover:bg-terza-black hover:text-white disabled:opacity-30" aria-label="Siguiente">
+            <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ D. ABOUT / HISTORIA ============ -->
+    <section id="nosotros" class="pb-24 md:pb-36" aria-labelledby="about-title">
+      <div class="mx-auto grid max-w-[1440px] gap-12 px-5 md:px-10 lg:grid-cols-2 lg:gap-24">
+        <div class="flex flex-col gap-10 lg:justify-center">
+          <div>
+            <p class="eyebrow" data-reveal>Desde 1979</p>
+            <h2 id="about-title" class="about-title mt-8 text-[clamp(2.5rem,6vw,5.5rem)] font-light leading-[1] tracking-[-0.045em]">
+              <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>Todo para</span></span>
+              <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>transformar</span></span>
+              <span class="reveal-line block overflow-hidden pb-[0.08em]"><span class="font-medium">tus espacios.</span></span>
+            </h2>
+          </div>
+
+          <div data-reveal>
+            <p class="max-w-md text-base leading-relaxed md:text-lg">
+              Más de 45 años como referentes en superficies en México y Latinoamérica. Seleccionamos, fabricamos e instalamos materiales, con soluciones para interiores, exteriores y proyectos comerciales, con diseño, funcionalidad y alto desempeño.
+            </p>
+            <a href="#" class="btn-lime mt-10">Conoce Terza <i class="ph ph-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Imagen con tarjetas de cifras en escalera sobre su borde izquierdo -->
+        <div class="about-media relative">
+          <figure class="about-figure relative overflow-hidden rounded-2xl">
+            <img
+              src="/assets/images/img_quienes_somos.webp"
+              alt="Sala residencial con piso de madera Terza y vista al Cerro de la Silla"
+              width="1376"
+              height="768"
+              loading="lazy"
+              class="about-img aspect-[4/5] size-full scale-110 object-cover object-[80%_center]"
+            />
+          </figure>
+
+          <dl class="about-stats relative z-10 -mt-12 grid grid-cols-3 gap-2 px-3 sm:gap-4 sm:px-6 lg:absolute lg:inset-y-0 lg:-left-32 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:gap-5 lg:px-0">
+            {stats.map((s, i) => (
+              <div class:list={[
+                'stat-card rounded-2xl bg-white p-4 shadow-xl shadow-terza-black/10 sm:p-5 lg:w-56 lg:p-6',
+                ['lg:ml-0', 'lg:ml-8', 'lg:ml-16'][i],
+              ]}>
+                <dt class="sr-only">{s.label}</dt>
+                <dd class="font-display text-2xl font-light leading-none tracking-tight text-terza-forest sm:text-3xl lg:text-5xl">{s.value}</dd>
+                <dd class="mt-2 text-[0.7rem] leading-snug sm:text-xs lg:text-sm">{s.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ E. VISUALIZADOR ============ -->
+    <section id="visualizador" class="px-5 md:px-10" aria-labelledby="viz-title">
+      <div class="viz-box relative mx-auto flex max-w-[1440px] flex-col overflow-hidden rounded-3xl bg-neutral-50 lg:min-h-[640px] lg:flex-row lg:items-center">
+        <!-- Imagen de fondo: en escritorio ocupa la derecha y se funde con el texto -->
+        <div class="viz-bg relative order-last aspect-[3/2] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:order-none lg:aspect-auto lg:w-[72%]">
+          <img
+            src="/assets/images/decorador-virtual-terza.webp"
+            alt="Persona usando el visualizador Terza en su celular para probar pisos en una sala"
+            width="1536"
+            height="1024"
+            loading="lazy"
+            class="viz-img size-full object-cover"
+          />
+          <div class="absolute inset-0 hidden bg-gradient-to-r from-neutral-50 from-10% via-neutral-50/80 via-30% to-transparent to-55% lg:block"></div>
+        </div>
+
+        <div class="px-6 py-16 md:px-16 md:py-24 lg:w-full">
+          <div class="relative z-10 lg:w-[46%]" data-reveal>
+            <p class="eyebrow">Decorador virtual</p>
+            <h2 id="viz-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
+              Velo en tu espacio <span class="font-medium">antes de decidir.</span>
+            </h2>
+            <p class="mt-6 max-w-md text-base leading-relaxed md:text-lg">
+              Toma una foto de tu sala, terraza o fachada y prueba cada piso, tapete y recubrimiento en segundos. Sin catálogos, sin suposiciones.
+            </p>
+            <ul class="mt-8 space-y-3 text-sm text-terza-black">
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-terza-forest"></i> Funciona desde tu celular</li>
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-terza-forest"></i> Compara acabados lado a lado</li>
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-terza-forest"></i> Comparte la propuesta con tu arquitecto</li>
+            </ul>
+            <a href="#" class="btn-lime mt-10">Prueba decorador <i class="ph ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ E2. SHAWCONTRACT (estilo acordeón de tarjetas) ============ -->
+    <section id="shawcontract" class="pt-24 md:pt-36" aria-labelledby="shaw-title">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div class="mx-auto max-w-4xl text-center" data-reveal>
+          <p class="eyebrow justify-center">Distribuidor exclusivo en México</p>
+          <h2 id="shaw-title" class="mt-6 text-[clamp(3rem,10vw,9rem)] font-medium leading-[0.9] tracking-[-0.05em]">
+            ShawContract<sup class="ml-1 align-super text-[0.25em] font-light">®</sup>
+          </h2>
+          <p class="mx-auto mt-8 max-w-2xl text-base leading-relaxed md:text-lg">
+            Soluciones en alfombra modular, alfombra de rollo y pisos vinílicos para proyectos comerciales que exigen diseño y desempeño.
+          </p>
+          <a href="#" class="btn-lime mt-10">Conoce más <i class="ph ph-arrow-right"></i></a>
+        </div>
+
+        <!-- Tarjetas: en escritorio la que tiene el cursor se expande y su título pasa a horizontal -->
+        <ul class="shaw-cards mt-16 flex flex-col gap-4 md:mt-20 lg:h-[600px] lg:flex-row">
+          {shawSectores.map((sector) => (
+            <li class="shaw-card group/card relative h-64 overflow-hidden rounded-2xl sm:h-80 lg:h-auto lg:flex-1 lg:transition-[flex-grow] lg:duration-700 lg:ease-silk lg:hover:grow-[3] lg:focus-within:grow-[3]">
+              <a href="#" class="block size-full" aria-label={`ShawContract ${sector.name}: ${sector.desc}`}>
+                <img
+                  src={sector.img}
+                  alt=""
+                  loading="lazy"
+                  class:list={['absolute inset-0 size-full object-cover transition-transform duration-1000 ease-silk lg:group-hover/card:scale-105', sector.pos]}
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/35 to-black/25"></div>
+
+                <!-- Título vertical (estado cerrado, solo escritorio) -->
+                <span class="absolute inset-0 hidden items-center justify-center transition-opacity duration-300 lg:flex lg:group-hover/card:opacity-0 lg:group-focus-within/card:opacity-0">
+                  <span class="rotate-180 font-display text-3xl font-medium uppercase tracking-[0.04em] text-white [writing-mode:vertical-rl] xl:text-4xl">
+                    {sector.name}
+                  </span>
+                </span>
+
+                <!-- Título horizontal (móvil siempre; escritorio al expandir) -->
+                <span class="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4 transition-opacity duration-500 lg:inset-x-8 lg:bottom-8 lg:opacity-0 lg:delay-200 lg:group-hover/card:opacity-100 lg:group-focus-within/card:opacity-100">
+                  <span>
+                    <span class="block font-display text-3xl font-medium uppercase tracking-[0.04em] text-white lg:text-5xl">{sector.name}</span>
+                    <span class="mt-2 block text-sm text-white/80">{sector.desc}</span>
+                  </span>
+                  <span class="grid size-12 shrink-0 place-items-center rounded-full bg-terza-lime text-terza-black">
+                    <i class="ph ph-arrow-up-right"></i>
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ F. BLOG / IDEAS ============ -->
+    <section id="ideas" class="py-24 md:py-36" aria-labelledby="ideas-title">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+          <div>
+            <p class="eyebrow">Blog | Ideas</p>
+            <h2 id="ideas-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
+              Ideas para transformar <span class="font-medium">tus espacios.</span>
+            </h2>
+            <p class="mt-6 max-w-xl text-base leading-relaxed md:text-lg">
+              Consejos, tendencias y guías prácticas para crear espacios más funcionales, bonitos y duraderos.
+            </p>
+          </div>
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-terza-black hover:text-terza-forest">
+            Ver todas las ideas <i class="ph ph-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="mt-14 grid gap-12 md:grid-cols-3 md:gap-8">
+          {posts.map((post) => (
+            <article class="blog-card group" data-reveal>
+              <a href={post.href} class="block">
+                <div class="aspect-[4/3] overflow-hidden rounded-2xl">
+                  <img
+                    src={post.img}
+                    alt=""
+                    loading="lazy"
+                    class="size-full object-cover transition-transform duration-1000 ease-silk group-hover:scale-105"
+                  />
+                </div>
+                <p class="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-terza-forest">{post.cat}</p>
+                <hr class="my-4 border-terza-black/10 transition-colors duration-500 group-hover:border-terza-black" />
+                <div class="flex items-start justify-between gap-6">
+                  <h3 class="text-lg font-medium leading-snug">{post.title}</h3>
+                  <i class="ph-light ph-arrow-up-right mt-1 text-xl text-terza-black transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"></i>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ G. BANNER DISTRIBUIDOR ============ -->
+    <section id="distribuidores" class="px-5 md:px-10" aria-labelledby="dist-title">
+      <!-- En escritorio el verde termina donde empiezan las muestras: la imagen es el borde derecho del contenedor -->
+      <div class="dist-banner mx-auto flex max-w-[1440px] flex-col lg:h-[340px] lg:flex-row">
+        <div class="flex flex-col justify-center rounded-t-3xl bg-terza-forest px-6 pb-8 pt-10 md:px-16 md:pt-12 lg:flex-1 lg:rounded-l-3xl lg:rounded-tr-none lg:py-10">
+          <div data-reveal>
+            <p class="eyebrow !text-terza-lime">Distribuidores</p>
+            <h2 id="dist-title" class="mt-4 text-3xl font-light leading-tight !text-white md:text-4xl">
+              Lleva Terza <span class="font-medium">a tu ciudad.</span>
+            </h2>
+            <p class="mt-4 max-w-lg text-base leading-relaxed text-white/75">
+              Súmate a la red de distribuidores autorizados con respaldo de marca, capacitación técnica, material de exhibición y condiciones comerciales preferentes.
+            </p>
+            <a href="#contacto" class="btn-lime mt-6 hover:!bg-white hover:!text-terza-black">Quiero ser distribuidor <i class="ph ph-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="-mt-px overflow-hidden rounded-b-3xl bg-terza-forest lg:mt-0 lg:h-full lg:shrink-0 lg:rounded-bl-none lg:rounded-r-3xl lg:bg-transparent">
+          <img
+            src="/assets/images/imge_distribuidores-recorte.webp"
+            alt="Muestras de madera, alfombra, mármol y recubrimientos Terza"
+            width="1334"
+            height="1038"
+            loading="lazy"
+            class="dist-img block h-auto w-full lg:h-full lg:w-auto"
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="contacto" class="mt-24 border-t border-terza-black/5 pt-20 md:mt-36 lg:ml-24">
+    <div class="mx-auto grid max-w-[1440px] gap-12 px-5 sm:grid-cols-2 md:px-10 lg:grid-cols-4">
+      <div>
+        <a href="/" class="flex items-center gap-3" aria-label="Terza, inicio">
+          <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-10 w-auto" />
+        </a>
+        <p class="mt-6 max-w-xs text-sm leading-relaxed">
+          Superficies de alto diseño para espacios que trascienden. Hecho en México desde 1979.
+        </p>
+        <a href="tel:8002283792" class="mt-6 block text-2xl font-light tracking-tight text-terza-black hover:text-terza-forest">800 228 3792</a>
+        <ul class="mt-6 flex gap-2">
+          {socials.map((s) => (
+            <li>
+              <a href={s.href} aria-label={s.label} class="grid size-10 place-items-center rounded-full border border-terza-black/10 text-lg text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime">
+                <i class={`ph-light ${s.icon}`}></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {footerCols.map((col) => (
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em]">{col.title}</h3>
+          <ul class="mt-6 space-y-3">
+            {col.links.map((l) => (
+              <li><a href="#" class="text-sm transition-colors hover:text-terza-black">{l}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mx-auto mt-20 flex max-w-[1440px] flex-col gap-4 border-t border-terza-black/5 px-5 py-8 text-xs md:flex-row md:items-center md:justify-between md:px-10">
+      <p>© {new Date().getFullYear()} Terza. Todos los derechos reservados.</p>
+      <ul class="flex gap-6">
+        <li><a href="#" class="hover:text-terza-black">Aviso de privacidad</a></li>
+        <li><a href="#" class="hover:text-terza-black">Términos y condiciones</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script is:inline slot="scripts">
+    document.addEventListener('DOMContentLoaded', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- Header: glassmorphism al hacer scroll ---------- */
+      const header = document.getElementById('site-header');
+      const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      /* ---------- Menú móvil ---------- */
+      const toggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const setMenu = (open) => {
+        mobileMenu.classList.toggle('hidden', !open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.querySelector('i').className = open ? 'ph-light ph-x' : 'ph-light ph-list';
+        header.classList.toggle('bg-white', open);
+      };
+      toggle.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+      mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+      /* ---------- Swiper: galería de productos ---------- */
+      if (window.Swiper) {
+        new Swiper('.products-swiper', {
+          slidesPerView: 1.15,
+          spaceBetween: 16,
+          speed: 900,
+          grabCursor: true,
+          navigation: { prevEl: '.products-prev', nextEl: '.products-next' },
+          pagination: { el: '.products-progress', type: 'progressbar' },
+          breakpoints: {
+            640: { slidesPerView: 2.15, spaceBetween: 20 },
+            1024: { slidesPerView: 3.15, spaceBetween: 28 },
+            1440: { slidesPerView: 3.6, spaceBetween: 32 },
+          },
+        });
+      }
+
+      /* ---------- GSAP ---------- */
+      if (!window.gsap || reduceMotion) {
+        document.documentElement.classList.remove('js');
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.defaults({ ease: 'expo.out', duration: 1.4 });
+
+      // Hero: revelado de máscara con stagger de abajo hacia arriba
+      const heroTl = gsap.timeline({ delay: 0.15 });
+      heroTl
+        .fromTo('.hero-img', { scale: 1.12 }, { scale: 1, duration: 2.4, ease: 'power3.out' })
+        .to('.hero-eyebrow', { opacity: 1, duration: 1 }, 0.3)
+        .to('#hero-title .reveal-line > span', { y: 0, stagger: 0.14 }, 0.35)
+        .fromTo('.hero-copy, .hero-ctas', { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.8)
+        .fromTo('.site-header', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, clearProps: 'transform,opacity' }, 0.5)
+        .fromTo('.site-rail', { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 1, clearProps: 'transform,opacity' }, 0.5)
+        .fromTo('.scroll-cue', { scaleY: 0 }, { scaleY: 1, duration: 1.2 }, 1.1);
+
+      // Línea de scroll animada en bucle
+      gsap.to('.scroll-cue', { scaleY: 0.3, transformOrigin: 'bottom', repeat: -1, yoyo: true, duration: 1.4, ease: 'sine.inOut', delay: 2.3 });
+
+      // Elementos genéricos [data-reveal] (excepto los del hero)
+      gsap.utils.toArray('[data-reveal]').forEach((el) => {
+        if (el.matches('.hero-eyebrow, .hero-copy, .hero-ctas, .blog-card')) return;
+        gsap.fromTo(el, { opacity: 0, y: 40 }, {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+        });
+      });
+
+      // About: título con máscara + imagen con revelado tipo cortina y parallax
+      gsap.to('.about-title .reveal-line > span', {
+        y: 0,
+        stagger: 0.12,
+        scrollTrigger: { trigger: '.about-title', start: 'top 80%' },
+      });
+      gsap.fromTo('.about-figure', { clipPath: 'inset(100% 0% 0% 0%)' }, {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1.6,
+        ease: 'expo.inOut',
+        scrollTrigger: { trigger: '.about-figure', start: 'top 80%' },
+      });
+      gsap.fromTo('.stat-card', { opacity: 0, x: -40 }, {
+        opacity: 1,
+        x: 0,
+        stagger: 0.15,
+        delay: 0.6,
+        scrollTrigger: { trigger: '.about-media', start: 'top 75%' },
+      });
+      gsap.to('.about-img', {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: { trigger: '.about-figure', start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+
+      // Visualizador: la imagen de fondo entra con un zoom suave
+      gsap.fromTo('.viz-img', { scale: 1.12 }, {
+        scale: 1,
+        duration: 2,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.viz-box', start: 'top 75%' },
+      });
+
+      // ShawContract: tarjetas en cascada
+      gsap.fromTo('.shaw-card', { opacity: 0, y: 60 }, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.12,
+        scrollTrigger: { trigger: '.shaw-cards', start: 'top 85%' },
+      });
+
+      // Blog: stagger de tarjetas
+      ScrollTrigger.batch('.blog-card', {
+        start: 'top 88%',
+        onEnter: (batch) => gsap.fromTo(batch, { opacity: 0, y: 50 }, { opacity: 1, y: 0, stagger: 0.12, overwrite: true }),
+      });
+
+      // Banner distribuidor: entrada con escala sutil
+      gsap.fromTo('.dist-banner', { scale: 0.96 }, {
+        scale: 1,
+        duration: 1.6,
+        scrollTrigger: { trigger: '.dist-banner', start: 'top 85%' },
+      });
+    });
+  </script>
+</Layout>
