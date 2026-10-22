@@ -67,7 +67,7 @@
 
   /* Enlaces del menú con indicador triangular sobre la línea inferior (estilo TheRatio) */
   .nav-link {
-    @apply relative px-3 text-[0.8rem] font-medium uppercase tracking-[0.14em] text-terza-black transition-colors hover:text-terza-forest;
+    @apply relative px-2 text-[0.72rem] font-medium uppercase tracking-[0.08em] text-terza-black transition-colors hover:text-terza-forest xl:px-3 xl:text-[0.8rem] xl:tracking-[0.14em];
   }
   .nav-link::after {
     content: "";
@@ -99,4 +99,45 @@
 }
 .products-progress.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
   background: var(--color-terza-lime);
+}
+
+/* Buscador de pantalla completa: aparece con fundido y el panel sube ligeramente */
+.search-capa {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-silk);
+}
+.search-capa[hidden] {
+  display: none;
+}
+.search-capa.is-abierta {
+  opacity: 1;
+}
+.search-panel {
+  transform: translateY(16px);
+  transition: transform 0.6s var(--ease-silk);
+}
+.search-capa.is-abierta .search-panel {
+  transform: none;
+}
+/* Al escribir, el campo se aclara (como en el buscador de Coahuila) con el verde claro de la marca */
+.search-input:focus:not(:placeholder-shown) {
+  background: var(--color-terza-light);
+  color: var(--color-terza-black);
+}
+.search-input:focus:not(:placeholder-shown) + .search-submit {
+  background: var(--color-terza-black);
+  color: var(--color-terza-lime);
+}
+html.search-sin-scroll,
+html.search-sin-scroll body {
+  overflow: hidden;
+}
+
+/* Mega menú: las colecciones aparecen con un fundido corto al cambiar de subcategoría */
+.mega-pane:not([hidden]) {
+  animation: mega-fade 0.35s var(--ease-silk);
+}
+@keyframes mega-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }

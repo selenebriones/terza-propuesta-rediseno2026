@@ -1,21 +1,121 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const navLinks = [
-  { label: 'Pisos', href: '#productos', mega: true },
-  { label: 'Flexiroc', href: '#productos' },
-  { label: 'Nosotros', href: '#nosotros' },
-  { label: 'Visualizador', href: '#visualizador' },
-  { label: 'Ideas', href: '#ideas' },
-  { label: 'Contacto', href: '#contacto' },
+// Menú principal: cada opción abre un mega menú con sus categorías y colecciones
+const menu = [
+  {
+    label: 'Pisos',
+    intro: 'Vinílicos, laminados y de madera para cada estilo y cada ritmo de vida.',
+    img: '/assets/images/banner-hero-piso-vinilico.webp',
+    groups: [
+      { title: 'Pisos vinílicos', items: ['Colección Bilbao', 'Colección Norwich', 'Colección Sevilla', 'Colección Vigo'] },
+      { title: 'Pisos laminados', items: ['Colección Class', 'Colección Imperial Plus', 'Colección Mammut Plus', 'Colección Trend'] },
+      { title: 'Pisos de madera', items: ['Colección Bari', 'Colección Cannes', 'Colección Montpellier', 'Colección Napoli 2.0'] },
+    ],
+  },
+  {
+    label: 'Alfombras',
+    intro: 'Colecciones que suman calidez, confort y mejor acústica a cualquier espacio.',
+    img: '/assets/images/hospitality.webp',
+    groups: [
+      { title: 'Colecciones', items: ['Colección Allegro', 'Colección Gladiador', 'Colección Guerrero', 'Colección Terza Kids'] },
+    ],
+  },
+  {
+    label: 'Muros',
+    intro: 'Lambrín, piedra flexible y follaje para muros con carácter.',
+    img: '/assets/images/banner-hero-muros-verdes.webp',
+    groups: [
+      { title: 'Lambrín y paneles', items: ['Lambrín en Arco', 'Lambrín Irregular', 'Panel Liso Tipo Mármol', 'Panel Liso Tipo Madera'] },
+      { title: 'Flexiroc', items: ['Granito Blanco Colonial', 'Travertino Greige', 'Caliza Española', 'Roca Blanca'] },
+      { title: 'Follaje artificial', items: ['Brooklyn', 'Green Boxus', 'Spring Boxus', 'Victoria'] },
+    ],
+  },
+  {
+    label: 'Persianas',
+    intro: 'Control de luz y privacidad con acabados hechos a la medida.',
+    groups: [
+      { title: 'Persianas enrollables', items: ['Stylo', 'Optima', 'Select'] },
+      { title: 'Persianas de madera', items: ['Lake Forest 2', 'Traditions 1', 'Traditions 2'] },
+    ],
+  },
+  {
+    label: 'Exterior',
+    intro: 'Deck y pasto sintético para terrazas y jardines que se disfrutan todo el año.',
+    img: '/assets/images/banner-hero-pasto-sintetico.webp',
+    groups: [
+      { title: 'Deck', items: ['Deck', 'Lambrín de Exterior', 'Vigas', 'Cladding'] },
+      { title: 'Pasto sintético', items: ['Colección Bay', 'Colección Breeze', 'Colección Emerald', 'Colección Playground'] },
+    ],
+  },
+  {
+    label: 'Accesorios',
+    intro: 'Todo lo necesario para instalar y mantener tus superficies.',
+    groups: [
+      { title: 'Para piso', items: ['Adhesivos', 'Limpiadores', 'Molduras', 'Zoclos'] },
+      { title: 'Para exterior', items: ['Clips', 'Tapas', 'Tornillos', 'Vigas'] },
+    ],
+  },
 ];
 
-const pisosCategorias = [
-  { name: 'Laminado', desc: 'Resistencia diaria con vetas naturales', img: '/assets/images/pisos-laminado.jpg', href: '#' },
-  { name: 'Madera', desc: 'Ingeniería y calidez en cada tablón', img: '/assets/images/pisos-madera.jpg', href: '#' },
-  { name: 'Vinil', desc: 'Silencioso, cálido y a prueba de agua', img: '/assets/images/pisos-vinil.jpg', href: '#' },
-  { name: 'Deck exterior', desc: 'Terrazas que soportan sol y lluvia', img: '/assets/images/pisos-deck.jpg', href: '#' },
-];
+// Foto (de los catálogos de terza.com) o ícono de cada colección del menú
+const M = '/assets/images/menu';
+const menuMedia = {
+  'Colección Bilbao': { img: `${M}/bilbao.webp` },
+  'Colección Norwich': { img: `${M}/norwich.webp` },
+  'Colección Sevilla': { img: `${M}/sevilla.webp` },
+  'Colección Vigo': { img: `${M}/vigo.webp` },
+  'Colección Class': { img: `${M}/class.webp` },
+  'Colección Imperial Plus': { img: `${M}/imperial-plus.webp` },
+  'Colección Mammut Plus': { img: `${M}/mammut-plus.webp` },
+  'Colección Trend': { img: `${M}/trend.webp` },
+  'Colección Bari': { img: `${M}/bari.webp` },
+  'Colección Cannes': { img: `${M}/cannes.webp` },
+  'Colección Montpellier': { img: `${M}/montpellier.webp` },
+  'Colección Napoli 2.0': { img: `${M}/napoli.webp` },
+  'Colección Allegro': { img: `${M}/allegro.webp` },
+  'Colección Gladiador': { img: `${M}/gladiador.webp` },
+  'Colección Guerrero': { img: `${M}/guerrero.webp` },
+  'Colección Terza Kids': { img: `${M}/terza-kids.webp` },
+  'Lambrín en Arco': { img: `${M}/lambrin-1.webp` },
+  'Lambrín Irregular': { img: `${M}/lambrin-2.webp` },
+  'Panel Liso Tipo Mármol': { img: `${M}/lambrin-3.webp` },
+  'Panel Liso Tipo Madera': { img: `${M}/lambrin-4.webp` },
+  'Granito Blanco Colonial': { img: `${M}/granito-blanco-colonial.webp` },
+  'Travertino Greige': { img: '/assets/images/flexiroc/T15-FR026-GT101.webp' },
+  'Caliza Española': { img: '/assets/images/flexiroc/T15-FR026-SL107.webp' },
+  'Roca Blanca': { img: `${M}/roca-blanca.webp` },
+  'Brooklyn': { img: `${M}/brooklyn.webp` },
+  'Green Boxus': { img: `${M}/green-boxus.webp` },
+  'Spring Boxus': { img: `${M}/spring-boxus.webp` },
+  'Victoria': { img: `${M}/victoria.webp` },
+  'Stylo': { img: `${M}/stylo.webp` },
+  'Optima': { img: `${M}/optima.webp` },
+  'Select': { img: `${M}/select.webp` },
+  'Lake Forest 2': { img: `${M}/lake-forest-2.webp` },
+  'Traditions 1': { img: `${M}/traditions-1.webp` },
+  'Traditions 2': { img: `${M}/traditions-2.webp` },
+  'Deck': { img: `${M}/deck.webp` },
+  'Lambrín de Exterior': { img: `${M}/lambrin-exterior.webp` },
+  'Cladding': { img: `${M}/cladding.webp` },
+  'Colección Bay': { img: `${M}/bay.webp` },
+  'Colección Breeze': { img: `${M}/breeze.webp` },
+  'Colección Emerald': { img: `${M}/emerald.webp` },
+  'Colección Playground': { img: '/assets/images/banner-hero-pasto-sintetico.webp' },
+  'Vigas': { icon: 'ph-columns' },
+  'Adhesivos': { icon: 'ph-drop' },
+  'Limpiadores': { icon: 'ph-sparkle' },
+  'Molduras': { icon: 'ph-frame-corners' },
+  'Zoclos': { icon: 'ph-ruler' },
+  'Clips': { icon: 'ph-paperclip' },
+  'Tapas': { icon: 'ph-square-half-bottom' },
+  'Tornillos': { icon: 'ph-screwdriver' },
+};
+menu.forEach((item) =>
+  item.groups.forEach((group) => {
+    group.items = group.items.map((name) => ({ name, ...(menuMedia[name] ?? { icon: 'ph-squares-four' }) }));
+  }),
+);
 
 const socials = [
   { icon: 'ph-instagram-logo', label: 'Instagram', href: '#' },
@@ -24,14 +124,88 @@ const socials = [
   { icon: 'ph-linkedin-logo', label: 'LinkedIn', href: '#' },
 ];
 
-const productos = [
-  { name: 'Arenisca', tone: 'Tonos cálidos · Textura granulada', img: '/assets/images/flexiroc-arenisca.jpg' },
-  { name: 'Caliza', tone: 'Marfil luminoso · Veta suave', img: '/assets/images/flexiroc-caliza.jpg' },
-  { name: 'Pizarra', tone: 'Gris grafito · Relieve laminar', img: '/assets/images/flexiroc-pizarra.jpg' },
-  { name: 'Travertino', tone: 'Crema clásico · Poro natural', img: '/assets/images/flexiroc-travertino.jpg' },
-  { name: 'Cantera', tone: 'Rosa terroso · Acabado mate', img: '/assets/images/flexiroc-cantera.jpg' },
-  { name: 'Basalto', tone: 'Negro volcánico · Grano fino', img: '/assets/images/flexiroc-basalto.jpg' },
+const heroSlides = [
+  {
+    tone: 'light',
+    img: '/assets/images/img_hero_actual.webp',
+    w: 1730,
+    h: 708,
+    pos: 'object-[70%_center]',
+    alt: 'Muro recubierto con piedra flexible Flexi ROC en una terraza con sillón y mesa de madera',
+    eyebrow: 'Nuevo · Flexi ROC',
+    lines: [['La piedra,'], ['ahora ', 'flexible.']],
+    copy: 'Láminas de piedra natural de apenas 2 mm que se adaptan a muros curvos, columnas y fachadas. La nobleza de la roca, sin su peso.',
+    cta: { label: 'Explorar Flexi ROC', href: '#productos' },
+  },
+  {
+    tone: 'dark',
+    img: '/assets/images/banner-hero-muros-verdes.webp',
+    w: 2000,
+    h: 805,
+    pos: 'object-center',
+    alt: 'Muro verde sintético en un jardín con alberca y deck de madera',
+    eyebrow: 'Muros verdes',
+    lines: [['Naturaleza'], ['', 'vertical.']],
+    copy: 'Jardines verticales que no necesitan riego ni poda y se ven vivos los 365 días del año.',
+    cta: { label: 'Explorar muros verdes', href: '#' },
+  },
+  {
+    tone: 'dark',
+    img: '/assets/images/banner-hero-pasto-sintetico.webp',
+    w: 2000,
+    h: 806,
+    pos: 'object-[65%_center]',
+    alt: 'Niño recostado sobre pasto sintético Terza',
+    eyebrow: 'Pasto sintético',
+    lines: [['Verde perfecto,'], ['', 'todo el año.']],
+    copy: 'Césped sintético suave al tacto y seguro para jugar, que conserva su color sin riego ni mantenimiento.',
+    cta: { label: 'Explorar pasto sintético', href: '#' },
+  },
+  {
+    tone: 'dark',
+    img: '/assets/images/banner-hero-piso-vinilico.webp',
+    w: 2000,
+    h: 806,
+    pos: 'object-center',
+    alt: 'Sala con piso vinílico con apariencia de madera y vista al jardín',
+    eyebrow: 'Pisos vinílicos',
+    lines: [['Calidez que'], ['', 'resiste todo.']],
+    copy: 'La apariencia de la madera natural, resistente al agua y al tráfico diario, silenciosa y fácil de mantener.',
+    cta: { label: 'Explorar pisos vinílicos', href: '#' },
+  },
 ];
+
+// Nuevos productos de terza.com (imágenes en /assets/images/flexiroc/)
+const productos = [
+  { name: 'Travertino Greige', code: 'T15-FR026-GT101' },
+  { name: 'Granito Gris Perla', code: 'T15-FR026-FG126' },
+  { name: 'Gris Pavimento', code: 'T15-FR026-TGG103' },
+  { name: 'Travertino Romano Beige', code: 'T15-FR026-PT205' },
+  { name: 'Arenisca', code: 'T15-FR026-SL106' },
+  { name: 'Caliza Española', code: 'T15-FR026-SL107' },
+].map((p) => ({
+  ...p,
+  img: `/assets/images/flexiroc/${p.code}.webp`,
+  thumb: `/assets/images/flexiroc/${p.code}-detalle.webp`,
+  href: `https://www.terza.com/flexiroc/catalogo/producto/${p.code}`,
+}));
+
+// Índice del buscador: colecciones del menú, productos Flexiroc y secciones de la página
+const searchIndex = [
+  ...menu.flatMap((item) =>
+    item.groups.flatMap((group) =>
+      group.items.map((it) => ({ title: it.name, cat: `${item.label} · ${group.title}`, href: '#' })),
+    ),
+  ),
+  ...menu.flatMap((item) => item.groups.map((group) => ({ title: group.title, cat: item.label, href: '#' }))),
+  ...productos.map((p) => ({ title: `Flexiroc ${p.name}`, cat: `Nuevo · ${p.code}`, href: p.href })),
+  { title: 'Decorador virtual', cat: 'Herramientas', href: '#visualizador' },
+  { title: 'ShawContract', cat: 'Proyectos comerciales', href: '#shawcontract' },
+  { title: 'Quiero ser distribuidor', cat: 'Distribuidores', href: '#distribuidores' },
+  { title: 'Blog e ideas', cat: 'Inspiración', href: '#ideas' },
+  { title: 'Contacto', cat: 'Atención a clientes · 800 228 3792', href: '#contacto' },
+];
+const popularSearches = ['Pasto sintético', 'Flexiroc', 'Pisos vinílicos', 'Persianas', 'Deck', 'Alfombras'];
 
 const stats = [
   { value: '+45', label: 'años de experiencia' },
@@ -85,7 +259,7 @@ const footerCols = [
 
 <Layout>
   <!-- ============ A. BARRA LATERAL (escritorio) ============ -->
-  <aside class="site-rail fixed inset-y-0 left-0 z-[60] hidden w-24 flex-col border-r border-terza-black/20 lg:flex" aria-label="Terza en redes sociales">
+  <aside class="site-rail fixed inset-y-0 left-0 z-[60] hidden w-24 flex-col border-r border-terza-black/20 bg-white/60 backdrop-blur-md lg:flex" aria-label="Terza en redes sociales">
     <a href="/" class="block size-24 shrink-0" aria-label="Terza, inicio">
       <img src="/assets/images/icono_medio_cuadro.svg" alt="" width="96" height="96" class="size-full" />
     </a>
@@ -110,167 +284,329 @@ const footerCols = [
   >
     <div class="flex h-20 items-stretch justify-between lg:h-24">
       <!-- Marca -->
-      <a href="/" class="flex shrink-0 items-center gap-3 px-5 md:px-10 lg:border-r lg:border-terza-black/20" aria-label="Terza, inicio">
+      <a href="/" class="flex shrink-0 items-center gap-3 px-5 md:px-10 lg:border-r lg:border-terza-black/20 lg:px-6 xl:px-10" aria-label="Terza, inicio">
         <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-8 w-auto lg:h-9" />
       </a>
 
-      <!-- Navegación central -->
+      <!-- Navegación central: mega menú con subcategorías a la izquierda y colecciones con foto a la derecha -->
       <nav aria-label="Principal" class="hidden flex-1 justify-center lg:flex">
-        <ul class="flex items-stretch gap-2 xl:gap-6">
-          {navLinks.map((link) => (
-            link.mega ? (
-              <li class="group/mega static flex">
-                <a
-                  href={link.href}
-                  class="nav-link flex items-center gap-1.5"
-                  aria-haspopup="true"
-                >
-                  {link.label}
-                  <i class="ph ph-caret-down text-xs transition-transform duration-300 group-hover/mega:rotate-180"></i>
-                </a>
+        <ul class="flex items-stretch 2xl:gap-3">
+          {menu.map((item) => (
+            <li class="group/mega static flex">
+              <a href="#" class="nav-link flex items-center gap-1.5" aria-haspopup="true">
+                {item.label}
+                <i class="ph ph-caret-down text-xs transition-transform duration-300 group-hover/mega:rotate-180"></i>
+              </a>
 
-                <!-- Mega menú -->
-                <div class="invisible absolute inset-x-0 top-full translate-y-2 border-t border-terza-black/5 bg-white/95 opacity-0 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-all duration-500 ease-silk group-hover/mega:visible group-hover/mega:translate-y-0 group-hover/mega:opacity-100 group-focus-within/mega:visible group-focus-within/mega:translate-y-0 group-focus-within/mega:opacity-100">
-                  <div class="mx-auto grid max-w-[1440px] grid-cols-12 gap-8 px-10 py-10">
-                    <div class="col-span-3 flex flex-col justify-between">
-                      <div>
-                        <p class="eyebrow">Pisos</p>
-                        <p class="mt-5 text-2xl font-light leading-snug text-terza-black">
-                          Cada paso, una decisión de diseño.
-                        </p>
-                      </div>
-                      <a href="#productos" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-terza-forest">
-                        Ver toda la colección <i class="ph ph-arrow-right"></i>
+              <div class="mega invisible absolute inset-x-0 top-full translate-y-2 border-t border-terza-black/5 bg-white opacity-0 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] transition-all duration-300 ease-silk group-hover/mega:visible group-hover/mega:translate-y-0 group-hover/mega:opacity-100 group-focus-within/mega:visible group-focus-within/mega:translate-y-0 group-focus-within/mega:opacity-100">
+                <div class="mx-auto flex max-w-[1440px] gap-10 px-10 py-8">
+                  <ul class="w-60 shrink-0">
+                    {item.groups.map((group, j) => (
+                      <li>
+                        <a
+                          href="#"
+                          class="mega-tab flex items-center justify-between border-b border-l-2 border-b-terza-black/10 border-l-transparent py-3.5 pl-3 pr-1 text-sm text-terza-gray transition-colors hover:text-terza-black data-[active]:border-l-terza-lime data-[active]:font-medium data-[active]:text-terza-forest"
+                          data-tab={j}
+                          data-active={j === 0 ? '' : undefined}
+                        >
+                          {group.title}
+                          <i class="ph ph-caret-right text-xs"></i>
+                        </a>
+                      </li>
+                    ))}
+                    <li class="pl-3 pt-5">
+                      <a href="#" class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-terza-black hover:text-terza-forest">
+                        Ver todo {item.label.toLowerCase()} <i class="ph ph-arrow-right"></i>
                       </a>
-                    </div>
-                    <ul class="col-span-9 grid grid-cols-4 gap-5">
-                      {pisosCategorias.map((cat) => (
-                        <li>
-                          <a href={cat.href} class="group/cat block">
+                    </li>
+                  </ul>
+
+                  <div class="min-w-0 flex-1">
+                    {item.groups.map((group, j) => (
+                      <div class="mega-pane grid grid-cols-4 gap-5" data-pane={j} hidden={j > 0}>
+                        {group.items.map((it) => (
+                          <a href="#" class="group/card block">
                             <div class="aspect-[4/3] overflow-hidden rounded-xl bg-terza-light">
-                              <img
-                                src={cat.img}
-                                alt={`Pisos de ${cat.name.toLowerCase()}`}
-                                loading="lazy"
-                                class="size-full object-cover transition-transform duration-700 ease-silk group-hover/cat:scale-105"
-                              />
+                              {it.img ? (
+                                <img src={it.img} alt="" loading="lazy" class="size-full object-cover transition-transform duration-700 ease-silk group-hover/card:scale-105" />
+                              ) : (
+                                <span class="grid size-full place-items-center text-5xl text-terza-forest transition-transform duration-700 ease-silk group-hover/card:scale-110">
+                                  <i class={`ph-light ${it.icon}`}></i>
+                                </span>
+                              )}
                             </div>
-                            <p class="mt-3 flex items-center justify-between text-sm font-semibold text-terza-black">
-                              {cat.name}
-                              <i class="ph ph-arrow-up-right opacity-0 transition-opacity group-hover/cat:opacity-100"></i>
-                            </p>
-                            <p class="mt-1 text-xs">{cat.desc}</p>
+                            <p class="mt-3 text-sm font-medium text-terza-black transition-colors group-hover/card:text-terza-forest">{it.name}</p>
                           </a>
-                        </li>
-                      ))}
-                    </ul>
+                        ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </li>
-            ) : (
-              <li class="flex">
-                <a href={link.href} class="nav-link flex items-center">
-                  {link.label}
-                </a>
-              </li>
-            )
+              </div>
+            </li>
           ))}
+          <li class="flex">
+            <a href="#contacto" class="nav-link flex items-center">Contacto</a>
+          </li>
         </ul>
       </nav>
 
-      <!-- Teléfono (escritorio) + menú móvil -->
-      <div class="flex items-center xl:border-l xl:border-terza-black/20">
-        <a href="tel:8002283792" class="hidden items-center gap-3 px-10 text-sm font-medium text-terza-black transition-colors hover:text-terza-forest xl:flex">
+      <!-- Acciones: buscador, distribuidor, teléfono y menú móvil -->
+      <div class="flex items-center gap-1 pr-3 md:pr-7 lg:gap-3 lg:border-l lg:border-terza-black/20 lg:px-2 xl:px-6">
+        <button
+          type="button"
+          class="search-open grid size-11 place-items-center rounded-full text-xl text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime"
+          aria-label="Abrir buscador"
+          aria-controls="buscador"
+          aria-expanded="false"
+        >
+          <i class="ph ph-magnifying-glass"></i>
+        </button>
+        <a href="#distribuidores" class="btn-lime hidden !gap-2 whitespace-nowrap !px-5 !py-3 text-xs min-[1440px]:inline-flex">
+          Quiero ser distribuidor <i class="ph ph-arrow-right"></i>
+        </a>
+        <a href="tel:8002283792" class="hidden items-center gap-2 pl-2 text-sm font-medium text-terza-black transition-colors hover:text-terza-forest min-[1680px]:flex">
           <i class="ph-light ph-phone text-lg"></i> 800 228 3792
         </a>
         <button
           id="menu-toggle"
           type="button"
-          class="mr-3 grid size-11 place-items-center rounded-full text-2xl text-terza-black md:mr-7 lg:hidden"
+          class="grid size-11 place-items-center rounded-full text-2xl text-terza-black lg:hidden"
           aria-label="Abrir menú"
           aria-expanded="false"
-          aria-controls="mobile-menu"
+          aria-controls="mobile-drawer"
         >
           <i class="ph-light ph-list"></i>
         </button>
       </div>
     </div>
 
-    <!-- Menú móvil -->
-    <div id="mobile-menu" class="hidden border-t border-terza-black/5 bg-white lg:hidden">
-      <nav aria-label="Móvil" class="px-5 pb-8 pt-4">
-        <ul class="divide-y divide-terza-black/5">
-          {navLinks.map((link) => (
-            <li>
-              <a href={link.href} class="flex items-center justify-between py-4 text-lg font-medium text-terza-black">
-                {link.label} <i class="ph-light ph-arrow-right text-base"></i>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <ul class="mt-6 flex gap-2">
-          {socials.map((s) => (
-            <li>
-              <a href={s.href} aria-label={s.label} class="grid size-11 place-items-center rounded-full border border-terza-black/20 text-lg text-terza-black">
-                <i class={`ph-light ${s.icon}`}></i>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
   </header>
 
-  <main class="lg:pl-24">
-    <!-- ============ B. HERO ============ -->
-    <section class="relative flex min-h-screen items-end overflow-hidden lg:-ml-24 lg:pl-24" aria-labelledby="hero-title">
-      <img
-        src="/assets/images/img_hero_actual.webp"
-        alt="Muro recubierto con piedra flexible Flexi ROC en una terraza con sillón y mesa de madera"
-        width="1730"
-        height="708"
-        class="hero-img absolute inset-0 size-full object-cover object-[70%_center]"
-        fetchpriority="high"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-white/10 to-white/30"></div>
+  <!-- ============ MENÚ MÓVIL: panel lateral con niveles (estilo Tekno-Step) ============ -->
+  <div id="mobile-drawer" class="fixed inset-0 z-[90] lg:hidden" hidden>
+    <div class="drawer-backdrop absolute inset-0 bg-terza-black/50 opacity-0 transition-opacity duration-300"></div>
+    <aside class="drawer-panel absolute inset-y-0 left-0 flex w-[85%] max-w-sm -translate-x-full flex-col bg-white shadow-2xl transition-transform duration-500 ease-silk" role="dialog" aria-modal="true" aria-label="Menú">
+      <div class="flex h-16 shrink-0 items-center border-b border-terza-black/10 bg-neutral-50 px-5">
+        <button type="button" class="drawer-back hidden items-center gap-3 text-base font-medium text-terza-black" aria-label="Regresar">
+          <i class="ph-light ph-arrow-left text-xl"></i>
+          <span class="drawer-title"></span>
+        </button>
+        <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="drawer-logo h-7 w-auto" />
+      </div>
 
-      <div class="relative mx-auto w-full max-w-[1440px] px-5 pb-16 pt-32 md:px-10 md:pb-24">
-        <p class="hero-eyebrow eyebrow mb-6" data-reveal>Nuevo · Flexi ROC</p>
-        <h1
-          id="hero-title"
-          class="max-w-5xl text-[clamp(2.75rem,8.5vw,8rem)] font-light leading-[0.95] tracking-[-0.05em] text-terza-black"
-        >
-          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>La piedra,</span></span>
-          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>ahora <em class="font-medium not-italic">flexible.</em></span></span>
-        </h1>
+      <div class="relative flex-1 overflow-hidden">
+        <!-- Nivel 1: opciones principales -->
+        <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level="root" data-title="Menú">
+          <ul>
+            {menu.map((item, i) => (
+              <li>
+                <button type="button" class="flex w-full items-center justify-between border-b border-terza-black/10 py-4 text-left text-base text-terza-black" data-go={`m${i}`}>
+                  {item.label} <i class="ph-light ph-caret-right"></i>
+                </button>
+              </li>
+            ))}
+            <li>
+              <a href="#contacto" class="flex items-center justify-between border-b border-terza-black/10 py-4 text-base text-terza-black">Contacto</a>
+            </li>
+          </ul>
+          <a href="#distribuidores" class="btn-lime mt-6 w-full justify-center">Quiero ser distribuidor <i class="ph ph-arrow-right"></i></a>
+          <a href="tel:8002283792" class="mt-6 flex items-center gap-3 text-base font-medium text-terza-black">
+            <i class="ph-light ph-phone text-lg"></i> 800 228 3792
+          </a>
+          <ul class="mt-6 flex gap-2">
+            {socials.map((s) => (
+              <li>
+                <a href={s.href} aria-label={s.label} class="grid size-11 place-items-center rounded-full border border-terza-black/20 text-lg text-terza-black">
+                  <i class={`ph-light ${s.icon}`}></i>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <div class="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <p class="hero-copy max-w-md text-base leading-relaxed text-terza-black/70 md:text-lg" data-reveal>
-            Láminas de piedra natural de apenas 2&nbsp;mm que se adaptan a muros curvos, columnas y fachadas. La nobleza de la roca, sin su peso.
-          </p>
-          <div class="hero-ctas flex flex-wrap gap-3" data-reveal>
-            <a href="#productos" class="btn-lime">Explorar Flexi ROC <i class="ph ph-arrow-right"></i></a>
-            <a href="#visualizador" class="btn-ghost bg-white/50 backdrop-blur">Visualizar en mi espacio</a>
+        <!-- Nivel 2: subcategorías -->
+        {menu.map((item, i) => (
+          <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level={`m${i}`} data-title={item.label}>
+            <ul>
+              {item.groups.map((group, j) => (
+                <li>
+                  <button type="button" class="flex w-full items-center justify-between border-b border-terza-black/10 py-4 text-left text-base text-terza-black" data-go={`m${i}-${j}`}>
+                    {group.title} <i class="ph-light ph-caret-right"></i>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-terza-forest">
+              Ver todo {item.label.toLowerCase()} <i class="ph ph-arrow-right"></i>
+            </a>
           </div>
+        ))}
+
+        <!-- Nivel 3: colecciones con miniatura -->
+        {menu.map((item, i) =>
+          item.groups.map((group, j) => (
+            <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level={`m${i}-${j}`} data-title={group.title}>
+              <ul>
+                {group.items.map((it) => (
+                  <li>
+                    <a href="#" class="flex items-center gap-4 border-b border-terza-black/10 py-3 text-base text-terza-black">
+                      <span class="grid size-14 shrink-0 place-items-center overflow-hidden rounded-lg bg-terza-light text-2xl text-terza-forest">
+                        {it.img ? <img src={it.img} alt="" loading="lazy" class="size-full object-cover" /> : <i class={`ph-light ${it.icon}`}></i>}
+                      </span>
+                      {it.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )),
+        )}
+      </div>
+    </aside>
+    <button type="button" class="drawer-close absolute right-2 top-3 grid size-11 place-items-center rounded-full bg-white text-terza-black opacity-0 shadow-lg transition-opacity duration-300 sm:right-4" aria-label="Cerrar menú">
+      <i class="ph ph-x text-lg"></i>
+    </button>
+  </div>
+
+  <!-- ============ BUSCADOR DE PANTALLA COMPLETA ============ -->
+  <div id="buscador" class="search-capa fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-terza-black/85 px-5 pb-16 pt-28 backdrop-blur-md md:items-center md:pt-16" role="dialog" aria-modal="true" aria-label="Buscador" hidden>
+    <button type="button" class="search-close absolute right-4 top-4 grid size-11 place-items-center rounded-full border-2 border-white text-white transition-colors hover:bg-white hover:text-terza-black md:right-8 md:top-8" aria-label="Cerrar buscador">
+      <i class="ph ph-x text-lg"></i>
+    </button>
+
+    <div class="search-panel w-full max-w-3xl">
+      <p class="eyebrow !text-terza-lime">¿Qué estás buscando?</p>
+      <form class="search-form relative mt-6" role="search" action="#">
+        <label for="search-input" class="sr-only">Buscar</label>
+        <input
+          id="search-input"
+          class="search-input h-14 w-full appearance-none rounded-full border-2 border-white bg-transparent pl-7 pr-16 text-lg text-white outline-none transition-colors placeholder:text-white/80 focus:border-terza-lime md:h-16 md:text-xl [&::-webkit-search-cancel-button]:hidden"
+          type="search"
+          placeholder="Buscar pisos, colecciones, productos…"
+          autocomplete="off"
+          enterkeyhint="search"
+        />
+        <button type="submit" class="search-submit absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-terza-lime text-terza-black transition-colors hover:bg-white md:size-12" aria-label="Buscar">
+          <i class="ph ph-magnifying-glass text-lg"></i>
+        </button>
+      </form>
+
+      <!-- Sugerencias cuando el campo está vacío -->
+      <div class="search-popular mt-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Búsquedas populares</p>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {popularSearches.map((term) => (
+            <li>
+              <button type="button" class="search-chip rounded-full border border-white/30 px-4 py-2 text-sm text-white transition-colors hover:border-terza-lime hover:bg-terza-lime hover:text-terza-black" data-term={term}>{term}</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Resultados en vivo -->
+      <ul class="search-results mt-6 divide-y divide-white/10" aria-live="polite"></ul>
+      <p class="search-empty mt-8 hidden text-white/70">Sin resultados para esa búsqueda. Prueba con otra palabra o <a href="#contacto" class="search-link font-semibold text-terza-lime underline-offset-4 hover:underline">escríbenos</a>.</p>
+    </div>
+    <script type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
+  </div>
+
+  <main class="lg:pl-24">
+    <!-- ============ B. HERO (slider) ============ -->
+    <section class="hero relative flex min-h-screen items-end overflow-hidden lg:-ml-24 lg:pl-24" aria-labelledby="hero-title" aria-roledescription="carrusel">
+      <h1 id="hero-title" class="sr-only">Terza: pisos, recubrimientos y superficies de alto diseño</h1>
+
+      <!-- Imágenes: se apilan; GSAP revela la siguiente con un barrido lateral -->
+      <div class="hero-slides absolute inset-0">
+        {heroSlides.map((slide, i) => (
+          <div class:list={['hero-slide absolute inset-0 overflow-hidden', i > 0 && 'invisible']} aria-hidden={i > 0 ? 'true' : undefined}>
+            <img
+              src={slide.img}
+              alt={slide.alt}
+              width={slide.w}
+              height={slide.h}
+              class:list={['hero-img absolute inset-0 size-full object-cover', slide.pos]}
+              fetchpriority={i === 0 ? 'high' : 'low'}
+            />
+            {slide.tone === 'light' ? (
+              <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-white/10 to-white/30"></div>
+            ) : (
+              <>
+                <div class="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/25 to-transparent"></div>
+                <div class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-white/70 to-transparent"></div>
+              </>
+            )}
+            <div class="hero-slide-shade absolute inset-0 bg-black opacity-0"></div>
+          </div>
+        ))}
+        <span class="hero-wipe pointer-events-none absolute inset-y-0 z-10 w-0.5 bg-terza-lime opacity-0"></span>
+      </div>
+
+      <!-- Textos: todos ocupan la misma celda de la cuadrícula -->
+      <div class="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-32 pt-32 md:px-10 md:pb-36">
+        <div class="hero-copies grid">
+          {heroSlides.map((slide, i) => {
+            const dark = slide.tone === 'dark';
+            return (
+              <div class:list={['hero-copy-slide [grid-area:1/1]', i > 0 && 'invisible']} aria-hidden={i > 0 ? 'true' : undefined}>
+                <p class:list={['hero-eyebrow eyebrow mb-6', dark && '!text-terza-lime']} data-reveal>{slide.eyebrow}</p>
+                <h2 class:list={['max-w-5xl text-[clamp(2.75rem,8.5vw,8rem)] font-light leading-[0.95] tracking-[-0.05em]', dark ? '!text-white' : 'text-terza-black']}>
+                  {slide.lines.map(([light, bold]) => (
+                    <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>{light}{bold && <em class="font-medium not-italic">{bold}</em>}</span></span>
+                  ))}
+                </h2>
+                <div class="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                  <p class:list={['hero-copy max-w-md text-base leading-relaxed md:text-lg', dark ? 'text-white/85' : 'text-terza-black/70']} data-reveal>
+                    {slide.copy}
+                  </p>
+                  <div class="hero-ctas flex flex-wrap gap-3" data-reveal>
+                    <a href={slide.cta.href} class="btn-lime" tabindex={i > 0 ? '-1' : undefined}>{slide.cta.label} <i class="ph ph-arrow-right"></i></a>
+                    <a
+                      href="#visualizador"
+                      class:list={['btn-ghost backdrop-blur', dark ? '!border-white/40 bg-white/10 !text-white hover:!border-white' : 'bg-white/50']}
+                      tabindex={i > 0 ? '-1' : undefined}
+                    >Visualizar en mi espacio</a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <a
-        href="#productos"
-        class="absolute bottom-8 right-5 hidden items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-terza-black md:right-10 xl:flex"
-        aria-label="Bajar a productos"
-      >
-        <span class="scroll-cue block h-12 w-px origin-top bg-terza-black/40"></span>
-      </a>
+      <!-- Controles: contador, barras de progreso y flechas -->
+      <div class="hero-controls absolute bottom-6 left-5 right-5 z-20 flex items-center gap-5 rounded-full bg-white/75 py-2 pl-5 pr-2 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.3)] backdrop-blur-md sm:left-auto md:bottom-10 md:right-10">
+        <p class="font-display text-sm tabular-nums text-terza-black" aria-live="polite">
+          <span class="hero-count-current font-medium">01</span>
+          <span class="text-terza-black/40"> / {String(heroSlides.length).padStart(2, '0')}</span>
+        </p>
+        <div class="flex flex-1 gap-1.5 sm:flex-none">
+          {heroSlides.map((slide, i) => (
+            <button type="button" class="hero-dot group relative h-6 flex-1 sm:w-12 sm:flex-none" aria-label={`Ir a ${slide.eyebrow}`}>
+              <span class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden rounded-full bg-terza-black/15 transition-colors group-hover:bg-terza-black/30">
+                <span class="hero-dot-fill block size-full origin-left scale-x-0 bg-terza-lime"></span>
+              </span>
+            </button>
+          ))}
+        </div>
+        <div class="flex gap-1">
+          <button type="button" class="hero-prev grid size-10 place-items-center rounded-full text-terza-black transition-colors hover:bg-terza-black hover:text-white" aria-label="Diapositiva anterior">
+            <i class="ph ph-arrow-left"></i>
+          </button>
+          <button type="button" class="hero-next grid size-10 place-items-center rounded-full bg-terza-black text-white transition-colors hover:bg-terza-lime hover:text-terza-black" aria-label="Diapositiva siguiente">
+            <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- ============ C. PRODUCTOS (GALERÍA) ============ -->
     <section id="productos" class="overflow-hidden py-24 md:py-36" aria-labelledby="productos-title">
       <div class="mx-auto max-w-[1440px] px-5 md:px-10">
         <div class="mx-auto max-w-2xl text-center" data-reveal>
-          <p class="eyebrow justify-center">Colección Flexiroc</p>
+          <p class="eyebrow justify-center">Nuevos productos · Flexiroc</p>
           <h2 id="productos-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
-            Seis canteras. <span class="font-medium">Una sola lámina.</span>
+            Recubrimiento de <span class="font-medium">Piedra Flexible</span>
           </h2>
           <p class="mt-6 text-base leading-relaxed md:text-lg">
             Cada pieza conserva la veta, el poro y el relieve de la roca original. Elige el carácter que tu proyecto merece.
@@ -282,19 +618,32 @@ const footerCols = [
         <div class="swiper-wrapper">
           {productos.map((p) => (
             <article class="swiper-slide !h-auto">
-              <a href="#" class="group block h-full rounded-2xl bg-white shadow-sm transition-shadow duration-700 ease-silk hover:shadow-xl">
-                <div class="aspect-[4/5] overflow-hidden rounded-t-2xl">
+              <a href={p.href} class="group block h-full rounded-2xl bg-white shadow-sm transition-shadow duration-700 ease-silk hover:shadow-xl">
+                <div class="relative">
+                  <div class="aspect-square overflow-hidden rounded-t-2xl">
+                    <img
+                      src={p.img}
+                      alt={`Textura Flexiroc ${p.name}`}
+                      width="640"
+                      height="640"
+                      loading="lazy"
+                      class="size-full object-cover transition-transform duration-1000 ease-silk group-hover:scale-105"
+                    />
+                  </div>
+                  <span class="absolute left-5 top-5 rounded-full bg-terza-lime px-3.5 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-terza-black">Nuevo</span>
                   <img
-                    src={p.img}
-                    alt={`Textura Flexiroc ${p.name}`}
+                    src={p.thumb}
+                    alt=""
+                    width="128"
+                    height="128"
                     loading="lazy"
-                    class="size-full object-cover transition-transform duration-1000 ease-silk group-hover:scale-105"
+                    class="absolute -bottom-8 left-6 size-16 rounded-xl border-4 border-white object-cover shadow-md transition-transform duration-700 ease-silk group-hover:-translate-y-1"
                   />
                 </div>
-                <div class="flex items-end justify-between gap-4 p-6">
+                <div class="flex items-end justify-between gap-4 px-6 pb-6 pt-12">
                   <div>
                     <h3 class="text-xl font-medium">Flexiroc {p.name}</h3>
-                    <p class="mt-1 text-sm">{p.tone}</p>
+                    <p class="mt-1 font-mono text-xs tracking-wide text-terza-gray/70">{p.code}</p>
                   </div>
                   <span class="grid size-11 shrink-0 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-all duration-500 group-hover:border-terza-lime group-hover:bg-terza-lime">
                     <i class="ph ph-arrow-up-right"></i>
@@ -308,6 +657,9 @@ const footerCols = [
 
       <div class="mx-auto mt-12 flex max-w-[1440px] items-center gap-8 px-5 md:px-10">
         <div class="products-progress swiper-pagination !static !h-0.5 flex-1"></div>
+        <a href="https://www.terza.com/flexiroc/catalogo" class="hidden items-center gap-2 text-sm font-semibold text-terza-black hover:text-terza-forest sm:inline-flex">
+          Ver todo el catálogo <i class="ph ph-arrow-right"></i>
+        </a>
         <div class="flex gap-2">
           <button type="button" class="products-prev grid size-12 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-colors hover:bg-terza-black hover:text-white disabled:opacity-30" aria-label="Anterior">
             <i class="ph ph-arrow-left"></i>
@@ -360,7 +712,7 @@ const footerCols = [
                 ['lg:ml-0', 'lg:ml-8', 'lg:ml-16'][i],
               ]}>
                 <dt class="sr-only">{s.label}</dt>
-                <dd class="font-display text-2xl font-light leading-none tracking-tight text-terza-forest sm:text-3xl lg:text-5xl">{s.value}</dd>
+                <dd class="font-display text-2xl font-light leading-none tracking-tight text-terza-lime sm:text-3xl lg:text-5xl">{s.value}</dd>
                 <dd class="mt-2 text-[0.7rem] leading-snug sm:text-xs lg:text-sm">{s.label}</dd>
               </div>
             ))}
@@ -487,7 +839,7 @@ const footerCols = [
                   />
                 </div>
                 <p class="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-terza-forest">{post.cat}</p>
-                <hr class="my-4 border-terza-black/10 transition-colors duration-500 group-hover:border-terza-black" />
+                <hr class="my-4 border-terza-black/10 transition-colors duration-500 group-hover:border-terza-lime" />
                 <div class="flex items-start justify-between gap-6">
                   <h3 class="text-lg font-medium leading-snug">{post.title}</h3>
                   <i class="ph-light ph-arrow-up-right mt-1 text-xl text-terza-black transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"></i>
@@ -582,17 +934,175 @@ const footerCols = [
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
 
-      /* ---------- Menú móvil ---------- */
+      /* ---------- Mega menú: la subcategoría con el cursor cambia las colecciones ---------- */
+      document.querySelectorAll('.mega').forEach((mega) => {
+        const tabs = mega.querySelectorAll('.mega-tab');
+        const panes = mega.querySelectorAll('.mega-pane');
+        const activate = (j) => {
+          tabs.forEach((t) => t.toggleAttribute('data-active', t.dataset.tab === String(j)));
+          panes.forEach((p) => { p.hidden = p.dataset.pane !== String(j); });
+        };
+        tabs.forEach((t) => {
+          t.addEventListener('mouseenter', () => activate(t.dataset.tab));
+          t.addEventListener('focus', () => activate(t.dataset.tab));
+          t.addEventListener('click', (e) => { e.preventDefault(); activate(t.dataset.tab); });
+        });
+        // Al salir del menú vuelve a la primera subcategoría
+        mega.closest('li').addEventListener('mouseleave', () => activate(0));
+      });
+
+      /* ---------- Menú móvil: panel lateral con navegación por niveles ---------- */
       const toggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const setMenu = (open) => {
-        mobileMenu.classList.toggle('hidden', !open);
-        toggle.setAttribute('aria-expanded', String(open));
-        toggle.querySelector('i').className = open ? 'ph-light ph-x' : 'ph-light ph-list';
-        header.classList.toggle('bg-white', open);
+      const drawer = document.getElementById('mobile-drawer');
+      const drawerPanel = drawer.querySelector('.drawer-panel');
+      const drawerBackdrop = drawer.querySelector('.drawer-backdrop');
+      const drawerClose = drawer.querySelector('.drawer-close');
+      const drawerBack = drawer.querySelector('.drawer-back');
+      const drawerTitle = drawer.querySelector('.drawer-title');
+      const drawerLogo = drawer.querySelector('.drawer-logo');
+      const levels = [...drawer.querySelectorAll('.drawer-level')];
+      let stack = ['root'];
+      let drawerTimer = null;
+
+      const renderLevels = () => {
+        const current = stack[stack.length - 1];
+        levels.forEach((level) => {
+          const id = level.dataset.level;
+          const pos = id === current ? '0%' : stack.includes(id) ? '-30%' : '100%';
+          level.style.transform = `translateX(${pos})`;
+          level.inert = id !== current;
+        });
+        const nested = stack.length > 1;
+        drawerBack.classList.toggle('hidden', !nested);
+        drawerBack.classList.toggle('flex', nested);
+        drawerLogo.classList.toggle('hidden', nested);
+        drawerTitle.textContent = levels.find((l) => l.dataset.level === current).dataset.title;
       };
-      toggle.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
-      mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+      levels.forEach((level) => level.classList.add('transition-transform', 'duration-500', 'ease-silk'));
+
+      const openDrawer = () => {
+        clearTimeout(drawerTimer);
+        stack = ['root'];
+        renderLevels();
+        drawer.hidden = false;
+        document.documentElement.classList.add('search-sin-scroll');
+        toggle.setAttribute('aria-expanded', 'true');
+        requestAnimationFrame(() => {
+          drawerPanel.classList.remove('-translate-x-full');
+          drawerBackdrop.classList.add('opacity-100');
+          drawerClose.classList.add('opacity-100');
+        });
+      };
+
+      const closeDrawer = () => {
+        drawerPanel.classList.add('-translate-x-full');
+        drawerBackdrop.classList.remove('opacity-100');
+        drawerClose.classList.remove('opacity-100');
+        document.documentElement.classList.remove('search-sin-scroll');
+        toggle.setAttribute('aria-expanded', 'false');
+        drawerTimer = setTimeout(() => { drawer.hidden = true; }, 500);
+      };
+
+      toggle.addEventListener('click', openDrawer);
+      drawerClose.addEventListener('click', closeDrawer);
+      drawerBackdrop.addEventListener('click', closeDrawer);
+      drawerBack.addEventListener('click', () => { stack.pop(); renderLevels(); });
+      drawer.addEventListener('click', (e) => {
+        const go = e.target.closest('[data-go]');
+        if (go) { stack.push(go.dataset.go); renderLevels(); return; }
+        if (e.target.closest('a[href]')) closeDrawer();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.hidden) closeDrawer();
+      });
+
+      /* ---------- Buscador de pantalla completa ---------- */
+      const capa = document.getElementById('buscador');
+      const campo = capa.querySelector('.search-input');
+      const lista = capa.querySelector('.search-results');
+      const vacio = capa.querySelector('.search-empty');
+      const populares = capa.querySelector('.search-popular');
+      const indice = JSON.parse(document.getElementById('search-index').textContent);
+      const disparadores = document.querySelectorAll('.search-open');
+      let origen = null;
+      let temporizador = null;
+      const normalizar = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+      const pintar = () => {
+        const q = normalizar(campo.value.trim());
+        const palabras = q.split(/\s+/).filter(Boolean);
+        const hallados = palabras.length
+          ? indice.filter((r) => palabras.every((w) => normalizar(`${r.title} ${r.cat}`).includes(w))).slice(0, 8)
+          : [];
+        populares.classList.toggle('hidden', palabras.length > 0);
+        vacio.classList.toggle('hidden', !palabras.length || hallados.length > 0);
+        lista.innerHTML = hallados.map((r) => `
+          <li>
+            <a href="${r.href}" class="search-link group flex items-center justify-between gap-6 py-4 text-white">
+              <span>
+                <span class="block font-display text-xl transition-colors group-hover:text-terza-lime md:text-2xl">${r.title}</span>
+                <span class="mt-1 block text-xs uppercase tracking-[0.16em] text-white/50">${r.cat}</span>
+              </span>
+              <i class="ph ph-arrow-up-right text-xl transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"></i>
+            </a>
+          </li>`).join('');
+      };
+
+      const abrirBuscador = (disparador) => {
+        clearTimeout(temporizador);
+        origen = disparador || document.activeElement;
+        campo.value = '';
+        pintar();
+        capa.hidden = false;
+        document.documentElement.classList.add('search-sin-scroll');
+        disparadores.forEach((d) => d.setAttribute('aria-expanded', 'true'));
+        // El foco va en el mismo toque: en iPhone el teclado solo se abre así
+        campo.focus({ preventScroll: true });
+        requestAnimationFrame(() => capa.classList.add('is-abierta'));
+      };
+
+      const cerrarBuscador = () => {
+        capa.classList.remove('is-abierta');
+        document.documentElement.classList.remove('search-sin-scroll');
+        disparadores.forEach((d) => d.setAttribute('aria-expanded', 'false'));
+        temporizador = setTimeout(() => { capa.hidden = true; }, 400);
+        origen?.focus?.();
+      };
+
+      disparadores.forEach((d) => d.addEventListener('click', () => abrirBuscador(d)));
+      capa.querySelector('.search-close').addEventListener('click', cerrarBuscador);
+      capa.addEventListener('click', (e) => {
+        if (e.target === capa) cerrarBuscador();
+        if (e.target.closest('.search-link')) cerrarBuscador();
+        const chip = e.target.closest('.search-chip');
+        if (chip) { campo.value = chip.dataset.term; pintar(); campo.focus(); }
+      });
+      campo.addEventListener('input', pintar);
+      capa.querySelector('.search-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const primero = lista.querySelector('a');
+        if (primero) { cerrarBuscador(); window.location.href = primero.getAttribute('href'); }
+        else campo.focus();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (capa.hidden) return;
+        if (e.key === 'Escape') cerrarBuscador();
+        if (e.key === 'Tab') {
+          // Mantener el foco dentro de la capa
+          const focos = capa.querySelectorAll('button, input, a[href]');
+          const primero = focos[0];
+          const ultimo = focos[focos.length - 1];
+          if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+          else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+        }
+      });
+      window.addEventListener('pageshow', (e) => {
+        if (!e.persisted) return;
+        campo.value = '';
+        capa.classList.remove('is-abierta');
+        capa.hidden = true;
+        document.documentElement.classList.remove('search-sin-scroll');
+      });
 
       /* ---------- Swiper: galería de productos ---------- */
       if (window.Swiper) {
@@ -619,19 +1129,144 @@ const footerCols = [
       gsap.registerPlugin(ScrollTrigger);
       gsap.defaults({ ease: 'expo.out', duration: 1.4 });
 
-      // Hero: revelado de máscara con stagger de abajo hacia arriba
-      const heroTl = gsap.timeline({ delay: 0.15 });
-      heroTl
-        .fromTo('.hero-img', { scale: 1.12 }, { scale: 1, duration: 2.4, ease: 'power3.out' })
-        .to('.hero-eyebrow', { opacity: 1, duration: 1 }, 0.3)
-        .to('#hero-title .reveal-line > span', { y: 0, stagger: 0.14 }, 0.35)
-        .fromTo('.hero-copy, .hero-ctas', { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.8)
+      // Hero: slider con barrido lateral, parallax entre imágenes y revelado de textos por máscara
+      const hero = document.querySelector('.hero');
+      const slides = gsap.utils.toArray('.hero-slide');
+      const imgs = slides.map((slide) => slide.querySelector('.hero-img'));
+      const shades = slides.map((slide) => slide.querySelector('.hero-slide-shade'));
+      const copies = gsap.utils.toArray('.hero-copy-slide');
+      const dots = gsap.utils.toArray('.hero-dot');
+      const fills = dots.map((dot) => dot.querySelector('.hero-dot-fill'));
+      const wipe = document.querySelector('.hero-wipe');
+      const counter = document.querySelector('.hero-count-current');
+      const AUTOPLAY = 7;
+      let current = 0;
+      let busy = false;
+      let kenBurns;
+      let progress;
+      let hovering = false;
+      let offscreen = false;
+
+      const lines = (i) => copies[i].querySelectorAll('.reveal-line > span');
+      const fades = (i) => copies[i].querySelectorAll('.hero-eyebrow, .hero-copy, .hero-ctas');
+      gsap.set('.hero-copy-slide .reveal-line > span', { y: 0, yPercent: 110 });
+      gsap.set(slides, { zIndex: (i) => (i === 0 ? 2 : 1) });
+
+      const setFocusable = (i, on) => {
+        copies[i].querySelectorAll('a').forEach((a) => (on ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+        [copies[i], slides[i]].forEach((el) => (on ? el.removeAttribute('aria-hidden') : el.setAttribute('aria-hidden', 'true')));
+      };
+
+      const showCopy = (i) => {
+        gsap.set(copies[i], { visibility: 'visible' });
+        setFocusable(i, true);
+        return gsap.timeline()
+          .fromTo(lines(i), { yPercent: 110 }, { yPercent: 0, stagger: 0.12, duration: 1.3, ease: 'expo.out' }, 0)
+          .fromTo(fades(i), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.1, duration: 1.1, ease: 'expo.out' }, 0.25);
+      };
+
+      const hideCopy = (i) => {
+        setFocusable(i, false);
+        return gsap.timeline({ onComplete: () => gsap.set(copies[i], { visibility: 'hidden' }) })
+          .to(fades(i), { opacity: 0, y: -16, stagger: 0.05, duration: 0.5, ease: 'power2.in' }, 0)
+          .to(lines(i), { yPercent: -110, stagger: 0.06, duration: 0.7, ease: 'power3.in' }, 0);
+      };
+
+      const syncPause = () => {
+        if (!progress) return;
+        hovering || offscreen ? progress.pause() : progress.resume();
+      };
+
+      const startProgress = (i) => {
+        progress?.kill();
+        progress = gsap.fromTo(fills[i], { scaleX: 0 }, {
+          scaleX: 1,
+          duration: AUTOPLAY,
+          ease: 'none',
+          onComplete: () => goTo((current + 1) % slides.length, 1),
+        });
+        syncPause();
+      };
+
+      // Zoom lento mientras la imagen está activa
+      const startKenBurns = (i) => {
+        kenBurns?.kill();
+        kenBurns = gsap.to(imgs[i], { scale: 1, duration: AUTOPLAY + 2, ease: 'none' });
+      };
+
+      function goTo(next, dir = 1) {
+        if (busy || next === current) return;
+        busy = true;
+        progress?.kill();
+        kenBurns?.kill();
+        gsap.to(fills[current], { scaleX: 0, duration: 0.5, ease: 'power2.out' });
+
+        const prev = current;
+        current = next;
+        counter.textContent = String(next + 1).padStart(2, '0');
+
+        gsap.set(shades[next], { opacity: 0 });
+        gsap.set(slides[prev], { zIndex: 2 });
+        gsap.set(slides[next], {
+          visibility: 'visible',
+          zIndex: 3,
+          clipPath: dir > 0 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)',
+        });
+
+        gsap.timeline({
+          onComplete: () => {
+            gsap.set(slides[prev], { visibility: 'hidden', zIndex: 1 });
+            gsap.set(imgs[prev], { xPercent: 0, scale: 1.12 });
+            gsap.set(shades[prev], { opacity: 0 });
+            gsap.set(slides[next], { zIndex: 2, clearProps: 'clipPath' });
+            busy = false;
+            startKenBurns(next);
+            startProgress(next);
+          },
+        })
+          .add(hideCopy(prev), 0)
+          .to(slides[next], { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut' }, 0.2)
+          .fromTo(imgs[next], { scale: 1.3, xPercent: dir * 12 }, { scale: 1.12, xPercent: 0, duration: 1.9, ease: 'expo.inOut' }, 0.2)
+          .to(imgs[prev], { xPercent: -dir * 15, duration: 1.6, ease: 'expo.inOut' }, 0.2)
+          .to(shades[prev], { opacity: 0.45, duration: 1.6, ease: 'expo.inOut' }, 0.2)
+          .fromTo(wipe, { left: dir > 0 ? '100%' : '0%', opacity: 1 }, { left: dir > 0 ? '0%' : '100%', duration: 1.6, ease: 'expo.inOut' }, 0.2)
+          .to(wipe, { opacity: 0, duration: 0.3 }, 1.6)
+          .add(showCopy(next), 1.15);
+      }
+
+      const goNext = () => goTo((current + 1) % slides.length, 1);
+      const goPrev = () => goTo((current - 1 + slides.length) % slides.length, -1);
+      document.querySelector('.hero-next').addEventListener('click', goNext);
+      document.querySelector('.hero-prev').addEventListener('click', goPrev);
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i, i > current ? 1 : -1)));
+
+      // Pausa al pasar el cursor y cuando el hero sale de pantalla
+      hero.addEventListener('mouseenter', () => { hovering = true; syncPause(); });
+      hero.addEventListener('mouseleave', () => { hovering = false; syncPause(); });
+      ScrollTrigger.create({
+        trigger: hero,
+        start: 'top top',
+        end: 'bottom top',
+        onToggle: (self) => { offscreen = !self.isActive; syncPause(); },
+      });
+
+      // Deslizar con el dedo en móvil
+      let touchX = null;
+      hero.addEventListener('pointerdown', (e) => { touchX = e.clientX; });
+      hero.addEventListener('pointerup', (e) => {
+        if (touchX === null) return;
+        const dx = e.clientX - touchX;
+        touchX = null;
+        if (Math.abs(dx) > 60) dx < 0 ? goNext() : goPrev();
+      });
+
+      // Entrada inicial
+      gsap.timeline({ delay: 0.15, onComplete: () => { startKenBurns(0); startProgress(0); } })
+        .fromTo(imgs[0], { scale: 1.25 }, { scale: 1.12, duration: 2.4, ease: 'power3.out' })
+        .add(showCopy(0), 0.35)
         .fromTo('.site-header', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, clearProps: 'transform,opacity' }, 0.5)
         .fromTo('.site-rail', { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 1, clearProps: 'transform,opacity' }, 0.5)
-        .fromTo('.scroll-cue', { scaleY: 0 }, { scaleY: 1, duration: 1.2 }, 1.1);
-
-      // Línea de scroll animada en bucle
-      gsap.to('.scroll-cue', { scaleY: 0.3, transformOrigin: 'bottom', repeat: -1, yoyo: true, duration: 1.4, ease: 'sine.inOut', delay: 2.3 });
+        .fromTo('.hero-controls', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2 }, 1);
 
       // Elementos genéricos [data-reveal] (excepto los del hero)
       gsap.utils.toArray('[data-reveal]').forEach((el) => {
