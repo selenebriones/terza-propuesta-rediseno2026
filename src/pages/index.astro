@@ -212,8 +212,8 @@ const searchIndex = [
 const popularSearches = ['Pasto sintético', 'Flexiroc', 'Pisos vinílicos', 'Persianas', 'Deck', 'Alfombras'];
 
 const stats = [
-  { value: '+45', label: 'años de experiencia' },
-  { value: '4', label: 'showrooms en México' },
+  { value: '+45', unit: 'años', label: 'de experiencia' },
+  { value: '4', unit: 'showrooms', label: 'en México' },
   { value: '+10k', label: 'proyectos entregados' },
 ];
 
@@ -308,8 +308,10 @@ const footerCols = [
   >
     <div class="flex h-20 items-stretch justify-between lg:h-24">
       <!-- Marca -->
-      <a href="/" class="flex shrink-0 items-center gap-3 px-5 md:px-10 lg:border-r lg:border-terza-black/20 lg:px-6 xl:px-10" aria-label="Terza, inicio">
-        <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-8 w-auto lg:h-9" />
+      <a href="/" class="logo-flair group/logo relative flex shrink-0 items-center gap-3 overflow-hidden px-5 md:px-10 lg:border-r lg:border-terza-black/20 lg:px-6 xl:px-10" aria-label="Terza, inicio">
+        <!-- Flair: círculo que nace donde entra el cursor y llena el bloque del logo -->
+        <span class="logo-flair-dot pointer-events-none absolute left-0 top-0 aspect-square w-[250%] rounded-full bg-terza-light" style="transform: translate(-50%, -50%) scale(0)" aria-hidden="true"></span>
+        <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="relative h-8 w-auto transition-transform duration-500 ease-silk group-hover/logo:scale-105 lg:h-9" />
       </a>
 
       <!-- Navegación central: mega menú con subcategorías a la izquierda y colecciones con foto a la derecha -->
@@ -735,8 +737,11 @@ const footerCols = [
                 'stat-card rounded-2xl bg-white p-4 shadow-xl shadow-terza-black/10 sm:p-5 lg:w-56 lg:p-6',
                 ['lg:ml-0', 'lg:ml-8', 'lg:ml-16'][i],
               ]}>
-                <dt class="sr-only">{s.label}</dt>
-                <dd class="font-display text-2xl font-light leading-none tracking-tight text-terza-lime sm:text-3xl lg:text-5xl">{s.value}</dd>
+                <dt class="sr-only">{s.unit ? `${s.unit} ${s.label}` : s.label}</dt>
+                <dd class="flex flex-wrap items-baseline gap-x-2 font-display text-2xl font-light leading-none tracking-tight text-terza-lime sm:text-3xl lg:text-5xl">
+                  {s.value}
+                  {s.unit && <span class="text-sm font-normal tracking-normal sm:text-base lg:text-xl">{s.unit}</span>}
+                </dd>
                 <dd class="mt-2 text-[0.7rem] leading-snug sm:text-xs lg:text-sm">{s.label}</dd>
               </div>
             ))}
@@ -1332,6 +1337,26 @@ const footerCols = [
         const dx = e.clientX - touchX;
         touchX = null;
         if (Math.abs(dx) > 60) dx < 0 ? goNext() : goPrev();
+      });
+
+      // Logo: efecto flair (el círculo entra y sale por donde pasa el cursor)
+      document.querySelectorAll('.logo-flair').forEach((logo) => {
+        const dot = logo.querySelector('.logo-flair-dot');
+        gsap.set(dot, { xPercent: -50, yPercent: -50, scale: 0 });
+        const pos = (e) => {
+          const r = logo.getBoundingClientRect();
+          return { x: e.clientX - r.left, y: e.clientY - r.top };
+        };
+        logo.addEventListener('mouseenter', (e) => {
+          gsap.set(dot, pos(e));
+          gsap.to(dot, { scale: 1, duration: 0.7, ease: 'power3.out', overwrite: 'auto' });
+        });
+        logo.addEventListener('mousemove', (e) => {
+          gsap.to(dot, { ...pos(e), duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+        });
+        logo.addEventListener('mouseleave', (e) => {
+          gsap.to(dot, { ...pos(e), scale: 0, duration: 0.5, ease: 'power3.inOut', overwrite: 'auto' });
+        });
       });
 
       // Entrada inicial
