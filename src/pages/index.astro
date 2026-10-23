@@ -290,11 +290,11 @@ const footerCols = [
         <li>
           <a
             href={s.href} target="_blank" rel="noopener"
-            class="group/social flex flex-col-reverse items-center gap-3 text-terza-black transition-colors hover:text-terza-forest"
+            class="group/social flex rotate-180 items-center gap-3 text-terza-black transition-colors [writing-mode:vertical-rl] hover:text-terza-forest"
           >
-            <!-- Ícono derecho abajo y la leyenda en vertical encima (se lee de abajo hacia arriba) -->
-            <i class={`ph-light ${s.icon} text-lg transition-transform duration-300 group-hover/social:scale-110`} aria-hidden="true"></i>
-            <span class="rotate-180 text-[0.7rem] font-medium uppercase tracking-[0.25em] [writing-mode:vertical-rl]">{s.label}</span>
+            <!-- Ícono y leyenda giran juntos: se leen de abajo hacia arriba -->
+            <i class={`ph-light ${s.icon} rotate-90 text-lg transition-transform duration-300 group-hover/social:scale-110`} aria-hidden="true"></i>
+            <span class="text-[0.7rem] font-medium uppercase tracking-[0.25em]">{s.label}</span>
           </a>
         </li>
       ))}
