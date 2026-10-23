@@ -15,6 +15,7 @@ const menu = [
   },
   {
     label: 'Alfombras',
+    hidden: true, // oculto en el menú por ahora; se conserva para volver a mostrarlo
     intro: 'Colecciones que suman calidez, confort y mejor acústica a cualquier espacio.',
     img: '/assets/images/hospitality.webp',
     groups: [
@@ -57,6 +58,9 @@ const menu = [
     ],
   },
 ];
+
+// Opciones que sí se muestran en el header y en el menú móvil
+const visibleMenu = menu.filter((item) => !item.hidden);
 
 // Foto (de los catálogos de terza.com) o ícono de cada colección del menú
 const M = '/assets/images/menu';
@@ -118,10 +122,10 @@ menu.forEach((item) =>
 );
 
 const socials = [
-  { icon: 'ph-instagram-logo', label: 'Instagram', href: '#' },
-  { icon: 'ph-facebook-logo', label: 'Facebook', href: '#' },
-  { icon: 'ph-youtube-logo', label: 'YouTube', href: '#' },
-  { icon: 'ph-linkedin-logo', label: 'LinkedIn', href: '#' },
+  { icon: 'ph-instagram-logo', label: 'Instagram', href: 'https://www.instagram.com/terzamexico/' },
+  { icon: 'ph-facebook-logo', label: 'Facebook', href: 'https://www.facebook.com/TerzaMexico/' },
+  { icon: 'ph-youtube-logo', label: 'YouTube', href: 'https://www.youtube.com/channel/UCnIDmz5VV5tsZ7pMiOvwa1A' },
+  { icon: 'ph-linkedin-logo', label: 'LinkedIn', href: 'https://www.linkedin.com/company/terza-s-a-/' },
 ];
 
 const heroSlides = [
@@ -222,37 +226,55 @@ const shawSectores = [
 
 const posts = [
   {
-    cat: 'Tendencias',
-    title: 'Piedra flexible: el material que está redefiniendo las fachadas contemporáneas',
-    img: '/assets/images/blog-tendencias.jpg',
+    cat: 'Pisos',
+    title: 'Piso laminado vs. vinílico: Guía definitiva para elegir el ideal.',
+    img: '/assets/images/blog-pisos.webp',
     href: '#',
   },
   {
-    cat: 'Exteriores',
-    title: 'Cómo elegir el deck ideal para una terraza que vive al sol todo el año',
-    img: '/assets/images/blog-exterior.jpg',
+    cat: 'Tips',
+    title: '¿Cómo elegir alfombras para oficinas de alto, medio y bajo tráfico?',
+    img: '/assets/images/blog-tips.webp',
     href: '#',
   },
   {
-    cat: 'Cuidado',
-    title: 'Guía de mantenimiento para pisos de madera que lucen nuevos por décadas',
-    img: '/assets/images/blog-mantenimiento.jpg',
+    cat: 'Muros',
+    title: 'Tipos de lambrín: ¿Cómo elegir entre colores claros y oscuros para tus muros?',
+    img: '/assets/images/blog-muros.webp',
     href: '#',
   },
 ];
 
+// Menú del footer; `sep` deja un espacio antes del enlace para separar grupos
 const footerCols = [
   {
     title: 'Productos',
-    links: ['Flexiroc', 'Pisos laminados', 'Pisos de madera', 'Vinil', 'Deck exterior', 'Alfombras'],
+    links: [
+      { label: 'Pisos', href: '#' },
+      { label: 'Muros', href: '#' },
+      { label: 'Persianas', href: '#' },
+      { label: 'Exterior', href: '#' },
+      { label: 'Accesorios', href: '#' },
+    ],
   },
   {
-    title: 'Empresa',
-    links: ['Nosotros', 'Proyectos', 'Material LAB', 'Blog', 'Bolsa de trabajo'],
+    title: 'Recursos',
+    links: [
+      { label: 'Catálogos digitales', href: 'https://www.terza.com/catalogos' },
+      { label: 'Decorador Virtual', href: '#visualizador' },
+      { label: 'Material Lab', href: '#' },
+      { label: 'Shaw Contract', href: '#shawcontract' },
+    ],
   },
   {
-    title: 'Showrooms',
-    links: ['Monterrey', 'Guadalajara', 'Ciudad de México', 'Puebla'],
+    title: 'Nosotros',
+    links: [
+      { label: 'Quiénes somos', href: '#nosotros' },
+      { label: 'Quiero ser distribuidor', href: '#distribuidores' },
+      { label: 'Contacto', href: '#contacto-ubicaciones' },
+      { label: 'Aviso de privacidad', href: 'https://www.terza.com/AVISO-DE-PRIVACIDAD.pdf', sep: true },
+      { label: 'Buzón de Transparencia', href: 'https://www.terza.com/buzon-de-transparencia' },
+    ],
   },
 ];
 ---
@@ -263,14 +285,16 @@ const footerCols = [
     <a href="/" class="block size-24 shrink-0" aria-label="Terza, inicio">
       <img src="/assets/images/icono_medio_cuadro.svg" alt="" width="96" height="96" class="size-full" />
     </a>
-    <ul class="flex flex-1 flex-col-reverse items-center justify-center gap-12">
+    <ul class="flex flex-1 flex-col-reverse items-center justify-center gap-10">
       {socials.map((s) => (
         <li>
           <a
-            href={s.href}
-            class="block rotate-180 text-[0.7rem] font-medium uppercase tracking-[0.25em] text-terza-black transition-colors [writing-mode:vertical-rl] hover:text-terza-forest"
+            href={s.href} target="_blank" rel="noopener"
+            class="group/social flex flex-col-reverse items-center gap-3 text-terza-black transition-colors hover:text-terza-forest"
           >
-            {s.label}
+            <!-- Ícono derecho abajo y la leyenda en vertical encima (se lee de abajo hacia arriba) -->
+            <i class={`ph-light ${s.icon} text-lg transition-transform duration-300 group-hover/social:scale-110`} aria-hidden="true"></i>
+            <span class="rotate-180 text-[0.7rem] font-medium uppercase tracking-[0.25em] [writing-mode:vertical-rl]">{s.label}</span>
           </a>
         </li>
       ))}
@@ -291,7 +315,7 @@ const footerCols = [
       <!-- Navegación central: mega menú con subcategorías a la izquierda y colecciones con foto a la derecha -->
       <nav aria-label="Principal" class="hidden flex-1 justify-center lg:flex">
         <ul class="flex items-stretch 2xl:gap-3">
-          {menu.map((item) => (
+          {visibleMenu.map((item) => (
             <li class="group/mega static flex">
               <a href="#" class="nav-link flex items-center gap-1.5" aria-haspopup="true">
                 {item.label}
@@ -399,7 +423,7 @@ const footerCols = [
         <!-- Nivel 1: opciones principales -->
         <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level="root" data-title="Menú">
           <ul>
-            {menu.map((item, i) => (
+            {visibleMenu.map((item, i) => (
               <li>
                 <button type="button" class="flex w-full items-center justify-between border-b border-terza-black/10 py-4 text-left text-base text-terza-black" data-go={`m${i}`}>
                   {item.label} <i class="ph-light ph-caret-right"></i>
@@ -417,7 +441,7 @@ const footerCols = [
           <ul class="mt-6 flex gap-2">
             {socials.map((s) => (
               <li>
-                <a href={s.href} aria-label={s.label} class="grid size-11 place-items-center rounded-full border border-terza-black/20 text-lg text-terza-black">
+                <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class="grid size-11 place-items-center rounded-full border border-terza-black/20 text-lg text-terza-black">
                   <i class={`ph-light ${s.icon}`}></i>
                 </a>
               </li>
@@ -426,7 +450,7 @@ const footerCols = [
         </div>
 
         <!-- Nivel 2: subcategorías -->
-        {menu.map((item, i) => (
+        {visibleMenu.map((item, i) => (
           <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level={`m${i}`} data-title={item.label}>
             <ul>
               {item.groups.map((group, j) => (
@@ -444,7 +468,7 @@ const footerCols = [
         ))}
 
         <!-- Nivel 3: colecciones con miniatura -->
-        {menu.map((item, i) =>
+        {visibleMenu.map((item, i) =>
           item.groups.map((group, j) => (
             <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level={`m${i}-${j}`} data-title={group.title}>
               <ul>
@@ -830,7 +854,7 @@ const footerCols = [
           {posts.map((post) => (
             <article class="blog-card group" data-reveal>
               <a href={post.href} class="block">
-                <div class="aspect-[4/3] overflow-hidden rounded-2xl">
+                <div class="aspect-[19/10] overflow-hidden rounded-2xl">
                   <img
                     src={post.img}
                     alt=""
@@ -879,6 +903,53 @@ const footerCols = [
         </div>
       </div>
     </section>
+
+    <!-- ============ H. CONTACTO Y UBICACIONES (4 columnas: foto, texto, foto, texto) ============ -->
+    <section id="contacto-ubicaciones" class="px-5 pt-24 md:px-10 md:pt-36" aria-label="Contacto y ubicaciones">
+      <div class="mx-auto grid max-w-[1440px] gap-8 md:grid-cols-2 xl:grid-cols-4 xl:gap-10">
+        <figure class="cu-photo overflow-hidden rounded-2xl">
+          <img
+            src="/assets/images/contacto-asesor.webp"
+            alt="Asesor de Terza en la planta de producción"
+            width="900"
+            height="1200"
+            loading="lazy"
+            class="aspect-[3/4] size-full object-cover transition-transform duration-1000 ease-silk hover:scale-105"
+          />
+        </figure>
+        <div class="flex flex-col justify-center py-4 md:py-0" data-reveal>
+          <p class="eyebrow">Contáctanos</p>
+          <h2 class="mt-6 text-4xl font-light leading-[1.05] md:text-5xl">
+            ¿En qué podemos <span class="font-medium">ayudarte?</span>
+          </h2>
+          <p class="mt-6 text-base leading-relaxed">
+            Ya sea que estés transformando un espacio o desarrollando un proyecto, estamos aquí para asesorarte.
+          </p>
+          <a href="#contacto" class="btn-lime mt-8 self-start">Contáctanos <i class="ph ph-arrow-right"></i></a>
+        </div>
+
+        <figure class="cu-photo overflow-hidden rounded-2xl">
+          <img
+            src="/assets/images/showroom-monterrey.webp"
+            alt="Showroom de Terza en Monterrey con muestras de pisos y recubrimientos"
+            width="900"
+            height="1200"
+            loading="lazy"
+            class="aspect-[3/4] size-full object-cover transition-transform duration-1000 ease-silk hover:scale-105"
+          />
+        </figure>
+        <div class="flex flex-col justify-center py-4 md:py-0" data-reveal>
+          <p class="eyebrow">Nuestras ubicaciones</p>
+          <h2 class="mt-6 text-4xl font-light leading-[1.05] md:text-5xl">
+            Conoce nuestros <span class="font-medium">espacios.</span>
+          </h2>
+          <p class="mt-6 text-base leading-relaxed">
+            Visita nuestro Showroom en Monterrey o descubre nuestras ubicaciones en México.
+          </p>
+          <a href="#contacto" class="btn-lime mt-8 self-start">Ver ubicaciones <i class="ph ph-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============ FOOTER ============ -->
@@ -895,7 +966,7 @@ const footerCols = [
         <ul class="mt-6 flex gap-2">
           {socials.map((s) => (
             <li>
-              <a href={s.href} aria-label={s.label} class="grid size-10 place-items-center rounded-full border border-terza-black/10 text-lg text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime">
+              <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class="grid size-10 place-items-center rounded-full border border-terza-black/10 text-lg text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime">
                 <i class={`ph-light ${s.icon}`}></i>
               </a>
             </li>
@@ -908,7 +979,14 @@ const footerCols = [
           <h3 class="text-xs font-semibold uppercase tracking-[0.2em]">{col.title}</h3>
           <ul class="mt-6 space-y-3">
             {col.links.map((l) => (
-              <li><a href="#" class="text-sm transition-colors hover:text-terza-black">{l}</a></li>
+              <li class:list={[l.sep && '!mt-8']}>
+                <a
+                  href={l.href}
+                  target={l.href.startsWith('http') ? '_blank' : undefined}
+                  rel={l.href.startsWith('http') ? 'noopener' : undefined}
+                  class="text-sm transition-colors hover:text-terza-black"
+                >{l.label}</a>
+              </li>
             ))}
           </ul>
         </div>
@@ -917,10 +995,6 @@ const footerCols = [
 
     <div class="mx-auto mt-20 flex max-w-[1440px] flex-col gap-4 border-t border-terza-black/5 px-5 py-8 text-xs md:flex-row md:items-center md:justify-between md:px-10">
       <p>© {new Date().getFullYear()} Terza. Todos los derechos reservados.</p>
-      <ul class="flex gap-6">
-        <li><a href="#" class="hover:text-terza-black">Aviso de privacidad</a></li>
-        <li><a href="#" class="hover:text-terza-black">Términos y condiciones</a></li>
-      </ul>
     </div>
   </footer>
 
@@ -1317,6 +1391,17 @@ const footerCols = [
         y: 0,
         stagger: 0.12,
         scrollTrigger: { trigger: '.shaw-cards', start: 'top 85%' },
+      });
+
+      // Contacto y ubicaciones: fotos con revelado tipo cortina
+      gsap.utils.toArray('.cu-photo').forEach((photo, i) => {
+        gsap.fromTo(photo, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.6,
+          delay: i * 0.15,
+          ease: 'expo.inOut',
+          scrollTrigger: { trigger: '#contacto-ubicaciones', start: 'top 80%' },
+        });
       });
 
       // Blog: stagger de tarjetas
