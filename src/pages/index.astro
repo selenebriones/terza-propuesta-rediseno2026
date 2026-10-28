@@ -136,10 +136,10 @@ const heroSlides = [
     h: 708,
     pos: 'object-[70%_center]',
     alt: 'Muro recubierto con piedra flexible Flexi ROC en una terraza con sillón y mesa de madera',
-    eyebrow: 'Nuevo · Flexi ROC',
-    lines: [['La piedra,'], ['ahora ', 'flexible.']],
-    copy: 'Láminas de piedra natural de apenas 2 mm que se adaptan a muros curvos, columnas y fachadas. La nobleza de la roca, sin su peso.',
-    cta: { label: 'Explorar Flexi ROC', href: '#productos' },
+    eyebrow: 'Nuevo producto',
+    lines: [['Flexi', 'ROC']],
+    copy: 'Recubrimiento de piedra flexible.',
+    cta: { label: 'Descubre la nueva colección', href: '#productos' },
   },
   {
     tone: 'dark',
@@ -181,12 +181,10 @@ const heroSlides = [
 
 // Nuevos productos de terza.com (imágenes en /assets/images/flexiroc/)
 const productos = [
-  { name: 'Travertino Greige', code: 'T15-FR026-GT101' },
-  { name: 'Granito Gris Perla', code: 'T15-FR026-FG126' },
-  { name: 'Gris Pavimento', code: 'T15-FR026-TGG103' },
-  { name: 'Travertino Romano Beige', code: 'T15-FR026-PT205' },
   { name: 'Arenisca', code: 'T15-FR026-SL106' },
   { name: 'Caliza Española', code: 'T15-FR026-SL107' },
+  { name: 'Travertino Greige', code: 'T15-FR026-GT101' },
+  { name: 'Terra', code: 'T15-FR026-TL102' },
 ].map((p) => ({
   ...p,
   img: `/assets/images/flexiroc/${p.code}.webp`,
@@ -213,8 +211,6 @@ const popularSearches = ['Pasto sintético', 'Flexiroc', 'Pisos vinílicos', 'Pe
 
 const stats = [
   { value: '+45', unit: 'años', label: 'de experiencia' },
-  { value: '4', unit: 'showrooms', label: 'en México' },
-  { value: '+10k', label: 'proyectos entregados' },
 ];
 
 const shawSectores = [
@@ -261,6 +257,7 @@ const footerCols = [
     title: 'Recursos',
     links: [
       { label: 'Catálogos digitales', href: 'https://www.terza.com/catalogos' },
+      { label: 'Blog - Ideas', href: '#ideas' },
       { label: 'Decorador Virtual', href: '#visualizador' },
       { label: 'Material Lab', href: '#' },
       { label: 'Shaw Contract', href: '#shawcontract' },
@@ -331,7 +328,7 @@ const footerCols = [
                       <li>
                         <a
                           href="#"
-                          class="mega-tab flex items-center justify-between border-b border-l-2 border-b-terza-black/10 border-l-transparent py-3.5 pl-3 pr-1 text-sm text-terza-gray transition-colors hover:text-terza-black data-[active]:border-l-terza-lime data-[active]:font-medium data-[active]:text-terza-forest"
+                          class="mega-tab flex items-center justify-between border-b border-l-2 border-b-terza-black/10 border-l-transparent py-3.5 pl-3 pr-1 text-sm text-terza-gray transition-colors hover:bg-terza-mist hover:text-terza-black data-[active]:border-l-terza-lime data-[active]:bg-terza-mist data-[active]:font-medium data-[active]:text-terza-forest"
                           data-tab={j}
                           data-active={j === 0 ? '' : undefined}
                         >
@@ -630,13 +627,11 @@ const footerCols = [
     <section id="productos" class="overflow-hidden py-24 md:py-36" aria-labelledby="productos-title">
       <div class="mx-auto max-w-[1440px] px-5 md:px-10">
         <div class="mx-auto max-w-2xl text-center" data-reveal>
-          <p class="eyebrow justify-center">Nuevos productos · Flexiroc</p>
+          <p class="eyebrow justify-center">Flexiroc</p>
           <h2 id="productos-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
-            Recubrimiento de <span class="font-medium">Piedra Flexible</span>
+            Nuevos <span class="font-medium text-terza-forest">productos</span>
           </h2>
-          <p class="mt-6 text-base leading-relaxed md:text-lg">
-            Cada pieza conserva la veta, el poro y el relieve de la roca original. Elige el carácter que tu proyecto merece.
-          </p>
+          <p class="mt-6 text-base leading-relaxed md:text-lg">Recubrimiento de piedra flexible.</p>
         </div>
       </div>
 
@@ -684,7 +679,7 @@ const footerCols = [
       <div class="mx-auto mt-12 flex max-w-[1440px] items-center gap-8 px-5 md:px-10">
         <div class="products-progress swiper-pagination !static !h-0.5 flex-1"></div>
         <a href="https://www.terza.com/flexiroc/catalogo" class="hidden items-center gap-2 text-sm font-semibold text-terza-black hover:text-terza-forest sm:inline-flex">
-          Ver todo el catálogo <i class="ph ph-arrow-right"></i>
+          Ver todo <i class="ph ph-arrow-right"></i>
         </a>
         <div class="flex gap-2">
           <button type="button" class="products-prev grid size-12 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-colors hover:bg-terza-black hover:text-white disabled:opacity-30" aria-label="Anterior">
@@ -706,14 +701,24 @@ const footerCols = [
             <h2 id="about-title" class="about-title mt-8 text-[clamp(2.5rem,6vw,5.5rem)] font-light leading-[1] tracking-[-0.045em]">
               <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>Todo para</span></span>
               <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>transformar</span></span>
-              <span class="reveal-line block overflow-hidden pb-[0.08em]"><span class="font-medium">tus espacios.</span></span>
+              <span class="reveal-line block overflow-hidden pb-[0.08em]"><span class="font-medium text-terza-forest">tus espacios.</span></span>
             </h2>
           </div>
 
           <div data-reveal>
             <p class="max-w-md text-base leading-relaxed md:text-lg">
-              Más de 45 años como referentes en superficies en México y Latinoamérica. Seleccionamos, fabricamos e instalamos materiales, con soluciones para interiores, exteriores y proyectos comerciales, con diseño, funcionalidad y alto desempeño.
+              Soluciones para interiores, exteriores y proyectos comerciales, con diseño, funcionalidad y alto desempeño.
             </p>
+            <ul class="mt-8 grid max-w-lg gap-5 sm:grid-cols-2">
+              <li class="border-l-2 border-terza-lime pl-4">
+                <p class="font-medium text-terza-forest">Fabricante líder</p>
+                <p class="mt-1 text-sm leading-relaxed">en pasto sintético y alfombras en México y Latinoamérica.</p>
+              </li>
+              <li class="border-l-2 border-terza-lime pl-4">
+                <p class="font-medium text-terza-forest">Presencia nacional</p>
+                <p class="mt-1 text-sm leading-relaxed">en proyectos residenciales y comerciales.</p>
+              </li>
+            </ul>
             <a href="#" class="btn-lime mt-10">Conoce Terza <i class="ph ph-arrow-right"></i></a>
           </div>
         </div>
@@ -731,18 +736,18 @@ const footerCols = [
             />
           </figure>
 
-          <dl class="about-stats relative z-10 -mt-12 grid grid-cols-3 gap-2 px-3 sm:gap-4 sm:px-6 lg:absolute lg:inset-y-0 lg:-left-32 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:gap-5 lg:px-0">
+          <dl class="about-stats absolute -top-16 right-4 z-10 flex sm:right-6 lg:inset-y-0 lg:-left-32 lg:right-auto lg:flex-col lg:justify-center lg:gap-5">
             {stats.map((s, i) => (
               <div class:list={[
-                'stat-card rounded-2xl bg-white p-4 shadow-xl shadow-terza-black/10 sm:p-5 lg:w-56 lg:p-6',
+                'stat-card flex size-36 flex-col items-center justify-center rounded-full bg-terza-forest text-center shadow-xl shadow-terza-black/10 lg:size-56',
                 ['lg:ml-0', 'lg:ml-8', 'lg:ml-16'][i],
               ]}>
                 <dt class="sr-only">{s.unit ? `${s.unit} ${s.label}` : s.label}</dt>
-                <dd class="flex flex-wrap items-baseline gap-x-2 font-display text-2xl font-light leading-none tracking-tight text-terza-lime sm:text-3xl lg:text-5xl">
+                <dd class="flex flex-wrap items-baseline justify-center gap-x-2 font-display text-3xl font-light leading-none tracking-tight !text-white lg:text-5xl">
                   {s.value}
                   {s.unit && <span class="text-sm font-normal tracking-normal sm:text-base lg:text-xl">{s.unit}</span>}
                 </dd>
-                <dd class="mt-2 text-[0.7rem] leading-snug sm:text-xs lg:text-sm">{s.label}</dd>
+                <dd class="mt-2 text-xs leading-snug !text-terza-lime lg:text-sm">{s.label}</dd>
               </div>
             ))}
           </dl>
@@ -752,7 +757,7 @@ const footerCols = [
 
     <!-- ============ E. VISUALIZADOR ============ -->
     <section id="visualizador" class="px-5 md:px-10" aria-labelledby="viz-title">
-      <div class="viz-box relative mx-auto flex max-w-[1440px] flex-col overflow-hidden rounded-3xl bg-neutral-50 lg:min-h-[640px] lg:flex-row lg:items-center">
+      <div class="viz-box relative mx-auto flex max-w-[1440px] flex-col overflow-hidden rounded-3xl bg-terza-mist lg:min-h-[640px] lg:flex-row lg:items-center">
         <!-- Imagen de fondo: en escritorio ocupa la derecha y se funde con el texto -->
         <div class="viz-bg relative order-last aspect-[3/2] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:order-none lg:aspect-auto lg:w-[72%]">
           <img
@@ -763,24 +768,19 @@ const footerCols = [
             loading="lazy"
             class="viz-img size-full object-cover"
           />
-          <div class="absolute inset-0 hidden bg-gradient-to-r from-neutral-50 from-10% via-neutral-50/80 via-30% to-transparent to-55% lg:block"></div>
+          <div class="absolute inset-0 hidden bg-gradient-to-r from-terza-mist from-10% via-terza-mist/80 via-30% to-transparent to-55% lg:block"></div>
         </div>
 
         <div class="px-6 py-16 md:px-16 md:py-24 lg:w-full">
           <div class="relative z-10 lg:w-[46%]" data-reveal>
             <p class="eyebrow">Decorador virtual</p>
             <h2 id="viz-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
-              Velo en tu espacio <span class="font-medium">antes de decidir.</span>
+              Visualiza tu espacio <span class="font-medium text-terza-forest">antes de decidir.</span>
             </h2>
             <p class="mt-6 max-w-md text-base leading-relaxed md:text-lg">
-              Toma una foto de tu sala, terraza o fachada y prueba cada piso, tapete y recubrimiento en segundos. Sin catálogos, sin suposiciones.
+              Prueba nuestros productos en tus propios espacios con el Decorador Virtual de Terza.
             </p>
-            <ul class="mt-8 space-y-3 text-sm text-terza-black">
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-terza-forest"></i> Funciona desde tu celular</li>
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-terza-forest"></i> Compara acabados lado a lado</li>
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-terza-forest"></i> Comparte la propuesta con tu arquitecto</li>
-            </ul>
-            <a href="#" class="btn-lime mt-10">Prueba decorador <i class="ph ph-arrow-right"></i></a>
+            <a href="#" class="btn-lime mt-10">Prueba el decorador <i class="ph ph-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -789,10 +789,10 @@ const footerCols = [
     <!-- ============ E2. SHAWCONTRACT (estilo acordeón de tarjetas) ============ -->
     <section id="shawcontract" class="pt-24 md:pt-36" aria-labelledby="shaw-title">
       <div class="mx-auto max-w-[1440px] px-5 md:px-10">
-        <div class="mx-auto max-w-4xl text-center" data-reveal>
+        <div class="mx-auto max-w-5xl text-center" data-reveal>
           <p class="eyebrow justify-center">Distribuidor exclusivo en México</p>
-          <h2 id="shaw-title" class="mt-6 text-[clamp(3rem,10vw,9rem)] font-medium leading-[0.9] tracking-[-0.05em]">
-            ShawContract<sup class="ml-1 align-super text-[0.25em] font-light">®</sup>
+          <h2 id="shaw-title" class="mx-auto mt-10 w-[min(100%,1000px)] md:mt-12">
+            <img src="/assets/images/shawcontract-logo.svg" width="274" height="60" alt="Shaw Contract" class="h-auto w-full" />
           </h2>
           <p class="mx-auto mt-8 max-w-2xl text-base leading-relaxed md:text-lg">
             Soluciones en alfombra modular, alfombra de rollo y pisos vinílicos para proyectos comerciales que exigen diseño y desempeño.
@@ -838,13 +838,13 @@ const footerCols = [
     </section>
 
     <!-- ============ F. BLOG / IDEAS ============ -->
-    <section id="ideas" class="py-24 md:py-36" aria-labelledby="ideas-title">
+    <section id="ideas" class="my-24 bg-terza-sage py-24 md:my-36 md:py-32" aria-labelledby="ideas-title">
       <div class="mx-auto max-w-[1440px] px-5 md:px-10">
         <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
           <div>
             <p class="eyebrow">Blog | Ideas</p>
             <h2 id="ideas-title" class="mt-6 text-4xl font-light leading-tight md:text-6xl">
-              Ideas para transformar <span class="font-medium">tus espacios.</span>
+              Ideas para transformar <span class="font-medium text-terza-forest">tus espacios.</span>
             </h2>
             <p class="mt-6 max-w-xl text-base leading-relaxed md:text-lg">
               Consejos, tendencias y guías prácticas para crear espacios más funcionales, bonitos y duraderos.
@@ -883,16 +883,21 @@ const footerCols = [
     <!-- ============ G. BANNER DISTRIBUIDOR ============ -->
     <section id="distribuidores" class="px-5 md:px-10" aria-labelledby="dist-title">
       <!-- En escritorio el verde termina donde empiezan las muestras: la imagen es el borde derecho del contenedor -->
-      <div class="dist-banner mx-auto flex max-w-[1440px] flex-col lg:h-[340px] lg:flex-row">
+      <div class="dist-banner mx-auto flex max-w-[1440px] flex-col lg:h-[420px] lg:flex-row">
         <div class="flex flex-col justify-center rounded-t-3xl bg-terza-forest px-6 pb-8 pt-10 md:px-16 md:pt-12 lg:flex-1 lg:rounded-l-3xl lg:rounded-tr-none lg:py-10">
           <div data-reveal>
             <p class="eyebrow !text-terza-lime">Distribuidores</p>
             <h2 id="dist-title" class="mt-4 text-3xl font-light leading-tight !text-white md:text-4xl">
-              Lleva Terza <span class="font-medium">a tu ciudad.</span>
+              ¿Quieres ser <span class="font-medium !text-terza-lime">distribuidor Terza?</span>
             </h2>
             <p class="mt-4 max-w-lg text-base leading-relaxed text-white/75">
-              Súmate a la red de distribuidores autorizados con respaldo de marca, capacitación técnica, material de exhibición y condiciones comerciales preferentes.
+              Amplía tu oferta de productos y haz crecer tu negocio con el respaldo de Terza.
             </p>
+            <dl class="mt-6 grid max-w-xl grid-cols-3 gap-4 border-t border-white/15 pt-5">
+              <div><dt class="font-display text-xl font-medium !text-terza-lime md:text-2xl">+1,500</dt><dd class="mt-1 text-xs leading-snug text-white/70">estilos y colores</dd></div>
+              <div><dt class="font-display text-xl font-medium !text-white md:text-2xl">Amplio</dt><dd class="mt-1 text-xs leading-snug text-white/70">portafolio de soluciones</dd></div>
+              <div><dt class="font-display text-xl font-medium !text-white md:text-2xl">Respaldo</dt><dd class="mt-1 text-xs leading-snug text-white/70">y asesoría especializada</dd></div>
+            </dl>
             <a href="#contacto" class="btn-lime mt-6 hover:!bg-white hover:!text-terza-black">Quiero ser distribuidor <i class="ph ph-arrow-right"></i></a>
           </div>
         </div>
@@ -925,7 +930,7 @@ const footerCols = [
         <div class="flex flex-col justify-center py-4 md:py-0" data-reveal>
           <p class="eyebrow">Contáctanos</p>
           <h2 class="mt-6 text-4xl font-light leading-[1.05] md:text-5xl">
-            ¿En qué podemos <span class="font-medium">ayudarte?</span>
+            ¿En qué podemos <span class="font-medium text-terza-forest">ayudarte?</span>
           </h2>
           <p class="mt-6 text-base leading-relaxed">
             Ya sea que estés transformando un espacio o desarrollando un proyecto, estamos aquí para asesorarte.
@@ -946,7 +951,7 @@ const footerCols = [
         <div class="flex flex-col justify-center py-4 md:py-0" data-reveal>
           <p class="eyebrow">Nuestras ubicaciones</p>
           <h2 class="mt-6 text-4xl font-light leading-[1.05] md:text-5xl">
-            Conoce nuestros <span class="font-medium">espacios.</span>
+            Conoce nuestros <span class="font-medium text-terza-forest">espacios.</span>
           </h2>
           <p class="mt-6 text-base leading-relaxed">
             Visita nuestro Showroom en Monterrey o descubre nuestras ubicaciones en México.
@@ -958,14 +963,14 @@ const footerCols = [
   </main>
 
   <!-- ============ FOOTER ============ -->
-  <footer id="contacto" class="mt-24 border-t border-terza-black/5 pt-20 md:mt-36 lg:ml-24">
+  <footer id="contacto" class="mt-24 bg-terza-cream pt-20 md:mt-36 lg:ml-24">
     <div class="mx-auto grid max-w-[1440px] gap-12 px-5 sm:grid-cols-2 md:px-10 lg:grid-cols-4">
       <div>
         <a href="/" class="flex items-center gap-3" aria-label="Terza, inicio">
           <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-10 w-auto" />
         </a>
         <p class="mt-6 max-w-xs text-sm leading-relaxed">
-          Superficies de alto diseño para espacios que trascienden. Hecho en México desde 1979.
+          Transformamos espacios contigo.
         </p>
         <a href="tel:8002283792" class="mt-6 block text-2xl font-light tracking-tight text-terza-black hover:text-terza-forest">800 228 3792</a>
         <ul class="mt-6 flex gap-2">

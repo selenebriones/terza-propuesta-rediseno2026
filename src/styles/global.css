@@ -13,6 +13,10 @@
   --color-terza-lime: #bcdc00;
   --color-terza-forest: #00514a;
   --color-terza-light: #f0fae5;
+  /* Fondos suaves de la propuesta del cliente para dar calidez sin saturar */
+  --color-terza-mist: #f1f7ed;
+  --color-terza-sage: #f3f4ef;
+  --color-terza-cream: #f9f8f5;
   --color-terza-black: #000000;
   --color-terza-gray: #555555;
 
