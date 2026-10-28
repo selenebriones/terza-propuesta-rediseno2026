@@ -1,0 +1,22 @@
+---
+// Layout de páginas internas: header, contenido y footer compartidos
+import Layout from './Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <SiteHeader />
+  <main class="pt-20 lg:pl-24 lg:pt-24">
+    <slot />
+  </main>
+  <SiteFooter />
+  <slot name="scripts" slot="scripts" />
+</Layout>

@@ -1,0 +1,50 @@
+---
+// Catálogo: categorías agrupadas por sección (igual que el menú)
+import PageLayout from '../../layouts/PageLayout.astro';
+import { secciones, productos, foto, urlCategoria } from '../../lib/catalogo';
+---
+
+<PageLayout title="Catálogo de productos | Terza" description="Pisos, alfombras, muros, persianas, exterior y accesorios: explora todo el catálogo de Terza.">
+  <section class="mx-auto max-w-[1440px] px-5 pb-8 pt-12 md:px-10 md:pt-20">
+    <nav class="text-xs text-terza-gray" aria-label="Ruta">
+      <a href="/" class="hover:text-terza-black">Inicio</a> <span class="mx-2">/</span> <span class="text-terza-black">Catálogo</span>
+    </nav>
+    <p class="eyebrow mt-10">Catálogo</p>
+    <h1 class="mt-6 max-w-4xl text-[clamp(2.5rem,6vw,5.5rem)] font-light leading-[1] tracking-[-0.045em]">
+      Catálogo de <span class="font-medium">productos</span>
+    </h1>
+    <p class="mt-6 max-w-xl text-base leading-relaxed md:text-lg">
+      {productos.length} productos en pisos, alfombras, muros, persianas, exterior y accesorios. Elige una categoría para ver colores, medidas y fichas técnicas.
+    </p>
+  </section>
+
+  {secciones.map((sec) => (
+    <section id={sec.id} class="mx-auto max-w-[1440px] scroll-mt-28 px-5 pt-16 md:px-10 md:pt-24">
+      <div class="flex items-end justify-between gap-6 border-b border-terza-black/10 pb-5">
+        <h2 class="text-3xl font-light md:text-4xl">{sec.nombre}</h2>
+        <p class="text-sm">{sec.categorias.reduce((n, c) => n + c.total, 0)} productos</p>
+      </div>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {sec.categorias.map((cat) => (
+          <a href={urlCategoria(cat.slug)} class="group block">
+            <div class="relative aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-50">
+              {cat.portada && (
+                <img src={foto(cat.portada)} alt={cat.nombre} loading="lazy" class="size-full object-cover transition-transform duration-1000 ease-silk group-hover:scale-105" />
+              )}
+              <span class="absolute right-4 top-4 rounded-full bg-white/85 px-3 py-1.5 text-xs font-medium text-terza-black backdrop-blur">{cat.total} productos</span>
+            </div>
+            <div class="mt-5 flex items-start justify-between gap-6">
+              <div>
+                <h3 class="text-2xl font-medium">{cat.nombre}</h3>
+                <p class="mt-2 max-w-sm text-sm leading-relaxed">{cat.intro}</p>
+              </div>
+              <span class="grid size-11 shrink-0 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-all duration-500 group-hover:border-terza-lime group-hover:bg-terza-lime">
+                <i class="ph ph-arrow-right"></i>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</PageLayout>

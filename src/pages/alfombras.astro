@@ -1,0 +1,518 @@
+---
+// Página de la línea de alfombras (contenido de terza.com/alfombras con el diseño de la propuesta)
+import PageLayout from '../layouts/PageLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { categoriaDe, productosDe, urlCategoria } from '../lib/catalogo';
+
+const IMG = '/assets/images/lineas/alfombras';
+const cat = categoriaDe('alfombras');
+// Una alfombra por estilo para el adelanto del catálogo
+const destacados = [...new Map(productosDe('alfombras').map((p) => [p.familia, p])).values()].slice(0, 4);
+
+const cualidades = [
+  {
+    icon: 'ph-shield-check',
+    title: 'Durabilidad garantizada',
+    text: 'Las alfombras de Terza cuentan con una garantía que va de 5 a 25 años, esto depende de que si son de uso comercial o familiar.',
+  },
+  {
+    icon: 'podio', // podio con estrellas en SVG propio (no existe en Phosphor), con el mismo trazo fino
+    title: 'Cualidades extraordinarias',
+    text: 'Nuestras alfombras son resistentes y fáciles de mantener, cuentan con una amplia variedad de tamaños, materiales y diseños que garantizan un mayor atractivo visual en tu espacio.',
+  },
+  {
+    icon: 'alfombra', // alfombra con flecos en SVG propio, con el mismo trazo fino
+    title: 'Usos y aplicaciones',
+    text: 'Las alfombras son utilizadas en espacios tanto residenciales o comerciales porque se adaptan a la decoración. Además que son funcionales, pues ayudan a delimitar y brindan confort.',
+  },
+];
+
+const usos = [
+  {
+    img: '/assets/images/pagina-alfombras/sala.webp',
+    tab: 'Sala',
+    title: 'Alfombra para sala',
+    text: 'Las alfombras aportan un toque cómodo a tu sala. Funcionan como aislantes acústicos, ya que sus fibras absorben el ruido y crean un ambiente de comodidad. En Terza contamos con una gran variedad de alfombras que se adaptan a tu estilo.',
+  },
+  {
+    img: '/assets/images/pagina-alfombras/recamaras.webp',
+    tab: 'Recámaras',
+    title: 'Alfombras para recámaras',
+    text: 'Las alfombras proporcionan comodidad y actúan contra el ruido. Las alfombras de Terza también mejoran la seguridad con su superficie antideslizante que reduce las caídas, algo importante en hogares con personas mayores.',
+  },
+  {
+    img: '/assets/images/pagina-alfombras/corporativo.webp',
+    tab: 'Corporativo',
+    title: 'Alfombras en espacios corporativos',
+    text: 'Las alfombras son clave en los espacios de trabajo, favoreciendo la creatividad, concentración y motivación. También reducen el cansancio al trabajar de pie y facilitan el desplazamiento. En Terza ofrecemos una amplia variedad de colores y texturas que se adaptan a tu espacio.',
+  },
+];
+
+const beneficios = [
+  { icon: 'ph-sun', text: 'Aporte de calidez y confort' },
+  { icon: 'ph-wind', text: 'Captura polvo y alérgenos' },
+  { icon: 'ph-speaker-simple-slash', text: 'Aislamiento acústico superior' },
+  { icon: 'ph-person-simple-walk', text: 'Reducción de fatiga muscular' },
+  { icon: 'ph-footprints', text: 'Mejora la seguridad al ser antideslizante' },
+  { icon: 'ph-frame-corners', text: 'Elemento clave para delimitar espacios' },
+];
+
+const cuidados = [
+  { icon: 'ph-broom', cuando: '1 o 2 veces por semana', title: 'Aspirado regular', text: 'Hazlo 1 o 2 veces por semana para evitar el desgaste y garantizar un buen mantenimiento.' },
+  { icon: 'ph-drop-half', cuando: 'Al momento', title: 'Limpieza inmediata de manchas', text: 'Seca los derrames, sin frotar, con un paño limpio para que no se fijen las manchas.' },
+  { icon: 'ph-arrows-clockwise', cuando: 'Cada 6 meses', title: 'Rotación periódica', text: 'Gírala para que el desgaste y la exposición solar sean uniformes.' },
+];
+
+const faqs = [
+  {
+    q: '¿Cómo se quitan las manchas en las alfombras?',
+    a: 'El mejor remedio para desmanchar tus alfombras es utilizar antimanchas. Lo primero que debes hacer es eliminar los restos del líquido derramado con papel absorbente. Se deben limpiar las alfombras desde el borde hacia el centro, evitando usar una esponja húmeda para evitar expandir la mancha. Es importante que antes de utilizar cualquier quitamanchas se coloque un poco del producto en una zona no visible para ver la reacción.',
+  },
+  {
+    q: '¿Cómo puede darse mantenimiento a la alfombra?',
+    a: 'Para mantener la belleza y durabilidad de la alfombra se debe evitar la acumulación de polvo o tierra. También deben aspirarse periódicamente y remover las manchas inmediatamente ocurran, o lo antes posible.',
+  },
+  {
+    q: '¿Con qué frecuencia debo limpiar mis alfombras?',
+    a: 'Para mantener limpias tus alfombras, es necesario aspirarlas al menos 1 vez por semana. Deberá pasar la aspiradora 3 veces en las áreas de poco tráfico y dar de 5 a 7 pasadas en las áreas de mucho tráfico, donde tiende acumularse mayor polvo y suciedad. Se recomienda realizar un lavado profesional de las alfombras cada 12 a 18 meses, dependiendo del uso y color, pues aunque tanto los colores claros como los obscuros atrapan el polvo y la suciedad de la misma manera, esta será más evidente en los tonos claros.',
+  },
+  {
+    q: '¿El color de mis alfombras cambiará o se decolorará con el tiempo?',
+    a: 'Para minimizar las probabilidades de cambios en el color de las alfombras, en Terza utilizamos fibras teñidas con tecnologías de vanguardia para su fabricación; sin embargo, al igual que otros textiles, tienden a cambiar ligeramente de color a través del tiempo, principalmente cuando se encuentran expuestas a la luz solar. Para esto se recomienda contar con algún tipo de protección para ventanas, tales como persianas o cortinas, principalmente en las áreas donde el sol pega directamente en las alfombras por periodos de tiempo prolongados.',
+  },
+  {
+    q: '¿Cuál es el tipo de alfombra ideal para quienes tienen mascota?',
+    a: 'Si tienes mascotas en tu hogar, te recomendamos las alfombras de poliéster u olefina, ya que son materiales duraderos, resistentes a las manchas y fáciles de limpiar. Optar por una textura corta y apretada también facilita el mantenimiento, porque evita que los pelos y la suciedad se acumulen. Además, es útil elegir alfombras con respaldos resistentes a manchas y usar un buen aspirador para mantenerlas en óptimas condiciones.',
+  },
+  {
+    q: '¿Qué diferencia hay entre las alfombras de interior y exterior?',
+    a: 'La principal diferencia entre las alfombras para exterior e interior son sus materiales. Las alfombras de exterior están hechas de materiales resistentes a las condiciones climáticas, como PVC, caucho, goma o aluminio, y deben soportar frío, rayos UV y exposición solar; en cambio, las alfombras de interior absorben la humedad, secan el calzado, son duraderas, evitan que el polvo se extienda por los espacios y previenen resbalones.',
+  },
+];
+---
+
+<PageLayout title="Alfombras | Terza" description="Alfombras Terza: máximo confort en tus espacios. Socios de Shaw Contract, el fabricante de alfombras más grande del mundo.">
+  <!-- Hero -->
+  <section class="px-5 pt-6 md:px-10 md:pt-10">
+    <div class="a-hero relative mx-auto flex min-h-[460px] max-w-[1440px] items-end overflow-hidden rounded-3xl md:min-h-[540px]">
+      <img src="/assets/images/pagina-alfombras/hero.webp" alt="Muestras de alfombras Terza en distintas texturas y colores" class="a-hero-img absolute inset-0 size-full object-cover object-center" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/65 to-black/40 md:bg-gradient-to-l md:from-black/80 md:via-black/50 md:to-black/10"></div>
+      <div class="relative ml-auto w-full max-w-xl px-6 py-12 md:px-14 md:py-16">
+        <nav class="a-hero-item text-xs text-white/70" aria-label="Ruta">
+          <a href="/" class="hover:text-white">Inicio</a><span class="mx-2">/</span><span class="text-white">Alfombras</span>
+        </nav>
+        <p class="a-hero-item eyebrow mt-8 !text-terza-lime">Alfombras</p>
+        <h1 class="a-hero-title mt-6 text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1] tracking-[-0.04em] !text-white">
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>Máximo confort</span></span>
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span class="font-medium">en tus espacios.</span></span>
+        </h1>
+        <p class="a-hero-item mt-6 text-base leading-relaxed text-white/85 md:text-lg">
+          Somos socios de Shaw Contract, el fabricante de alfombras más grande del mundo.
+        </p>
+        <div class="a-hero-item mt-8 flex flex-wrap gap-3">
+          <a href={urlCategoria('alfombras')} class="btn-lime">Ver catálogo <i class="ph ph-arrow-right"></i></a>
+          <a href="/#contacto-ubicaciones" class="btn-ghost !border-white/40 bg-white/10 !text-white backdrop-blur hover:!border-white">Solicitar información</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Por qué Terza? -->
+  <section class="mx-auto grid max-w-[1440px] items-center gap-12 px-5 pt-24 md:px-10 md:pt-32 lg:grid-cols-2 lg:gap-20">
+    <div data-reveal>
+      <p class="eyebrow">Alfombras Terza</p>
+      <h2 class="mt-6 text-4xl font-light leading-tight md:text-5xl">¿Por qué optar por <span class="font-medium">alfombras Terza?</span></h2>
+      <p class="mt-6 text-base leading-relaxed md:text-lg">
+        En Terza fabricamos alfombras de la más alta calidad, cómodas, resistentes y sobre todo, confortables para tus espacios.
+      </p>
+      <p class="mt-4 text-base leading-relaxed md:text-lg">
+        Contamos con una gran variedad de colores y diseños. Ya sean alfombras de tráfico pesado, modulares, lisas, para ambientes residenciales o comerciales; con nosotros encontrarás la alfombra ideal para crear el ambiente que más se adapte a tu estilo de vida.
+      </p>
+    </div>
+    <figure class="a-curtain group/img aspect-[3/2] overflow-hidden rounded-2xl">
+      <!-- Sin parallax: la cabeza de la mamá queda muy arriba y el desplazamiento la cortaba; el zoom crece desde arriba -->
+      <img src="/assets/images/pagina-alfombras/porque_terza.webp" width="1416" height="941" alt="Sala con sillones terracota sobre una alfombra con trazos naranjas" loading="lazy" class="size-full origin-top object-cover object-top transition-[scale] duration-1000 ease-silk group-hover/img:scale-105" />
+    </figure>
+  </section>
+
+  <!-- Cualidades -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <h2 class="text-3xl font-light md:text-4xl" data-reveal>Conoce más acerca de <span class="font-medium">las alfombras</span></h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {cualidades.map((c) => (
+        <article class="a-card group/card rounded-2xl bg-neutral-50 p-8 transition-[translate,box-shadow,background-color] duration-500 ease-silk hover:-translate-y-2 hover:bg-white hover:shadow-xl">
+          <!-- Título e ícono en la misma línea; el ícono a la derecha -->
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="text-xl font-medium">{c.title}</h3>
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-terza-lime text-2xl text-terza-black transition-[rotate,scale] duration-500 ease-silk group-hover/card:rotate-12 group-hover/card:scale-110">{c.icon === 'podio' ? (
+              <svg viewBox="0 0 32 32" class="size-6" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                <path d="M4 28h24" />
+                <rect x="7" y="18" width="5" height="10" />
+                <rect x="13.5" y="13" width="5" height="15" />
+                <rect x="20" y="20" width="5" height="8" />
+                <path d="m16 3.6 1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z" />
+                <path d="m9.5 9.6 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" />
+                <path d="m22.5 11.6 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" />
+              </svg>
+            ) : c.icon === 'alfombra' ? (
+              <svg viewBox="0 0 32 32" class="size-6" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                <rect x="8" y="6" width="16" height="20" rx="0.5" />
+                <rect x="11.5" y="10" width="9" height="12" rx="1.8" />
+                <path d="M9 6V3.5M11.5 6V3.5M14 6V3.5M16.5 6V3.5M19 6V3.5M21.5 6V3.5M23.5 6V3.5" />
+                <path d="M9 26v2.5M11.5 26v2.5M14 26v2.5M16.5 26v2.5M19 26v2.5M21.5 26v2.5M23.5 26v2.5" />
+              </svg>
+            ) : (
+              <i class={`ph-light ${c.icon}`}></i>
+            )}</span>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Usos: slider con pestañas, barrido de fotos y autoplay -->
+  <section class="usos mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32" aria-roledescription="carrusel" aria-label="Usos de las alfombras">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+      <figure class="a-curtain group/img relative aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-50">
+        {usos.map((u, i) => (
+          <img
+            src={u.img}
+            alt={u.title}
+            fetchpriority="low"
+            class:list={['uso-img absolute inset-0 size-full object-cover transition-[scale] duration-1000 ease-silk group-hover/img:scale-105', i > 0 && 'invisible']}
+          />
+        ))}
+        <span class="uso-wipe pointer-events-none absolute inset-y-0 z-10 w-0.5 bg-terza-lime opacity-0"></span>
+      </figure>
+
+      <div data-reveal>
+        <p class="eyebrow">Usos</p>
+        <!-- Pestañas -->
+        <div class="mt-6 flex flex-wrap gap-2" role="tablist">
+          {usos.map((u, i) => (
+            <button
+              type="button"
+              role="tab"
+              class="uso-tab rounded-full border border-terza-black/15 px-4 py-2 text-sm font-medium text-terza-gray transition-colors hover:border-terza-black hover:text-terza-black data-[active]:border-terza-lime data-[active]:bg-terza-lime data-[active]:text-terza-black"
+              data-active={i === 0 ? '' : undefined}
+              aria-selected={i === 0 ? 'true' : 'false'}
+            >{u.tab}</button>
+          ))}
+        </div>
+        <!-- Textos apilados en la misma celda -->
+        <div class="mt-8 grid">
+          {usos.map((u, i) => (
+            <div class:list={['uso-copy [grid-area:1/1]', i > 0 && 'invisible']} aria-hidden={i > 0 ? 'true' : undefined}>
+              <h2 class="text-3xl font-light leading-tight md:text-4xl">{u.title}</h2>
+              <p class="mt-6 max-w-lg text-base leading-relaxed md:text-lg">{u.text}</p>
+            </div>
+          ))}
+        </div>
+        <!-- Controles -->
+        <div class="mt-8 flex flex-wrap items-center gap-6">
+          <a href="/#contacto-ubicaciones" class="btn-ghost">Solicitar información</a>
+          <div class="flex items-center gap-4">
+            <p class="font-display text-sm tabular-nums text-terza-black"><span class="uso-count font-medium">01</span><span class="text-terza-black/40"> / 0{usos.length}</span></p>
+            <span class="h-0.5 w-20 overflow-hidden rounded-full bg-terza-black/10"><span class="uso-progress block size-full origin-left scale-x-0 bg-terza-lime"></span></span>
+            <div class="flex gap-1">
+              <button type="button" class="uso-prev grid size-10 place-items-center rounded-full border border-terza-black/15 text-terza-black transition-colors hover:bg-terza-black hover:text-white" aria-label="Uso anterior"><i class="ph ph-arrow-left"></i></button>
+              <button type="button" class="uso-next grid size-10 place-items-center rounded-full bg-terza-black text-white transition-colors hover:bg-terza-lime hover:text-terza-black" aria-label="Siguiente uso"><i class="ph ph-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios: fondo gris claro con la foto a la derecha fundida con el texto (como el decorador del home) -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div class="relative flex flex-col overflow-hidden rounded-3xl bg-neutral-50 lg:flex-row lg:items-center">
+      <div class="a-curtain relative order-last aspect-[16/7] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:order-none lg:aspect-auto lg:w-[55%]">
+        <img src="/assets/images/pagina-alfombras/beneficios.webp" width="1200" height="648" alt="Área de descanso de oficina con alfombra modular bajo la sala" loading="lazy" class="a-parallax size-full object-cover object-[60%_50%]" />
+        <div class="absolute inset-0 hidden bg-gradient-to-r from-neutral-50 via-neutral-50/70 via-25% to-transparent to-60% lg:block"></div>
+      </div>
+      <div class="relative z-10 px-6 py-12 md:px-16 md:py-16 lg:w-[62%]" data-reveal>
+        <p class="eyebrow">Beneficios</p>
+        <h2 class="mt-6 text-3xl font-light leading-tight md:text-5xl">Más que un piso, <span class="font-medium">una sensación.</span></h2>
+        <p class="mt-5 max-w-md text-base leading-relaxed md:text-lg">Las alfombras transforman cómo se vive y se escucha un espacio, en casa y en la oficina.</p>
+        <ul class="mt-8 grid gap-x-8 gap-y-3 text-sm text-terza-black sm:grid-cols-2">
+          {beneficios.map((b) => (
+            <li class="flex items-center gap-3"><i class={`ph ${b.icon} text-lg text-terza-forest`}></i> {b.text}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuidados: tres pasos unidos por una línea, sobre fondo blanco -->
+  <section class="px-5 pt-24 md:px-10 md:pt-32">
+    <div class="mx-auto max-w-[1440px]">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div>
+          <p class="eyebrow">Cuidados</p>
+          <h2 class="mt-6 text-3xl font-light md:text-5xl">Cuidados <span class="font-medium">esenciales</span></h2>
+        </div>
+        <p class="max-w-sm text-base leading-relaxed">Tres hábitos sencillos para que tu alfombra luzca como nueva por más tiempo.</p>
+      </div>
+
+      <ol class="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+        <!-- Línea que une los pasos (escritorio) -->
+        <span class="cuidados-line absolute left-0 right-0 top-7 hidden h-px origin-left bg-terza-black/15 md:block" aria-hidden="true"></span>
+        {cuidados.map((c, i) => (
+          <li class="a-step group/c relative">
+            <div class="flex items-center gap-4">
+              <span class="a-step-num relative z-10 grid size-14 shrink-0 place-items-center rounded-full border border-terza-black/10 bg-white text-2xl text-terza-forest transition-colors duration-500 group-hover/c:border-terza-lime group-hover/c:bg-terza-lime group-hover/c:text-terza-black">
+                <i class={`ph-light ${c.icon}`}></i>
+              </span>
+              <span class="relative z-10 bg-white pr-3 font-display text-5xl font-light leading-none text-terza-lime">0{i + 1}</span>
+            </div>
+            <p class="mt-8 inline-flex rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-terza-forest">{c.cuando}</p>
+            <h3 class="mt-4 text-xl font-medium">{c.title}</h3>
+            <p class="mt-3 max-w-xs text-sm leading-relaxed">{c.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Mitos y realidades (video de terza.com) junto a las preguntas frecuentes -->
+  <section class="mx-auto grid max-w-[1440px] gap-16 px-5 pt-24 md:px-10 md:pt-32 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-16 xl:gap-20">
+    <div>
+      <div data-reveal>
+        <p class="eyebrow">Video</p>
+        <h2 class="mt-6 text-3xl font-light leading-tight md:text-4xl">Mitos y realidades <span class="font-medium">de las alfombras</span></h2>
+      </div>
+      <!-- Facebook no dibuja sus videos en localhost; detrás queda una portada con ícono de reproducir -->
+      <figure class="a-curtain relative mt-10 aspect-[9/16] w-full max-w-[360px] overflow-hidden rounded-3xl bg-neutral-100 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)]">
+        <span class="absolute inset-0 grid place-items-center" aria-hidden="true">
+          <span class="grid size-20 place-items-center rounded-full bg-terza-lime text-3xl text-terza-black"><i class="ph ph-play"></i></span>
+        </span>
+        <iframe
+          src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F24702442726050243%2F&show_text=0&t=0"
+          title="Mitos y realidades de las alfombras, video de Terza"
+          class="relative size-full border-0"
+          loading="lazy"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </figure>
+      <a href="https://www.facebook.com/reel/24702442726050243/" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-terza-forest hover:text-terza-black">
+        <i class="ph ph-facebook-logo text-lg"></i> Ver el video en Facebook <i class="ph ph-arrow-up-right"></i>
+      </a>
+    </div>
+
+    <div>
+      <div data-reveal>
+        <p class="eyebrow">FAQ's</p>
+        <h2 class="mt-6 text-3xl font-light md:text-4xl">Preguntas <span class="font-medium">frecuentes</span></h2>
+      </div>
+      <div class="mt-10 border-t border-terza-black/10">
+        {faqs.map((f, i) => (
+          <div class:list={['faq a-item group/faq border-b border-terza-black/10', i === 0 && 'is-open']}>
+            <h3>
+              <button type="button" class="faq-btn flex w-full items-center justify-between gap-6 py-6 text-left text-lg font-medium text-terza-black transition-colors duration-300 hover:text-terza-forest md:text-xl" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`faq-${i}`}>
+                {f.q}
+                <!-- Más que se vuelve menos: la línea vertical se aplana al abrir -->
+                <span class="relative size-4 shrink-0" aria-hidden="true">
+                  <span class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current"></span>
+                  <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current transition-transform duration-500 ease-silk group-[.is-open]/faq:scale-y-0"></span>
+                </span>
+              </button>
+            </h3>
+            <div id={`faq-${i}`} role="region" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-silk group-[.is-open]/faq:grid-rows-[1fr]">
+              <div class="overflow-hidden">
+                <p class="max-w-3xl pb-7 text-base leading-relaxed opacity-0 transition-opacity duration-500 ease-silk group-[.is-open]/faq:opacity-100">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="px-5 pt-24 md:px-10 md:pt-32">
+    <!-- Verde con el texto a la izquierda y foto de ambiente a la derecha, con corte limpio -->
+    <div class="a-banner mx-auto grid max-w-[1440px] overflow-hidden rounded-3xl bg-terza-forest md:grid-cols-[minmax(0,1fr)_42%]">
+      <div class="flex flex-col items-start gap-6 px-6 py-12 md:px-16 md:py-16">
+        <h2 class="text-3xl font-light leading-tight !text-white md:text-4xl">Queremos ser parte <span class="font-medium">de tu espacio.</span></h2>
+        <a href="/#contacto-ubicaciones" class="btn-lime hover:!bg-white hover:!text-terza-black">Contáctanos <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div class="relative order-first aspect-[16/9] md:order-none md:aspect-auto">
+        <img src="/assets/images/pagina-alfombras/img_cta-1200.webp" width="1200" height="696" alt="Banco tapizado sobre una alfombra gris claro con trazos verdes" loading="lazy" class="absolute inset-0 size-full object-cover object-[0%_25%]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Adelanto del catálogo -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div>
+        <p class="eyebrow">Catálogo</p>
+        <h2 class="mt-6 text-3xl font-light md:text-4xl">Catálogo de <span class="font-medium">alfombras Terza</span></h2>
+        <p class="mt-4 max-w-xl text-base leading-relaxed">
+          {cat.total} alfombras en distintos estilos y colores. Comunícate con nuestros asesores para recibir la asistencia que necesitas y elegir la alfombra perfecta para ti.
+        </p>
+      </div>
+      <a href={urlCategoria('alfombras')} class="btn-lime self-start md:self-auto">Ver catálogo <i class="ph ph-arrow-right"></i></a>
+    </div>
+    <div class="a-grid mt-10 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+      {destacados.map((p) => <ProductCard producto={p} />)}
+    </div>
+  </section>
+
+  <script is:inline slot="scripts">
+    document.addEventListener('DOMContentLoaded', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!window.gsap || reduceMotion) {
+        document.documentElement.classList.remove('js');
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.defaults({ ease: 'expo.out', duration: 1.4 });
+
+      // Hero: la foto se acerca y los textos entran en cascada; el título sube por máscara
+      gsap.timeline({ delay: 0.1 })
+        .fromTo('.a-hero', { clipPath: 'inset(8% 6% 8% 6% round 24px)' }, { clipPath: 'inset(0% 0% 0% 0% round 24px)', duration: 1.6, ease: 'expo.inOut' })
+        .fromTo('.a-hero-img', { scale: 1.25 }, { scale: 1, duration: 2.4, ease: 'power3.out' }, 0)
+        .to('.a-hero-title .reveal-line > span', { y: 0, stagger: 0.14 }, 0.6)
+        .fromTo('.a-hero-item', { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.1 }, 0.7);
+
+      // Textos y títulos: suben al entrar en pantalla
+      gsap.utils.toArray('[data-reveal]').forEach((el) => {
+        gsap.fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, scrollTrigger: { trigger: el, start: 'top 85%' } });
+      });
+
+      // Preguntas frecuentes: solo una abierta a la vez
+      const faqs = document.querySelectorAll('.faq');
+      faqs.forEach((faq) => faq.querySelector('.faq-btn').addEventListener('click', () => {
+        const abrir = !faq.classList.contains('is-open');
+        faqs.forEach((x) => {
+          const on = x === faq && abrir;
+          x.classList.toggle('is-open', on);
+          x.querySelector('.faq-btn').setAttribute('aria-expanded', on);
+        });
+      }));
+
+      // Fotos: se abren como cortina y luego tienen un parallax suave
+      gsap.utils.toArray('.a-curtain').forEach((fig) => {
+        gsap.fromTo(fig, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.6,
+          ease: 'expo.inOut',
+          scrollTrigger: { trigger: fig, start: 'top 80%' },
+        });
+        const img = fig.querySelector('.a-parallax');
+        if (!img) return;
+        gsap.fromTo(img, { yPercent: -7, scale: 1.15 }, {
+          yPercent: 7,
+          ease: 'none',
+          scrollTrigger: { trigger: fig, start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+      });
+
+      // Tarjetas, beneficios, pasos, productos y preguntas: entran en cascada por grupo
+      // (un trigger por elemento: ScrollTrigger.batch dejaba elementos ocultos al recalcular posiciones)
+      gsap.utils.toArray('.a-card, .a-item, .a-step, .a-grid .product-card').forEach((el) => {
+        const orden = [...el.parentElement.children].indexOf(el);
+        gsap.fromTo(el, { opacity: 0, y: 50 }, {
+          opacity: 1,
+          y: 0,
+          delay: (orden % 4) * 0.1,
+          scrollTrigger: { trigger: el, start: 'top 90%' },
+        });
+      });
+
+      // Línea que une los cuidados: se dibuja de izquierda a derecha
+      gsap.fromTo('.cuidados-line', { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'expo.inOut', scrollTrigger: { trigger: '.cuidados-line', start: 'top 85%' } });
+
+      // Números de los cuidados: se deslizan desde la izquierda
+      gsap.utils.toArray('.a-step-num').forEach((n, i) => {
+        gsap.fromTo(n, { x: -30, opacity: 0 }, { x: 0, opacity: 1, delay: 0.15 + i * 0.1, scrollTrigger: { trigger: n, start: 'top 88%' } });
+      });
+
+      // Usos: slider con barrido lateral de fotos, cambio de texto y autoplay
+      const usoImgs = gsap.utils.toArray('.uso-img');
+      const usoCopies = gsap.utils.toArray('.uso-copy');
+      const usoTabs = gsap.utils.toArray('.uso-tab');
+      const usoWipe = document.querySelector('.uso-wipe');
+      const usoCount = document.querySelector('.uso-count');
+      const usoProgress = document.querySelector('.uso-progress');
+      const USO_AUTOPLAY = 6;
+      let uso = 0;
+      let usoBusy = false;
+      let usoTimer;
+      let usoHover = false;
+      gsap.set(usoImgs, { zIndex: (i) => (i === 0 ? 2 : 1) });
+
+      const usoAutoplay = () => {
+        usoTimer?.kill();
+        usoTimer = gsap.fromTo(usoProgress, { scaleX: 0 }, { scaleX: 1, duration: USO_AUTOPLAY, ease: 'none', onComplete: () => usoGo((uso + 1) % usoImgs.length, 1) });
+        if (usoHover) usoTimer.pause();
+      };
+
+      function usoGo(next, dir = 1) {
+        if (usoBusy || next === uso) return;
+        usoBusy = true;
+        usoTimer?.kill();
+        const prev = uso;
+        uso = next;
+        usoCount.textContent = String(next + 1).padStart(2, '0');
+        usoTabs.forEach((t, i) => { t.toggleAttribute('data-active', i === next); t.setAttribute('aria-selected', String(i === next)); });
+        gsap.set(usoImgs[prev], { zIndex: 2 });
+        gsap.set(usoImgs[next], { visibility: 'visible', zIndex: 3, clipPath: dir > 0 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' });
+        gsap.set(usoCopies[next], { visibility: 'visible' });
+        usoCopies[next].removeAttribute('aria-hidden');
+        usoCopies[prev].setAttribute('aria-hidden', 'true');
+        gsap.timeline({
+          onComplete: () => {
+            gsap.set(usoImgs[prev], { visibility: 'hidden', zIndex: 1, xPercent: 0 });
+            gsap.set(usoImgs[next], { zIndex: 2, clearProps: 'clipPath' });
+            gsap.set(usoCopies[prev], { visibility: 'hidden' });
+            usoBusy = false;
+            usoAutoplay();
+          },
+        })
+          .to(usoImgs[next], { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'expo.inOut' }, 0)
+          .fromTo(usoImgs[next], { scale: 1.2, xPercent: dir * 8 }, { scale: 1, xPercent: 0, duration: 1.5, ease: 'expo.inOut' }, 0)
+          .to(usoImgs[prev], { xPercent: -dir * 12, duration: 1.3, ease: 'expo.inOut' }, 0)
+          .fromTo(usoWipe, { left: dir > 0 ? '100%' : '0%', opacity: 1 }, { left: dir > 0 ? '0%' : '100%', duration: 1.3, ease: 'expo.inOut' }, 0)
+          .to(usoWipe, { opacity: 0, duration: 0.3 }, 1.2)
+          .to(usoCopies[prev], { opacity: 0, y: -20, duration: 0.5, ease: 'power2.in' }, 0)
+          .fromTo(usoCopies[next], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 }, 0.55);
+      }
+
+      document.querySelector('.uso-next').addEventListener('click', () => usoGo((uso + 1) % usoImgs.length, 1));
+      document.querySelector('.uso-prev').addEventListener('click', () => usoGo((uso - 1 + usoImgs.length) % usoImgs.length, -1));
+      usoTabs.forEach((t, i) => t.addEventListener('click', () => usoGo(i, i > uso ? 1 : -1)));
+      const usosSection = document.querySelector('.usos');
+      usosSection.addEventListener('mouseenter', () => { usoHover = true; usoTimer?.pause(); });
+      usosSection.addEventListener('mouseleave', () => { usoHover = false; usoTimer?.resume(); });
+      // Deslizar la foto con el dedo en móvil
+      let usoX = null;
+      const usoFig = document.querySelector('.usos figure');
+      usoFig.addEventListener('pointerdown', (e) => { usoX = e.clientX; });
+      usoFig.addEventListener('pointerup', (e) => {
+        if (usoX === null) return;
+        const dx = e.clientX - usoX;
+        usoX = null;
+        if (Math.abs(dx) > 50) dx < 0 ? usoGo((uso + 1) % usoImgs.length, 1) : usoGo((uso - 1 + usoImgs.length) % usoImgs.length, -1);
+      });
+      // El autoplay arranca cuando la sección entra en pantalla
+      ScrollTrigger.create({ trigger: usosSection, start: 'top 70%', once: true, onEnter: usoAutoplay });
+
+      // Recalcular posiciones cuando terminan de cargar fuentes y fotos (la página crece y los últimos bloques no se activaban)
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+      document.fonts?.ready.then(() => ScrollTrigger.refresh());
+
+      // Banner de contacto: se abre de los lados
+      gsap.fromTo('.a-banner', { clipPath: 'inset(0% 12% 0% 12% round 24px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 24px)',
+        duration: 1.6,
+        ease: 'expo.inOut',
+        scrollTrigger: { trigger: '.a-banner', start: 'top 85%' },
+      });
+    });
+  </script>
+</PageLayout>

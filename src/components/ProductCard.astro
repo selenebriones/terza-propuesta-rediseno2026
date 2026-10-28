@@ -1,0 +1,36 @@
+---
+// Tarjeta de producto del catálogo: foto, etiqueta "Nuevo", familia y variante
+import { foto, urlProducto, type Producto } from '../lib/catalogo';
+
+interface Props {
+  producto: Producto;
+}
+
+const { producto: p } = Astro.props;
+const img = foto(p.fotos[0], 'sm');
+const filtros = Object.entries(p.filtros as Record<string, string>);
+---
+
+<article class="product-card" {...Object.fromEntries(filtros.map(([campo, valor]) => [`data-f-${campo}`, valor]))}>
+  <a href={urlProducto(p)} class="group block h-full overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow duration-500 ease-silk hover:shadow-xl">
+    <div class="relative aspect-square overflow-hidden bg-neutral-50">
+      {img ? (
+        <img src={img} alt={`${p.familia} ${p.variante}`} loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-silk group-hover:scale-105" />
+      ) : (
+        <span class="grid size-full place-items-center text-4xl text-terza-forest"><i class="ph-light ph-image"></i></span>
+      )}
+      {p.nuevo && (
+        <span class="absolute left-3 top-3 rounded-full bg-terza-lime px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-terza-black">Nuevo</span>
+      )}
+    </div>
+    <div class="flex items-end justify-between gap-3 p-4 md:p-5">
+      <div class="min-w-0">
+        <p class="truncate text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-terza-forest">{p.familia}</p>
+        <h3 class="mt-1 text-base font-medium leading-snug md:text-lg">{p.variante}</h3>
+      </div>
+      <span class="grid size-9 shrink-0 place-items-center rounded-full border border-terza-black/10 text-terza-black transition-all duration-500 group-hover:border-terza-lime group-hover:bg-terza-lime">
+        <i class="ph ph-arrow-up-right text-sm"></i>
+      </span>
+    </div>
+  </a>
+</article>

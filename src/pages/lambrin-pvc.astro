@@ -1,0 +1,401 @@
+---
+// Página de la línea de lambrín y paneles (contenido de terza.com/lambrin-pvc con el diseño de alfombras y deck)
+import PageLayout from '../layouts/PageLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { categoriaDe, productosDe, urlCategoria, foto } from '../lib/catalogo';
+
+const IMG = '/assets/images/pagina-lambrin';
+const cat = categoriaDe('paneles');
+const productos = productosDe('paneles');
+// Un producto por formato (Lambrín, Lambrín irregular, Panel, Panel mármol, Viga)
+const porFormato = [...new Map(productos.map((p) => [p.familia, p])).values()];
+const destacados = porFormato.slice(0, 4);
+// Variante que mejor muestra cada formato en su miniatura (la viga es una foto del perfil sobre blanco)
+const muestra: Record<string, string> = { 'Panel Marble': 'Gray Marble', Panel: 'Classic Walnut', Lambrin: 'Classic Walnut Fondo Negro', 'Lambrin Irregular': 'Natural', Viga: 'Classic Walnut' };
+const formatos = porFormato.map((p) => ({
+  nombre: p.familia.replace('Lambrin', 'Lambrín').replace('Panel Marble', 'Panel mármol'),
+  total: productos.filter((x) => x.familia === p.familia).length,
+  img: foto((productos.find((x) => x.familia === p.familia && x.variante === muestra[p.familia]) ?? p).fotos[0], 'sm'),
+  viga: p.familia === 'Viga',
+  href: `${urlCategoria('paneles')}?estilo=${encodeURIComponent(p.familia)}`,
+}));
+
+const espacios = ['Salas', 'Habitaciones', 'Oficinas', 'Supermercados', 'Hoteles'];
+
+const cualidades = [
+  {
+    icon: 'podio', // podio con estrellas en SVG propio, igual que en alfombras
+    title: 'Calidad inigualable',
+    text: 'Los lambrines y paneles de primera categoría ofrecen gran resistencia y durabilidad a lo largo del tiempo, superando los estándares de calidad del mercado con garantía de 15 años para uso interior.',
+  },
+  {
+    icon: 'ph-tag',
+    title: 'Precio competitivo',
+    text: 'Además de una calidad superior, se distinguen por su precio altamente competitivo. Al eliminar costos innecesarios nos adaptamos a diversos presupuestos: elegir Terza también es una inversión inteligente.',
+  },
+  {
+    icon: 'ph-handshake',
+    title: 'Compromiso con el cliente',
+    text: 'Estamos comprometidos con tu satisfacción y con brindar soluciones que superen tus expectativas. Por ello nos aseguramos de ofrecer una experiencia de diseño interior única.',
+  },
+];
+
+const beneficios = [
+  { icon: 'ph-drop', text: 'Resistentes a la humedad' },
+  { icon: 'ph-bug-beetle', text: 'Anti insectos' },
+  { icon: 'ph-shield-check', text: 'Anticorrosivos' },
+  { icon: 'ph-hourglass-medium', text: 'De larga vida útil' },
+  { icon: 'ph-sparkle', text: 'Fáciles de limpiar' },
+];
+
+const cuidados = [
+  { icon: 'ph-drop-half', cuando: 'Regularmente', title: 'Limpieza sencilla', text: 'No requieren mantenimiento: basta con un paño húmedo y jabón neutro o un detergente suave con agua.' },
+  { icon: 'ph-spray-bottle', cuando: 'Manchas difíciles', title: 'Agua con vinagre', text: 'Usa una mezcla de agua con un poco de vinagre o un limpiador multiusos no abrasivo.' },
+  { icon: 'ph-prohibit', cuando: 'Siempre', title: 'Evita químicos agresivos', text: 'No uses solventes, cloro ni limpiadores abrasivos, y aléjalos de fuentes de calor extremo.' },
+];
+
+const faqs = [
+  {
+    q: '¿Qué son los lambrines y paneles?',
+    a: 'Los lambrines y paneles son una placa decorativa alternativa a la pintura y al papel tapiz para las paredes y techos interiores a partir de resina de PVC.',
+  },
+  {
+    q: '¿Por qué elegir lambrines y paneles?',
+    a: 'Elegir lambrines y paneles es una excelente opción debido a sus múltiples ventajas. Son de material resistente a la humedad, fácil de limpiar y mantener. Su durabilidad los convierte en una inversión a largo plazo, son ligeros, fáciles de instalar y disponibles en una gran variedad de diseños, lo que los hace perfectos para adaptarse a diferentes estilos de decoración. Con sus bajos costos de mantenimiento y su capacidad para resistir condiciones adversas, los lambrines y paneles son una opción práctica, segura y económica para cualquier espacio.',
+  },
+  {
+    q: '¿Para qué espacios se recomiendan los lambrines y paneles?',
+    a: 'Los lambrines y paneles son una opción versátil y funcional que se recomiendan para una amplia variedad de espacios. Gracias a su resistencia a la humedad, son ideales para baños, cocinas y lavanderías. También son una excelente alternativa para oficinas, locales comerciales y hospitales, ya que su fácil limpieza y mantenimiento garantizan un ambiente higiénico. Además, su diseño moderno y variedad de acabados los hacen perfectos para salas, pasillos y habitaciones. Su instalación es práctica y pueden colocarse tanto en superficies verticales como en techos gracias a su peso ligero.',
+  },
+  {
+    q: '¿Cuáles son las opciones de diseño y color para lambrines y paneles?',
+    a: 'Existen dos tipos de formatos para los lambrines y paneles. El formato Plank, disponible en los colores Natural, Light Gray, Slate, Dark Walnut y el formato Wall, disponible en los colores Classic Walnut, Tan, White Marble y Black Marble.',
+  },
+  {
+    q: '¿Cómo se limpian los lambrines y paneles?',
+    a: 'Para mantener los lambrines y paneles en perfectas condiciones, basta con limpiarlos regularmente con un paño húmedo y jabón neutro. En caso de manchas difíciles, se puede utilizar una mezcla de agua con un poco de vinagre o un limpiador multiusos no abrasivo. Es importante evitar productos químicos agresivos, como solventes o cloro, ya que pueden dañar su superficie.',
+  },
+  {
+    q: '¿Cuánto tiempo duran los lambrines y paneles?',
+    a: 'Los lambrines y paneles de Terza tienen una garantía de 15 años para uso interior. Tomando en cuenta que son altamente duraderos, su resistencia a los cambios de temperatura y a la corrosión los hacen ideales para espacios interiores. A diferencia de otros revestimientos, no se deforman, pudren ni requieren tratamientos especiales para conservar su apariencia. Con una limpieza adecuada y evitando golpes fuertes, pueden mantener su funcionalidad y estética por muchos años.',
+  },
+  {
+    q: '¿Qué tan seguros son los lambrines y paneles?',
+    a: 'Los lambrines y paneles son seguros e higiénicos gracias a que no acumulan humedad ni microorganismos. Además, son libres de astillas y con bordes suaves, ideales para hogares con niños o mascotas. Su durabilidad y composición no tóxica los convierten en una opción confiable para distintos espacios.',
+  },
+  {
+    q: '¿Qué se debe evitar para el cuidado de los lambrines y paneles?',
+    a: 'Para mantener los lambrines y paneles en buen estado, se debe evitar su exposición a fuentes de calor extremo, el uso de productos químicos agresivos, golpes e instalación en exteriores sin protección, ya que la radiación UV puede deteriorarlos. Además, una instalación incorrecta puede afectar su durabilidad, por lo que es recomendable seguir las instrucciones del fabricante o contar con un profesional. Siguiendo estos cuidados, los lambrines y paneles se conservarán en excelente estado por muchos años.',
+  },
+  {
+    q: '¿Los lambrines y paneles son adecuados para áreas de alto tráfico?',
+    a: 'Sí, al ser de fácil limpieza y gran durabilidad pueden usarse en áreas de alto tráfico sin problema.',
+  },
+  {
+    q: '¿Los lambrines y paneles son resistentes a los arañazos y golpes?',
+    a: 'Sí, los lambrines y paneles pueden soportar golpes y arañazos moderados sin romperse o agrietarse.',
+  },
+  {
+    q: '¿Los lambrines y paneles son resistentes a la humedad?',
+    a: 'Sí, los lambrines y paneles son altamente resistentes al agua y a la humedad, lo que los hace ideales para lugares con alta exposición al agua o al vapor. A diferencia de la madera natural, los lambrines y paneles no se hinchan, pudren ni desarrollan moho con facilidad.',
+  },
+  {
+    q: '¿Cómo se comparan los lambrines y paneles con otros materiales en términos de costo y calidad?',
+    a: 'Terza cuenta con lambrines y paneles a precios competitivos y su calidad comparada con otros materiales de revestimiento es muy alta.',
+  },
+];
+---
+
+<PageLayout title="Lambrín y paneles | Terza" description="Lambrín y paneles de PVC Terza: variedad de estilos para espacios únicos, resistentes a la humedad y con garantía de 15 años para uso interior.">
+  <!-- Hero -->
+  <section class="px-5 pt-6 md:px-10 md:pt-10">
+    <div class="a-hero relative mx-auto flex min-h-[460px] max-w-[1440px] items-end overflow-hidden rounded-3xl md:min-h-[540px]">
+      <img src={`${IMG}/hero.webp`} width="1366" height="500" alt="Sala con muro de lambrín de madera y sillones claros" class="a-hero-img absolute inset-0 size-full object-cover object-[35%_50%]" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-black/30 md:bg-gradient-to-l md:from-black/80 md:via-black/50 md:to-black/0"></div>
+      <div class="relative ml-auto w-full max-w-xl px-6 py-12 md:px-14 md:py-16">
+        <nav class="a-hero-item text-xs text-white/70" aria-label="Ruta">
+          <a href="/" class="hover:text-white">Inicio</a><span class="mx-2">/</span><span>Muros</span><span class="mx-2">/</span><span class="text-white">Lambrín y paneles</span>
+        </nav>
+        <p class="a-hero-item eyebrow mt-8 !text-terza-lime">Lambrín y paneles</p>
+        <h1 class="a-hero-title mt-6 text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1] tracking-[-0.04em] !text-white">
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>Variedad de estilos</span></span>
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span class="font-medium">para espacios únicos.</span></span>
+        </h1>
+        <p class="a-hero-item mt-6 text-base leading-relaxed text-white/85 md:text-lg">Proyectos que marcan la diferencia.</p>
+        <div class="a-hero-item mt-8 flex flex-wrap gap-3">
+          <a href={urlCategoria('paneles')} class="btn-lime">Ver catálogo <i class="ph ph-arrow-right"></i></a>
+          <a href="#" class="btn-ghost !border-white/40 bg-white/10 !text-white backdrop-blur hover:!border-white">Decorador virtual</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ideales para: espacios donde se recomiendan -->
+  <section class="mx-auto grid max-w-[1440px] items-center gap-12 px-5 pt-24 md:px-10 md:pt-32 lg:grid-cols-2 lg:gap-20">
+    <div data-reveal>
+      <p class="eyebrow">Lambrín y paneles Terza</p>
+      <h2 class="mt-6 text-4xl font-light leading-tight md:text-5xl">Ideales para <span class="font-medium">cualquier interior.</span></h2>
+      <p class="mt-6 text-base leading-relaxed md:text-lg">
+        Una alternativa a la pintura y al papel tapiz para muros y techos, hecha de resina de PVC. Los lambrines y paneles son ideales para:
+      </p>
+      <ul class="mt-8 flex flex-wrap gap-2.5">
+        {espacios.map((e) => (
+          <li class="a-item rounded-full border border-terza-black/15 px-4 py-2 text-sm font-medium text-terza-black">{e}</li>
+        ))}
+      </ul>
+      <p class="mt-6 text-sm text-terza-gray">Y muchos otros espacios interiores más.</p>
+    </div>
+    <figure class="a-curtain group/img aspect-[3/2] overflow-hidden rounded-2xl">
+      <img src={`${IMG}/recamara.webp`} width="401" height="270" alt="Recámara con muro de lambrín oscuro e iluminación cálida" loading="lazy" class="size-full object-cover transition-[scale] duration-1000 ease-silk group-hover/img:scale-105" />
+    </figure>
+  </section>
+
+  <!-- ¿Por qué Terza? -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <h2 class="text-3xl font-light md:text-4xl" data-reveal>¿Por qué optar por <span class="font-medium">lambrín y paneles de Terza?</span></h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {cualidades.map((c) => (
+        <article class="a-card group/card rounded-2xl bg-neutral-50 p-8 transition-[translate,box-shadow,background-color] duration-500 ease-silk hover:-translate-y-2 hover:bg-white hover:shadow-xl">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="text-xl font-medium">{c.title}</h3>
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-terza-lime text-2xl text-terza-black transition-[rotate,scale] duration-500 ease-silk group-hover/card:rotate-12 group-hover/card:scale-110">{c.icon === 'podio' ? (
+              <svg viewBox="0 0 32 32" class="size-6" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                <path d="M4 28h24" />
+                <rect x="7" y="18" width="5" height="10" />
+                <rect x="13.5" y="13" width="5" height="15" />
+                <rect x="20" y="20" width="5" height="8" />
+                <path d="m16 3.6 1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z" />
+                <path d="m9.5 9.6 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" />
+                <path d="m22.5 11.6 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" />
+              </svg>
+            ) : (
+              <i class={`ph-light ${c.icon}`}></i>
+            )}</span>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Formatos: un acceso al catálogo por cada formato -->
+  <section class="mx-auto grid max-w-[1440px] items-center gap-10 px-5 pt-24 md:px-10 md:pt-32 lg:grid-cols-2 lg:gap-20">
+    <figure class="a-curtain group/img aspect-square overflow-hidden rounded-2xl lg:order-last lg:aspect-[4/3]">
+      <img src={`${IMG}/sala.webp`} width="401" height="401" alt="Sala blanca con muro de lambrín de madera" loading="lazy" class="size-full object-cover transition-[scale] duration-1000 ease-silk group-hover/img:scale-105" />
+    </figure>
+    <div data-reveal>
+      <p class="eyebrow">Formatos</p>
+      <h2 class="mt-6 text-3xl font-light leading-tight md:text-5xl">Un formato <span class="font-medium">para cada muro.</span></h2>
+      <p class="mt-6 max-w-lg text-base leading-relaxed md:text-lg">
+        Lambrín, paneles lisos tipo madera o mármol y vigas decorativas en {cat.total} acabados.
+      </p>
+      <ul class="mt-8 divide-y divide-terza-black/10 border-y border-terza-black/10">
+        {formatos.map((f) => (
+          <li class="a-item">
+            <a href={f.href} class="group/f flex items-center gap-4 py-3">
+              <span class="block size-12 shrink-0 overflow-hidden rounded-full bg-neutral-50">
+                <img src={f.img} alt="" loading="lazy" class:list={['size-full object-cover', f.viga ? 'scale-[3]' : 'scale-150']} />
+              </span>
+              <span class="flex-1 text-base font-medium text-terza-black transition-colors group-hover/f:text-terza-forest">{f.nombre}</span>
+              <span class="text-xs text-terza-gray">{f.total} acabados</span>
+              <i class="ph ph-arrow-up-right text-terza-black transition-transform duration-500 ease-silk group-hover/f:-translate-y-0.5 group-hover/f:translate-x-0.5"></i>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Beneficios: fondo gris claro con la foto a la derecha fundida con el texto (como en alfombras) -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div class="relative flex flex-col overflow-hidden rounded-3xl bg-neutral-50 lg:flex-row lg:items-center">
+      <div class="a-curtain relative order-last aspect-[16/9] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:order-none lg:aspect-auto lg:w-[50%]">
+        <img src={`${IMG}/tv.webp`} width="437" height="437" alt="Muro de TV con lambrín oscuro y panel rosa" loading="lazy" class="a-parallax size-full object-cover" />
+        <div class="absolute inset-0 hidden bg-gradient-to-r from-neutral-50 via-neutral-50/70 via-25% to-transparent to-60% lg:block"></div>
+      </div>
+      <div class="relative z-10 px-6 py-12 md:px-16 md:py-16 lg:w-[62%]" data-reveal>
+        <p class="eyebrow">Beneficios</p>
+        <h2 class="mt-6 text-3xl font-light leading-tight md:text-5xl">Beneficios del lambrín <span class="font-medium">y paneles de Terza.</span></h2>
+        <p class="mt-5 max-w-md text-base leading-relaxed md:text-lg">Con garantía de 15 años para uso interior.</p>
+        <ul class="mt-8 grid gap-x-8 gap-y-3 text-sm text-terza-black sm:grid-cols-2">
+          {beneficios.map((b) => (
+            <li class="flex items-center gap-3"><i class={`ph ${b.icon} text-lg text-terza-forest`}></i> {b.text}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuidados: tres pasos unidos por una línea, sobre fondo blanco -->
+  <section class="px-5 pt-24 md:px-10 md:pt-32">
+    <div class="mx-auto max-w-[1440px]">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div>
+          <p class="eyebrow">Cuidados</p>
+          <h2 class="mt-6 text-3xl font-light md:text-5xl">Cuidados <span class="font-medium">esenciales</span></h2>
+        </div>
+        <p class="max-w-sm text-base leading-relaxed">Tres hábitos sencillos para que tus muros luzcan como nuevos por más tiempo.</p>
+      </div>
+
+      <ol class="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+        <span class="cuidados-line absolute left-0 right-0 top-7 hidden h-px origin-left bg-terza-black/15 md:block" aria-hidden="true"></span>
+        {cuidados.map((c, i) => (
+          <li class="a-step group/c relative">
+            <div class="flex items-center gap-4">
+              <span class="a-step-num relative z-10 grid size-14 shrink-0 place-items-center rounded-full border border-terza-black/10 bg-white text-2xl text-terza-forest transition-colors duration-500 group-hover/c:border-terza-lime group-hover/c:bg-terza-lime group-hover/c:text-terza-black">
+                <i class={`ph-light ${c.icon}`}></i>
+              </span>
+              <span class="relative z-10 bg-white pr-3 font-display text-5xl font-light leading-none text-terza-lime">0{i + 1}</span>
+            </div>
+            <p class="mt-8 inline-flex rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-terza-forest">{c.cuando}</p>
+            <h3 class="mt-4 text-xl font-medium">{c.title}</h3>
+            <p class="mt-3 max-w-xs text-sm leading-relaxed">{c.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div>
+      <div data-reveal>
+        <p class="eyebrow">FAQ's</p>
+        <h2 class="mt-6 text-3xl font-light md:text-4xl">Preguntas <span class="font-medium">frecuentes</span></h2>
+      </div>
+      <div class="mt-10 border-t border-terza-black/10">
+        {faqs.map((f, i) => (
+          <div class:list={['faq a-item group/faq border-b border-terza-black/10', i === 0 && 'is-open']}>
+            <h3>
+              <button type="button" class="faq-btn flex w-full items-center justify-between gap-6 py-6 text-left text-lg font-medium text-terza-black transition-colors duration-300 hover:text-terza-forest md:text-xl" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`faq-${i}`}>
+                {f.q}
+                <span class="relative size-4 shrink-0" aria-hidden="true">
+                  <span class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current"></span>
+                  <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current transition-transform duration-500 ease-silk group-[.is-open]/faq:scale-y-0"></span>
+                </span>
+              </button>
+            </h3>
+            <div id={`faq-${i}`} role="region" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-silk group-[.is-open]/faq:grid-rows-[1fr]">
+              <div class="overflow-hidden">
+                <p class="max-w-3xl pb-7 text-base leading-relaxed opacity-0 transition-opacity duration-500 ease-silk group-[.is-open]/faq:opacity-100">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="px-5 pt-24 md:px-10 md:pt-32">
+    <div class="a-banner mx-auto grid max-w-[1440px] overflow-hidden rounded-3xl bg-terza-forest md:grid-cols-[minmax(0,1fr)_42%]">
+      <div class="flex flex-col items-start gap-6 px-6 py-12 md:px-16 md:py-16">
+        <h2 class="text-3xl font-light leading-tight !text-white md:text-4xl">Queremos ser parte <span class="font-medium">de tu espacio.</span></h2>
+        <a href="/#contacto-ubicaciones" class="btn-lime hover:!bg-white hover:!text-terza-black">Contáctanos <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div class="relative order-first aspect-[16/9] md:order-none md:aspect-auto">
+        <img src={`${IMG}/cocina.webp`} width="401" height="401" alt="Cocina con muro de lambrín de madera" loading="lazy" class="absolute inset-0 size-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Adelanto del catálogo -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div>
+        <p class="eyebrow">Catálogo</p>
+        <h2 class="mt-6 text-3xl font-light md:text-4xl">Catálogo de <span class="font-medium">lambrín y paneles Terza</span></h2>
+        <p class="mt-4 max-w-xl text-base leading-relaxed">
+          {cat.total} acabados entre lambrín, paneles y vigas. Comunícate con nuestros asesores para elegir el que mejor va con tu espacio.
+        </p>
+      </div>
+      <a href={urlCategoria('paneles')} class="btn-lime self-start md:self-auto">Ver catálogo <i class="ph ph-arrow-right"></i></a>
+    </div>
+    <div class="a-grid mt-10 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+      {destacados.map((p) => <ProductCard producto={p} />)}
+    </div>
+  </section>
+
+  <script is:inline slot="scripts">
+    document.addEventListener('DOMContentLoaded', () => {
+      // Preguntas frecuentes: solo una abierta a la vez (funciona aunque no haya animaciones)
+      const faqs = document.querySelectorAll('.faq');
+      faqs.forEach((faq) => faq.querySelector('.faq-btn').addEventListener('click', () => {
+        const abrir = !faq.classList.contains('is-open');
+        faqs.forEach((x) => {
+          const on = x === faq && abrir;
+          x.classList.toggle('is-open', on);
+          x.querySelector('.faq-btn').setAttribute('aria-expanded', on);
+        });
+      }));
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!window.gsap || reduceMotion) {
+        document.documentElement.classList.remove('js');
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.defaults({ ease: 'expo.out', duration: 1.4 });
+
+      // Hero: la foto se acerca y los textos entran en cascada; el título sube por máscara
+      gsap.timeline({ delay: 0.1 })
+        .fromTo('.a-hero', { clipPath: 'inset(8% 6% 8% 6% round 24px)' }, { clipPath: 'inset(0% 0% 0% 0% round 24px)', duration: 1.6, ease: 'expo.inOut' })
+        .fromTo('.a-hero-img', { scale: 1.25 }, { scale: 1, duration: 2.4, ease: 'power3.out' }, 0)
+        .to('.a-hero-title .reveal-line > span', { y: 0, stagger: 0.14 }, 0.6)
+        .fromTo('.a-hero-item', { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.1 }, 0.7);
+
+      // Textos y títulos: suben al entrar en pantalla
+      gsap.utils.toArray('[data-reveal]').forEach((el) => {
+        gsap.fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, scrollTrigger: { trigger: el, start: 'top 85%' } });
+      });
+
+      // Fotos: se abren como cortina y luego tienen un parallax suave
+      gsap.utils.toArray('.a-curtain').forEach((fig) => {
+        gsap.fromTo(fig, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.6,
+          ease: 'expo.inOut',
+          scrollTrigger: { trigger: fig, start: 'top 80%' },
+        });
+        const img = fig.querySelector('.a-parallax');
+        if (!img) return;
+        gsap.fromTo(img, { yPercent: -7, scale: 1.15 }, {
+          yPercent: 7,
+          ease: 'none',
+          scrollTrigger: { trigger: fig, start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+      });
+
+      // Tarjetas, muestras, pasos, productos y preguntas: entran en cascada por grupo
+      gsap.utils.toArray('.a-card, .a-item, .a-step, .a-grid .product-card').forEach((el) => {
+        const orden = [...el.parentElement.children].indexOf(el);
+        gsap.fromTo(el, { opacity: 0, y: 50 }, {
+          opacity: 1,
+          y: 0,
+          delay: (orden % 4) * 0.1,
+          scrollTrigger: { trigger: el, start: 'top 90%' },
+        });
+      });
+
+      // Línea que une los cuidados: se dibuja de izquierda a derecha
+      gsap.fromTo('.cuidados-line', { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'expo.inOut', scrollTrigger: { trigger: '.cuidados-line', start: 'top 85%' } });
+
+      // Números de los cuidados: se deslizan desde la izquierda
+      gsap.utils.toArray('.a-step-num').forEach((n, i) => {
+        gsap.fromTo(n, { x: -30, opacity: 0 }, { x: 0, opacity: 1, delay: 0.15 + i * 0.1, scrollTrigger: { trigger: n, start: 'top 88%' } });
+      });
+
+      // Banner de contacto: se abre de los lados
+      gsap.fromTo('.a-banner', { clipPath: 'inset(0% 12% 0% 12% round 24px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 24px)',
+        duration: 1.6,
+        ease: 'expo.inOut',
+        scrollTrigger: { trigger: '.a-banner', start: 'top 85%' },
+      });
+
+      // Recalcular posiciones cuando terminan de cargar fuentes y fotos
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+      document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    });
+  </script>
+</PageLayout>

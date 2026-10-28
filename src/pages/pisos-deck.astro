@@ -1,0 +1,356 @@
+---
+// Página de la línea de pisos deck (contenido de terza.com/pisos-deck con el diseño de la página de alfombras)
+import PageLayout from '../layouts/PageLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { categoriaDe, productosDe, urlCategoria, urlProducto, foto } from '../lib/catalogo';
+
+const IMG = '/assets/images/pagina-deck';
+const cat = categoriaDe('pisos-deck');
+const productos = productosDe('pisos-deck');
+const destacados = productos.slice(0, 4);
+
+const cualidades = [
+  {
+    icon: 'ph-shield-check',
+    title: 'Durabilidad garantizada',
+    text: 'Los pisos deck son resistentes al agua, sol y alto tráfico sin deformarse ni astillarse. Mantienen su forma y estabilidad por años incluso en espacios muy expuestos.',
+  },
+  {
+    icon: 'podio', // podio con estrellas en SVG propio, igual que en alfombras
+    title: 'Cualidades extraordinarias',
+    text: 'Son impermeables, antiderrapantes, no requieren barniz ni selladores. No atraen insectos, no generan hongos ni moho porque no retienen humedad, y su superficie es ideal para hogares con mascotas.',
+  },
+  {
+    icon: 'ph-scales',
+    title: 'Diferencias con la madera',
+    text: 'A diferencia de la madera, el piso deck no se pudre, no requiere lijado ni barnizado constante y no cambia de forma por humedad o calor. Su mantenimiento es mínimo y su durabilidad es mucho mayor, por lo que es más conveniente para exteriores.',
+  },
+];
+
+const beneficios = [
+  { icon: 'ph-drop', title: 'Resistente a la humedad', text: 'Soporta perfectamente el clima húmedo al no guardar humedad, evita la proliferación de hongos y el desgaste.' },
+  { icon: 'ph-bug-beetle', title: 'No recibirá ataques de insectos', text: 'A diferencia de la madera natural, no es atractivo para las plagas: olvídate de las termitas.' },
+  { icon: 'ph-shield', title: 'Resistente a impactos', text: 'Gracias a su robustez aguanta el desgaste más que otros pisos y luce como nuevo por mucho tiempo.' },
+];
+
+const cuidados = [
+  { icon: 'ph-drop-half', cuando: 'Agua y jabón neutro', title: 'Limpieza', text: 'Usa agua tibia con jabón neutro y una esponja o cepillo suave para lavar las tablas.' },
+  { icon: 'ph-flask', cuando: 'Sin ácidos', title: 'No usar químicos', text: 'No necesita productos químicos agresivos ni limpiadores ácidos.' },
+  { icon: 'ph-armchair', cuando: 'Levanta, no arrastres', title: 'No rayar', text: 'No arrastres muebles o parrillas. Para evitar rayones, levanta los objetos al moverlos.' },
+];
+
+const faqs = [
+  {
+    q: '¿Cómo limpiar los pisos deck?',
+    a: 'Comienza barriendo los pisos deck para eliminar la suciedad superficial. Después prepara una solución con agua tibia y jabón suave y frota el piso con una toalla o trapeador. Deja que se seque al aire y aplica un sellador o protector para mantener su durabilidad. Realiza esta limpieza regularmente, evita productos corrosivos y utiliza alfombras o protectores para prevenir daños adicionales.',
+  },
+  {
+    q: '¿Cómo dar mantenimiento a pisos deck?',
+    a: 'No es necesario el mantenimiento exhaustivo o a fondo. Solo con mantener el piso deck limpio es suficiente, no requiere lijado ni barnizado.',
+  },
+  {
+    q: '¿Cuál es la durabilidad de los pisos deck?',
+    a: 'Con el cuidado adecuado, los pisos deck pueden durar varios años manteniendo su apariencia y funcionalidad, ya que son resistentes a los rayos UV, humedad, lluvia y cambios de temperatura.',
+  },
+  {
+    q: '¿Puedo poner muebles sobre los pisos deck sin que se dañen?',
+    a: 'Sí, puedes colocar muebles sobre pisos deck sin dañarlos, siempre que distribuyas bien el peso y uses protectores en las patas para evitar rayones. Los materiales como el compuesto o PVC son más resistentes, y con limpieza regular, tus pisos deck se mantendrán en excelente estado.',
+  },
+];
+---
+
+<PageLayout title="Pisos Deck | Terza" description="Pisos deck Terza: transforma tus espacios exteriores con pisos resistentes a la humedad, el sol y el alto tráfico.">
+  <!-- Hero -->
+  <section class="px-5 pt-6 md:px-10 md:pt-10">
+    <div class="a-hero relative mx-auto flex min-h-[460px] max-w-[1440px] items-end overflow-hidden rounded-3xl md:min-h-[540px]">
+      <img src={`${IMG}/hero.webp`} width="1366" height="500" alt="Persona flotando en una alberca rodeada de piso deck con camastros" class="a-hero-img absolute inset-0 size-full object-cover object-[30%_50%]" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-black/30 md:bg-gradient-to-l md:from-black/80 md:via-black/45 md:to-black/0"></div>
+      <div class="relative ml-auto w-full max-w-xl px-6 py-12 md:px-14 md:py-16">
+        <nav class="a-hero-item text-xs text-white/70" aria-label="Ruta">
+          <a href="/" class="hover:text-white">Inicio</a><span class="mx-2">/</span><span>Exterior</span><span class="mx-2">/</span><span class="text-white">Deck</span>
+        </nav>
+        <p class="a-hero-item eyebrow mt-8 !text-terza-lime">Pisos deck</p>
+        <h1 class="a-hero-title mt-6 text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1] tracking-[-0.04em] !text-white">
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span>Dale vida</span></span>
+          <span class="reveal-line block overflow-hidden pb-[0.08em]"><span class="font-medium">a tu espacio.</span></span>
+        </h1>
+        <p class="a-hero-item mt-6 text-base leading-relaxed text-white/85 md:text-lg">
+          Transforma tus espacios exteriores con la confianza que te brinda la resistencia de los pisos deck de Terza.
+        </p>
+        <div class="a-hero-item mt-8 flex flex-wrap gap-3">
+          <a href={urlCategoria('pisos-deck')} class="btn-lime">Ver catálogo <i class="ph ph-arrow-right"></i></a>
+          <a href="#" class="btn-ghost !border-white/40 bg-white/10 !text-white backdrop-blur hover:!border-white">Decorador virtual</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Por qué Terza? -->
+  <section class="mx-auto grid max-w-[1440px] items-center gap-12 px-5 pt-24 md:px-10 md:pt-32 lg:grid-cols-2 lg:gap-20">
+    <div data-reveal>
+      <p class="eyebrow">Pisos deck Terza</p>
+      <h2 class="mt-6 text-4xl font-light leading-tight md:text-5xl">¿Por qué optar por <span class="font-medium">pisos deck Terza?</span></h2>
+      <p class="mt-6 text-base leading-relaxed md:text-lg">
+        La resistencia a la humedad y el calor son una de las ventajas más sobresalientes de los pisos deck, por lo que son perfectos para complementar la decoración de terrazas, jardines, albercas y demás áreas expuestas al exterior.
+      </p>
+      <p class="mt-4 text-base leading-relaxed md:text-lg">
+        Haz que tus espacios luzcan especiales, con un toque único y con el estilo que vaya más contigo. ¡Elige entre la variedad de pisos deck que Terza tiene para ti y dale un toque natural y fresco a tus espacios exteriores!
+      </p>
+    </div>
+    <figure class="a-curtain group/img aspect-[4/3] overflow-hidden rounded-2xl">
+      <img src={`${IMG}/terraza.webp`} width="668" height="600" alt="Terraza con piso deck junto a la alberca y el jardín" loading="lazy" class="size-full object-cover transition-[scale] duration-1000 ease-silk group-hover/img:scale-105" />
+    </figure>
+  </section>
+
+  <!-- Cualidades -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <h2 class="text-3xl font-light md:text-4xl" data-reveal>Conoce más de <span class="font-medium">los pisos deck</span></h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {cualidades.map((c) => (
+        <article class="a-card group/card rounded-2xl bg-neutral-50 p-8 transition-[translate,box-shadow,background-color] duration-500 ease-silk hover:-translate-y-2 hover:bg-white hover:shadow-xl">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="text-xl font-medium">{c.title}</h3>
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-terza-lime text-2xl text-terza-black transition-[rotate,scale] duration-500 ease-silk group-hover/card:rotate-12 group-hover/card:scale-110">{c.icon === 'podio' ? (
+              <svg viewBox="0 0 32 32" class="size-6" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                <path d="M4 28h24" />
+                <rect x="7" y="18" width="5" height="10" />
+                <rect x="13.5" y="13" width="5" height="15" />
+                <rect x="20" y="20" width="5" height="8" />
+                <path d="m16 3.6 1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z" />
+                <path d="m9.5 9.6 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" />
+                <path d="m22.5 11.6 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" />
+              </svg>
+            ) : (
+              <i class={`ph-light ${c.icon}`}></i>
+            )}</span>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed">{c.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Variedad: foto y muestras de cada color del catálogo -->
+  <section class="mx-auto grid max-w-[1440px] items-center gap-10 px-5 pt-24 md:px-10 md:pt-32 lg:grid-cols-2 lg:gap-20">
+    <figure class="a-curtain group/img aspect-[4/3] overflow-hidden rounded-2xl lg:order-last">
+      <img src={`${IMG}/mesa.webp`} width="700" height="473" alt="Mesa y sillas de exterior sobre piso deck" loading="lazy" class="a-parallax size-full object-cover" />
+    </figure>
+    <div data-reveal>
+      <p class="eyebrow">En Terza, ¡tenemos lo que buscas!</p>
+      <h2 class="mt-6 text-3xl font-light leading-tight md:text-5xl">Gran variedad de <span class="font-medium">estilos y colores.</span></h2>
+      <p class="mt-6 max-w-lg text-base leading-relaxed md:text-lg">
+        Encontrarás diferentes opciones con estilos y colores de pisos deck para decorar tus espacios con el toque que más te guste.
+      </p>
+      <ul class="mt-8 flex flex-wrap gap-4">
+        {productos.map((p) => (
+          <li class="a-item">
+            <a href={urlProducto(p)} class="group/sw flex w-20 flex-col items-center gap-2 text-center" title={`${p.familia} ${p.variante}`}>
+              <span class="block size-16 overflow-hidden rounded-full bg-neutral-50 ring-offset-2 transition group-hover/sw:ring-2 group-hover/sw:ring-terza-lime">
+                <img src={foto(p.fotos[0], 'sm')} alt="" loading="lazy" class="size-full scale-150 object-cover" />
+              </span>
+              <span class="text-[0.7rem] leading-tight text-terza-gray transition-colors group-hover/sw:text-terza-black"><span class="block font-semibold uppercase tracking-[0.1em] text-terza-forest">{p.familia}</span>{p.variante}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Beneficios: fondo gris claro con la foto a la derecha fundida con el texto (como en alfombras) -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div class="relative flex flex-col overflow-hidden rounded-3xl bg-neutral-50 lg:flex-row lg:items-center">
+      <div class="a-curtain relative order-last aspect-[16/7] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:order-none lg:aspect-auto lg:w-[52%]">
+        <img src={`${IMG}/jardin.webp`} width="700" height="473" alt="Piso deck de madera junto a un jardín" loading="lazy" class="a-parallax size-full object-cover" />
+        <div class="absolute inset-0 hidden bg-gradient-to-r from-neutral-50 via-neutral-50/70 via-25% to-transparent to-60% lg:block"></div>
+      </div>
+      <div class="relative z-10 px-6 py-12 md:px-16 md:py-16 lg:w-[60%]" data-reveal>
+        <p class="eyebrow">Beneficios</p>
+        <h2 class="mt-6 text-3xl font-light leading-tight md:text-5xl">Beneficios de <span class="font-medium">los pisos deck.</span></h2>
+        <ul class="mt-8 space-y-5">
+          {beneficios.map((b) => (
+            <li class="flex gap-4">
+              <i class={`ph ${b.icon} mt-0.5 text-xl text-terza-forest`}></i>
+              <div>
+                <h3 class="text-base font-medium text-terza-black">{b.title}</h3>
+                <p class="mt-1 max-w-md text-sm leading-relaxed">{b.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuidados: tres pasos unidos por una línea, sobre fondo blanco -->
+  <section class="px-5 pt-24 md:px-10 md:pt-32">
+    <div class="mx-auto max-w-[1440px]">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div>
+          <p class="eyebrow">Cuidados</p>
+          <h2 class="mt-6 text-3xl font-light md:text-5xl">Cuidados <span class="font-medium">esenciales</span></h2>
+        </div>
+        <p class="max-w-sm text-base leading-relaxed">Tres hábitos sencillos para que tu piso deck luzca como nuevo por más tiempo.</p>
+      </div>
+
+      <ol class="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+        <span class="cuidados-line absolute left-0 right-0 top-7 hidden h-px origin-left bg-terza-black/15 md:block" aria-hidden="true"></span>
+        {cuidados.map((c, i) => (
+          <li class="a-step group/c relative">
+            <div class="flex items-center gap-4">
+              <span class="a-step-num relative z-10 grid size-14 shrink-0 place-items-center rounded-full border border-terza-black/10 bg-white text-2xl text-terza-forest transition-colors duration-500 group-hover/c:border-terza-lime group-hover/c:bg-terza-lime group-hover/c:text-terza-black">
+                <i class={`ph-light ${c.icon}`}></i>
+              </span>
+              <span class="relative z-10 bg-white pr-3 font-display text-5xl font-light leading-none text-terza-lime">0{i + 1}</span>
+            </div>
+            <p class="mt-8 inline-flex rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-terza-forest">{c.cuando}</p>
+            <h3 class="mt-4 text-xl font-medium">{c.title}</h3>
+            <p class="mt-3 max-w-xs text-sm leading-relaxed">{c.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div>
+      <div data-reveal>
+        <p class="eyebrow">FAQ's</p>
+        <h2 class="mt-6 text-3xl font-light md:text-4xl">Preguntas <span class="font-medium">frecuentes</span></h2>
+      </div>
+      <div class="mt-10 border-t border-terza-black/10">
+        {faqs.map((f, i) => (
+          <div class:list={['faq a-item group/faq border-b border-terza-black/10', i === 0 && 'is-open']}>
+            <h3>
+              <button type="button" class="faq-btn flex w-full items-center justify-between gap-6 py-6 text-left text-lg font-medium text-terza-black transition-colors duration-300 hover:text-terza-forest md:text-xl" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`faq-${i}`}>
+                {f.q}
+                <span class="relative size-4 shrink-0" aria-hidden="true">
+                  <span class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current"></span>
+                  <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current transition-transform duration-500 ease-silk group-[.is-open]/faq:scale-y-0"></span>
+                </span>
+              </button>
+            </h3>
+            <div id={`faq-${i}`} role="region" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-silk group-[.is-open]/faq:grid-rows-[1fr]">
+              <div class="overflow-hidden">
+                <p class="max-w-3xl pb-7 text-base leading-relaxed opacity-0 transition-opacity duration-500 ease-silk group-[.is-open]/faq:opacity-100">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="px-5 pt-24 md:px-10 md:pt-32">
+    <div class="a-banner mx-auto grid max-w-[1440px] overflow-hidden rounded-3xl bg-terza-forest md:grid-cols-[minmax(0,1fr)_42%]">
+      <div class="flex flex-col items-start gap-6 px-6 py-12 md:px-16 md:py-16">
+        <h2 class="text-3xl font-light leading-tight !text-white md:text-4xl">Queremos ser parte <span class="font-medium">de tu espacio.</span></h2>
+        <a href="/#contacto-ubicaciones" class="btn-lime hover:!bg-white hover:!text-terza-black">Contáctanos <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div class="relative order-first aspect-[16/9] md:order-none md:aspect-auto">
+        <img src={`${IMG}/planta.webp`} width="700" height="473" alt="Planta sobre piso deck color café" loading="lazy" class="absolute inset-0 size-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Adelanto del catálogo -->
+  <section class="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div>
+        <p class="eyebrow">Catálogo</p>
+        <h2 class="mt-6 text-3xl font-light md:text-4xl">Catálogo de <span class="font-medium">pisos deck Terza</span></h2>
+        <p class="mt-4 max-w-xl text-base leading-relaxed">
+          {cat.total} productos entre deck, lambrín de exterior y fachadas. Comunícate con nuestros asesores para elegir el que mejor va con tu espacio.
+        </p>
+      </div>
+      <a href={urlCategoria('pisos-deck')} class="btn-lime self-start md:self-auto">Ver catálogo <i class="ph ph-arrow-right"></i></a>
+    </div>
+    <div class="a-grid mt-10 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+      {destacados.map((p) => <ProductCard producto={p} />)}
+    </div>
+  </section>
+
+  <script is:inline slot="scripts">
+    document.addEventListener('DOMContentLoaded', () => {
+      // Preguntas frecuentes: solo una abierta a la vez (funciona aunque no haya animaciones)
+      const faqs = document.querySelectorAll('.faq');
+      faqs.forEach((faq) => faq.querySelector('.faq-btn').addEventListener('click', () => {
+        const abrir = !faq.classList.contains('is-open');
+        faqs.forEach((x) => {
+          const on = x === faq && abrir;
+          x.classList.toggle('is-open', on);
+          x.querySelector('.faq-btn').setAttribute('aria-expanded', on);
+        });
+      }));
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!window.gsap || reduceMotion) {
+        document.documentElement.classList.remove('js');
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.defaults({ ease: 'expo.out', duration: 1.4 });
+
+      // Hero: la foto se acerca y los textos entran en cascada; el título sube por máscara
+      gsap.timeline({ delay: 0.1 })
+        .fromTo('.a-hero', { clipPath: 'inset(8% 6% 8% 6% round 24px)' }, { clipPath: 'inset(0% 0% 0% 0% round 24px)', duration: 1.6, ease: 'expo.inOut' })
+        .fromTo('.a-hero-img', { scale: 1.25 }, { scale: 1, duration: 2.4, ease: 'power3.out' }, 0)
+        .to('.a-hero-title .reveal-line > span', { y: 0, stagger: 0.14 }, 0.6)
+        .fromTo('.a-hero-item', { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.1 }, 0.7);
+
+      // Textos y títulos: suben al entrar en pantalla
+      gsap.utils.toArray('[data-reveal]').forEach((el) => {
+        gsap.fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, scrollTrigger: { trigger: el, start: 'top 85%' } });
+      });
+
+      // Fotos: se abren como cortina y luego tienen un parallax suave
+      gsap.utils.toArray('.a-curtain').forEach((fig) => {
+        gsap.fromTo(fig, { clipPath: 'inset(100% 0% 0% 0%)' }, {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.6,
+          ease: 'expo.inOut',
+          scrollTrigger: { trigger: fig, start: 'top 80%' },
+        });
+        const img = fig.querySelector('.a-parallax');
+        if (!img) return;
+        gsap.fromTo(img, { yPercent: -7, scale: 1.15 }, {
+          yPercent: 7,
+          ease: 'none',
+          scrollTrigger: { trigger: fig, start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+      });
+
+      // Tarjetas, muestras, pasos, productos y preguntas: entran en cascada por grupo
+      gsap.utils.toArray('.a-card, .a-item, .a-step, .a-grid .product-card').forEach((el) => {
+        const orden = [...el.parentElement.children].indexOf(el);
+        gsap.fromTo(el, { opacity: 0, y: 50 }, {
+          opacity: 1,
+          y: 0,
+          delay: (orden % 4) * 0.1,
+          scrollTrigger: { trigger: el, start: 'top 90%' },
+        });
+      });
+
+      // Línea que une los cuidados: se dibuja de izquierda a derecha
+      gsap.fromTo('.cuidados-line', { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'expo.inOut', scrollTrigger: { trigger: '.cuidados-line', start: 'top 85%' } });
+
+      // Números de los cuidados: se deslizan desde la izquierda
+      gsap.utils.toArray('.a-step-num').forEach((n, i) => {
+        gsap.fromTo(n, { x: -30, opacity: 0 }, { x: 0, opacity: 1, delay: 0.15 + i * 0.1, scrollTrigger: { trigger: n, start: 'top 88%' } });
+      });
+
+      // Banner de contacto: se abre de los lados
+      gsap.fromTo('.a-banner', { clipPath: 'inset(0% 12% 0% 12% round 24px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 24px)',
+        duration: 1.6,
+        ease: 'expo.inOut',
+        scrollTrigger: { trigger: '.a-banner', start: 'top 85%' },
+      });
+
+      // Recalcular posiciones cuando terminan de cargar fuentes y fotos
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+      document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    });
+  </script>
+</PageLayout>

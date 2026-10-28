@@ -1,132 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-// Menú principal: cada opción abre un mega menú con sus categorías y colecciones
-const menu = [
-  {
-    label: 'Pisos',
-    intro: 'Vinílicos, laminados y de madera para cada estilo y cada ritmo de vida.',
-    img: '/assets/images/banner-hero-piso-vinilico.webp',
-    groups: [
-      { title: 'Pisos vinílicos', items: ['Colección Bilbao', 'Colección Norwich', 'Colección Sevilla', 'Colección Vigo'] },
-      { title: 'Pisos laminados', items: ['Colección Class', 'Colección Imperial Plus', 'Colección Mammut Plus', 'Colección Trend'] },
-      { title: 'Pisos de madera', items: ['Colección Bari', 'Colección Cannes', 'Colección Montpellier', 'Colección Napoli 2.0'] },
-    ],
-  },
-  {
-    label: 'Alfombras',
-    hidden: true, // oculto en el menú por ahora; se conserva para volver a mostrarlo
-    intro: 'Colecciones que suman calidez, confort y mejor acústica a cualquier espacio.',
-    img: '/assets/images/hospitality.webp',
-    groups: [
-      { title: 'Colecciones', items: ['Colección Allegro', 'Colección Gladiador', 'Colección Guerrero', 'Colección Terza Kids'] },
-    ],
-  },
-  {
-    label: 'Muros',
-    intro: 'Lambrín, piedra flexible y follaje para muros con carácter.',
-    img: '/assets/images/banner-hero-muros-verdes.webp',
-    groups: [
-      { title: 'Lambrín y paneles', items: ['Lambrín en Arco', 'Lambrín Irregular', 'Panel Liso Tipo Mármol', 'Panel Liso Tipo Madera'] },
-      { title: 'Flexiroc', items: ['Granito Blanco Colonial', 'Travertino Greige', 'Caliza Española', 'Roca Blanca'] },
-      { title: 'Follaje artificial', items: ['Brooklyn', 'Green Boxus', 'Spring Boxus', 'Victoria'] },
-    ],
-  },
-  {
-    label: 'Persianas',
-    intro: 'Control de luz y privacidad con acabados hechos a la medida.',
-    groups: [
-      { title: 'Persianas enrollables', items: ['Stylo', 'Optima', 'Select'] },
-      { title: 'Persianas de madera', items: ['Lake Forest 2', 'Traditions 1', 'Traditions 2'] },
-    ],
-  },
-  {
-    label: 'Exterior',
-    intro: 'Deck y pasto sintético para terrazas y jardines que se disfrutan todo el año.',
-    img: '/assets/images/banner-hero-pasto-sintetico.webp',
-    groups: [
-      { title: 'Deck', items: ['Deck', 'Lambrín de Exterior', 'Vigas', 'Cladding'] },
-      { title: 'Pasto sintético', items: ['Colección Bay', 'Colección Breeze', 'Colección Emerald', 'Colección Playground'] },
-    ],
-  },
-  {
-    label: 'Accesorios',
-    intro: 'Todo lo necesario para instalar y mantener tus superficies.',
-    groups: [
-      { title: 'Para piso', items: ['Adhesivos', 'Limpiadores', 'Molduras', 'Zoclos'] },
-      { title: 'Para exterior', items: ['Clips', 'Tapas', 'Tornillos', 'Vigas'] },
-    ],
-  },
-];
-
-// Opciones que sí se muestran en el header y en el menú móvil
-const visibleMenu = menu.filter((item) => !item.hidden);
-
-// Foto (de los catálogos de terza.com) o ícono de cada colección del menú
-const M = '/assets/images/menu';
-const menuMedia = {
-  'Colección Bilbao': { img: `${M}/bilbao.webp` },
-  'Colección Norwich': { img: `${M}/norwich.webp` },
-  'Colección Sevilla': { img: `${M}/sevilla.webp` },
-  'Colección Vigo': { img: `${M}/vigo.webp` },
-  'Colección Class': { img: `${M}/class.webp` },
-  'Colección Imperial Plus': { img: `${M}/imperial-plus.webp` },
-  'Colección Mammut Plus': { img: `${M}/mammut-plus.webp` },
-  'Colección Trend': { img: `${M}/trend.webp` },
-  'Colección Bari': { img: `${M}/bari.webp` },
-  'Colección Cannes': { img: `${M}/cannes.webp` },
-  'Colección Montpellier': { img: `${M}/montpellier.webp` },
-  'Colección Napoli 2.0': { img: `${M}/napoli.webp` },
-  'Colección Allegro': { img: `${M}/allegro.webp` },
-  'Colección Gladiador': { img: `${M}/gladiador.webp` },
-  'Colección Guerrero': { img: `${M}/guerrero.webp` },
-  'Colección Terza Kids': { img: `${M}/terza-kids.webp` },
-  'Lambrín en Arco': { img: `${M}/lambrin-1.webp` },
-  'Lambrín Irregular': { img: `${M}/lambrin-2.webp` },
-  'Panel Liso Tipo Mármol': { img: `${M}/lambrin-3.webp` },
-  'Panel Liso Tipo Madera': { img: `${M}/lambrin-4.webp` },
-  'Granito Blanco Colonial': { img: `${M}/granito-blanco-colonial.webp` },
-  'Travertino Greige': { img: '/assets/images/flexiroc/T15-FR026-GT101.webp' },
-  'Caliza Española': { img: '/assets/images/flexiroc/T15-FR026-SL107.webp' },
-  'Roca Blanca': { img: `${M}/roca-blanca.webp` },
-  'Brooklyn': { img: `${M}/brooklyn.webp` },
-  'Green Boxus': { img: `${M}/green-boxus.webp` },
-  'Spring Boxus': { img: `${M}/spring-boxus.webp` },
-  'Victoria': { img: `${M}/victoria.webp` },
-  'Stylo': { img: `${M}/stylo.webp` },
-  'Optima': { img: `${M}/optima.webp` },
-  'Select': { img: `${M}/select.webp` },
-  'Lake Forest 2': { img: `${M}/lake-forest-2.webp` },
-  'Traditions 1': { img: `${M}/traditions-1.webp` },
-  'Traditions 2': { img: `${M}/traditions-2.webp` },
-  'Deck': { img: `${M}/deck.webp` },
-  'Lambrín de Exterior': { img: `${M}/lambrin-exterior.webp` },
-  'Cladding': { img: `${M}/cladding.webp` },
-  'Colección Bay': { img: `${M}/bay.webp` },
-  'Colección Breeze': { img: `${M}/breeze.webp` },
-  'Colección Emerald': { img: `${M}/emerald.webp` },
-  'Colección Playground': { img: '/assets/images/banner-hero-pasto-sintetico.webp' },
-  'Vigas': { icon: 'ph-columns' },
-  'Adhesivos': { icon: 'ph-drop' },
-  'Limpiadores': { icon: 'ph-sparkle' },
-  'Molduras': { icon: 'ph-frame-corners' },
-  'Zoclos': { icon: 'ph-ruler' },
-  'Clips': { icon: 'ph-paperclip' },
-  'Tapas': { icon: 'ph-square-half-bottom' },
-  'Tornillos': { icon: 'ph-screwdriver' },
-};
-menu.forEach((item) =>
-  item.groups.forEach((group) => {
-    group.items = group.items.map((name) => ({ name, ...(menuMedia[name] ?? { icon: 'ph-squares-four' }) }));
-  }),
-);
-
-const socials = [
-  { icon: 'ph-instagram-logo', label: 'Instagram', href: 'https://www.instagram.com/terzamexico/' },
-  { icon: 'ph-facebook-logo', label: 'Facebook', href: 'https://www.facebook.com/TerzaMexico/' },
-  { icon: 'ph-youtube-logo', label: 'YouTube', href: 'https://www.youtube.com/channel/UCnIDmz5VV5tsZ7pMiOvwa1A' },
-  { icon: 'ph-linkedin-logo', label: 'LinkedIn', href: 'https://www.linkedin.com/company/terza-s-a-/' },
-];
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const heroSlides = [
   {
@@ -139,7 +14,7 @@ const heroSlides = [
     eyebrow: 'Nuevo · Flexi ROC',
     lines: [['La piedra,'], ['ahora ', 'flexible.']],
     copy: 'Láminas de piedra natural de apenas 2 mm que se adaptan a muros curvos, columnas y fachadas. La nobleza de la roca, sin su peso.',
-    cta: { label: 'Explorar Flexi ROC', href: '#productos' },
+    cta: { label: 'Explorar Flexi ROC', href: '/catalogo/flexiroc' },
   },
   {
     tone: 'dark',
@@ -151,7 +26,7 @@ const heroSlides = [
     eyebrow: 'Muros verdes',
     lines: [['Naturaleza'], ['', 'vertical.']],
     copy: 'Jardines verticales que no necesitan riego ni poda y se ven vivos los 365 días del año.',
-    cta: { label: 'Explorar muros verdes', href: '#' },
+    cta: { label: 'Explorar muros verdes', href: '/catalogo/muros-verdes' },
   },
   {
     tone: 'dark',
@@ -163,7 +38,7 @@ const heroSlides = [
     eyebrow: 'Pasto sintético',
     lines: [['Verde perfecto,'], ['', 'todo el año.']],
     copy: 'Césped sintético suave al tacto y seguro para jugar, que conserva su color sin riego ni mantenimiento.',
-    cta: { label: 'Explorar pasto sintético', href: '#' },
+    cta: { label: 'Explorar pasto sintético', href: '/catalogo/pasto-sintetico' },
   },
   {
     tone: 'dark',
@@ -175,7 +50,7 @@ const heroSlides = [
     eyebrow: 'Pisos vinílicos',
     lines: [['Calidez que'], ['', 'resiste todo.']],
     copy: 'La apariencia de la madera natural, resistente al agua y al tráfico diario, silenciosa y fácil de mantener.',
-    cta: { label: 'Explorar pisos vinílicos', href: '#' },
+    cta: { label: 'Explorar pisos vinílicos', href: '/catalogo/piso-vinilico' },
   },
 ];
 
@@ -191,30 +66,12 @@ const productos = [
   ...p,
   img: `/assets/images/flexiroc/${p.code}.webp`,
   thumb: `/assets/images/flexiroc/${p.code}-detalle.webp`,
-  href: `https://www.terza.com/flexiroc/catalogo/producto/${p.code}`,
+  href: `/catalogo/flexiroc/${p.code.toLowerCase()}`,
 }));
 
-// Índice del buscador: colecciones del menú, productos Flexiroc y secciones de la página
-const searchIndex = [
-  ...menu.flatMap((item) =>
-    item.groups.flatMap((group) =>
-      group.items.map((it) => ({ title: it.name, cat: `${item.label} · ${group.title}`, href: '#' })),
-    ),
-  ),
-  ...menu.flatMap((item) => item.groups.map((group) => ({ title: group.title, cat: item.label, href: '#' }))),
-  ...productos.map((p) => ({ title: `Flexiroc ${p.name}`, cat: `Nuevo · ${p.code}`, href: p.href })),
-  { title: 'Decorador virtual', cat: 'Herramientas', href: '#visualizador' },
-  { title: 'ShawContract', cat: 'Proyectos comerciales', href: '#shawcontract' },
-  { title: 'Quiero ser distribuidor', cat: 'Distribuidores', href: '#distribuidores' },
-  { title: 'Blog e ideas', cat: 'Inspiración', href: '#ideas' },
-  { title: 'Contacto', cat: 'Atención a clientes · 800 228 3792', href: '#contacto' },
-];
-const popularSearches = ['Pasto sintético', 'Flexiroc', 'Pisos vinílicos', 'Persianas', 'Deck', 'Alfombras'];
 
 const stats = [
   { value: '+45', unit: 'años', label: 'de experiencia' },
-  { value: '4', unit: 'showrooms', label: 'en México' },
-  { value: '+10k', label: 'proyectos entregados' },
 ];
 
 const shawSectores = [
@@ -244,298 +101,10 @@ const posts = [
     href: '#',
   },
 ];
-
-// Menú del footer; `sep` deja un espacio antes del enlace para separar grupos
-const footerCols = [
-  {
-    title: 'Productos',
-    links: [
-      { label: 'Pisos', href: '#' },
-      { label: 'Muros', href: '#' },
-      { label: 'Persianas', href: '#' },
-      { label: 'Exterior', href: '#' },
-      { label: 'Accesorios', href: '#' },
-    ],
-  },
-  {
-    title: 'Recursos',
-    links: [
-      { label: 'Catálogos digitales', href: 'https://www.terza.com/catalogos' },
-      { label: 'Decorador Virtual', href: '#visualizador' },
-      { label: 'Material Lab', href: '#' },
-      { label: 'Shaw Contract', href: '#shawcontract' },
-    ],
-  },
-  {
-    title: 'Nosotros',
-    links: [
-      { label: 'Quiénes somos', href: '#nosotros' },
-      { label: 'Quiero ser distribuidor', href: '#distribuidores' },
-      { label: 'Contacto', href: '#contacto-ubicaciones' },
-      { label: 'Aviso de privacidad', href: 'https://www.terza.com/AVISO-DE-PRIVACIDAD.pdf', sep: true },
-      { label: 'Buzón de Transparencia', href: 'https://www.terza.com/buzon-de-transparencia' },
-    ],
-  },
-];
 ---
 
 <Layout>
-  <!-- ============ A. BARRA LATERAL (escritorio) ============ -->
-  <aside class="site-rail fixed inset-y-0 left-0 z-[60] hidden w-24 flex-col border-r border-terza-black/20 bg-white/60 backdrop-blur-md lg:flex" aria-label="Terza en redes sociales">
-    <a href="/" class="block size-24 shrink-0" aria-label="Terza, inicio">
-      <img src="/assets/images/icono_medio_cuadro.svg" alt="" width="96" height="96" class="size-full" />
-    </a>
-    <ul class="flex flex-1 flex-col-reverse items-center justify-center gap-10">
-      {socials.map((s) => (
-        <li>
-          <a
-            href={s.href} target="_blank" rel="noopener"
-            class="group/social flex rotate-180 items-center gap-3 text-terza-black transition-colors [writing-mode:vertical-rl] hover:text-terza-forest"
-          >
-            <!-- Ícono y leyenda giran juntos: se leen de abajo hacia arriba -->
-            <i class={`ph-light ${s.icon} rotate-90 text-lg transition-transform duration-300 group-hover/social:scale-110`} aria-hidden="true"></i>
-            <span class="text-[0.7rem] font-medium uppercase tracking-[0.25em]">{s.label}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </aside>
-
-  <!-- ============ A. HEADER ============ -->
-  <header
-    id="site-header"
-    class="site-header fixed right-0 top-0 left-0 z-50 border-b border-terza-black/20 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-silk lg:left-24"
-  >
-    <div class="flex h-20 items-stretch justify-between lg:h-24">
-      <!-- Marca -->
-      <a href="/" class="logo-flair group/logo relative flex shrink-0 items-center gap-3 overflow-hidden px-5 md:px-10 lg:border-r lg:border-terza-black/20 lg:px-6 xl:px-10" aria-label="Terza, inicio">
-        <!-- Flair: círculo que nace donde entra el cursor y llena el bloque del logo -->
-        <span class="logo-flair-dot pointer-events-none absolute left-0 top-0 aspect-square w-[250%] rounded-full bg-terza-light" style="transform: translate(-50%, -50%) scale(0)" aria-hidden="true"></span>
-        <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="relative h-8 w-auto transition-transform duration-500 ease-silk group-hover/logo:scale-105 lg:h-9" />
-      </a>
-
-      <!-- Navegación central: mega menú con subcategorías a la izquierda y colecciones con foto a la derecha -->
-      <nav aria-label="Principal" class="hidden flex-1 justify-center lg:flex">
-        <ul class="flex items-stretch 2xl:gap-3">
-          {visibleMenu.map((item) => (
-            <li class="group/mega static flex">
-              <a href="#" class="nav-link flex items-center gap-1.5" aria-haspopup="true">
-                {item.label}
-                <i class="ph ph-caret-down text-xs transition-transform duration-300 group-hover/mega:rotate-180"></i>
-              </a>
-
-              <div class="mega invisible absolute inset-x-0 top-full translate-y-2 border-t border-terza-black/5 bg-white opacity-0 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] transition-all duration-300 ease-silk group-hover/mega:visible group-hover/mega:translate-y-0 group-hover/mega:opacity-100 group-focus-within/mega:visible group-focus-within/mega:translate-y-0 group-focus-within/mega:opacity-100">
-                <div class="mx-auto flex max-w-[1440px] gap-10 px-10 py-8">
-                  <ul class="w-60 shrink-0">
-                    {item.groups.map((group, j) => (
-                      <li>
-                        <a
-                          href="#"
-                          class="mega-tab flex items-center justify-between border-b border-l-2 border-b-terza-black/10 border-l-transparent py-3.5 pl-3 pr-1 text-sm text-terza-gray transition-colors hover:text-terza-black data-[active]:border-l-terza-lime data-[active]:font-medium data-[active]:text-terza-forest"
-                          data-tab={j}
-                          data-active={j === 0 ? '' : undefined}
-                        >
-                          {group.title}
-                          <i class="ph ph-caret-right text-xs"></i>
-                        </a>
-                      </li>
-                    ))}
-                    <li class="pl-3 pt-5">
-                      <a href="#" class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-terza-black hover:text-terza-forest">
-                        Ver todo {item.label.toLowerCase()} <i class="ph ph-arrow-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-
-                  <div class="min-w-0 flex-1">
-                    {item.groups.map((group, j) => (
-                      <div class="mega-pane grid grid-cols-4 gap-5" data-pane={j} hidden={j > 0}>
-                        {group.items.map((it) => (
-                          <a href="#" class="group/card block">
-                            <div class="aspect-[4/3] overflow-hidden rounded-xl bg-terza-light">
-                              {it.img ? (
-                                <img src={it.img} alt="" loading="lazy" class="size-full object-cover transition-transform duration-700 ease-silk group-hover/card:scale-105" />
-                              ) : (
-                                <span class="grid size-full place-items-center text-5xl text-terza-forest transition-transform duration-700 ease-silk group-hover/card:scale-110">
-                                  <i class={`ph-light ${it.icon}`}></i>
-                                </span>
-                              )}
-                            </div>
-                            <p class="mt-3 text-sm font-medium text-terza-black transition-colors group-hover/card:text-terza-forest">{it.name}</p>
-                          </a>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))}
-          <li class="flex">
-            <a href="#contacto" class="nav-link flex items-center">Contacto</a>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Acciones: buscador, distribuidor, teléfono y menú móvil -->
-      <div class="flex items-center gap-1 pr-3 md:pr-7 lg:gap-3 lg:border-l lg:border-terza-black/20 lg:px-2 xl:px-6">
-        <button
-          type="button"
-          class="search-open grid size-11 place-items-center rounded-full text-xl text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime"
-          aria-label="Abrir buscador"
-          aria-controls="buscador"
-          aria-expanded="false"
-        >
-          <i class="ph ph-magnifying-glass"></i>
-        </button>
-        <a href="#distribuidores" class="btn-lime hidden !gap-2 whitespace-nowrap !px-5 !py-3 text-xs min-[1440px]:inline-flex">
-          Quiero ser distribuidor <i class="ph ph-arrow-right"></i>
-        </a>
-        <a href="tel:8002283792" class="hidden items-center gap-2 pl-2 text-sm font-medium text-terza-black transition-colors hover:text-terza-forest min-[1680px]:flex">
-          <i class="ph-light ph-phone text-lg"></i> 800 228 3792
-        </a>
-        <button
-          id="menu-toggle"
-          type="button"
-          class="grid size-11 place-items-center rounded-full text-2xl text-terza-black lg:hidden"
-          aria-label="Abrir menú"
-          aria-expanded="false"
-          aria-controls="mobile-drawer"
-        >
-          <i class="ph-light ph-list"></i>
-        </button>
-      </div>
-    </div>
-
-  </header>
-
-  <!-- ============ MENÚ MÓVIL: panel lateral con niveles (estilo Tekno-Step) ============ -->
-  <div id="mobile-drawer" class="fixed inset-0 z-[90] lg:hidden" hidden>
-    <div class="drawer-backdrop absolute inset-0 bg-terza-black/50 opacity-0 transition-opacity duration-300"></div>
-    <aside class="drawer-panel absolute inset-y-0 left-0 flex w-[85%] max-w-sm -translate-x-full flex-col bg-white shadow-2xl transition-transform duration-500 ease-silk" role="dialog" aria-modal="true" aria-label="Menú">
-      <div class="flex h-16 shrink-0 items-center border-b border-terza-black/10 bg-neutral-50 px-5">
-        <button type="button" class="drawer-back hidden items-center gap-3 text-base font-medium text-terza-black" aria-label="Regresar">
-          <i class="ph-light ph-arrow-left text-xl"></i>
-          <span class="drawer-title"></span>
-        </button>
-        <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="drawer-logo h-7 w-auto" />
-      </div>
-
-      <div class="relative flex-1 overflow-hidden">
-        <!-- Nivel 1: opciones principales -->
-        <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level="root" data-title="Menú">
-          <ul>
-            {visibleMenu.map((item, i) => (
-              <li>
-                <button type="button" class="flex w-full items-center justify-between border-b border-terza-black/10 py-4 text-left text-base text-terza-black" data-go={`m${i}`}>
-                  {item.label} <i class="ph-light ph-caret-right"></i>
-                </button>
-              </li>
-            ))}
-            <li>
-              <a href="#contacto" class="flex items-center justify-between border-b border-terza-black/10 py-4 text-base text-terza-black">Contacto</a>
-            </li>
-          </ul>
-          <a href="#distribuidores" class="btn-lime mt-6 w-full justify-center">Quiero ser distribuidor <i class="ph ph-arrow-right"></i></a>
-          <a href="tel:8002283792" class="mt-6 flex items-center gap-3 text-base font-medium text-terza-black">
-            <i class="ph-light ph-phone text-lg"></i> 800 228 3792
-          </a>
-          <ul class="mt-6 flex gap-2">
-            {socials.map((s) => (
-              <li>
-                <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class="grid size-11 place-items-center rounded-full border border-terza-black/20 text-lg text-terza-black">
-                  <i class={`ph-light ${s.icon}`}></i>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- Nivel 2: subcategorías -->
-        {visibleMenu.map((item, i) => (
-          <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level={`m${i}`} data-title={item.label}>
-            <ul>
-              {item.groups.map((group, j) => (
-                <li>
-                  <button type="button" class="flex w-full items-center justify-between border-b border-terza-black/10 py-4 text-left text-base text-terza-black" data-go={`m${i}-${j}`}>
-                    {group.title} <i class="ph-light ph-caret-right"></i>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-terza-forest">
-              Ver todo {item.label.toLowerCase()} <i class="ph ph-arrow-right"></i>
-            </a>
-          </div>
-        ))}
-
-        <!-- Nivel 3: colecciones con miniatura -->
-        {visibleMenu.map((item, i) =>
-          item.groups.map((group, j) => (
-            <div class="drawer-level absolute inset-0 overflow-y-auto bg-white px-5 py-3" data-level={`m${i}-${j}`} data-title={group.title}>
-              <ul>
-                {group.items.map((it) => (
-                  <li>
-                    <a href="#" class="flex items-center gap-4 border-b border-terza-black/10 py-3 text-base text-terza-black">
-                      <span class="grid size-14 shrink-0 place-items-center overflow-hidden rounded-lg bg-terza-light text-2xl text-terza-forest">
-                        {it.img ? <img src={it.img} alt="" loading="lazy" class="size-full object-cover" /> : <i class={`ph-light ${it.icon}`}></i>}
-                      </span>
-                      {it.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )),
-        )}
-      </div>
-    </aside>
-    <button type="button" class="drawer-close absolute right-2 top-3 grid size-11 place-items-center rounded-full bg-white text-terza-black opacity-0 shadow-lg transition-opacity duration-300 sm:right-4" aria-label="Cerrar menú">
-      <i class="ph ph-x text-lg"></i>
-    </button>
-  </div>
-
-  <!-- ============ BUSCADOR DE PANTALLA COMPLETA ============ -->
-  <div id="buscador" class="search-capa fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-terza-black/85 px-5 pb-16 pt-28 backdrop-blur-md md:items-center md:pt-16" role="dialog" aria-modal="true" aria-label="Buscador" hidden>
-    <button type="button" class="search-close absolute right-4 top-4 grid size-11 place-items-center rounded-full border-2 border-white text-white transition-colors hover:bg-white hover:text-terza-black md:right-8 md:top-8" aria-label="Cerrar buscador">
-      <i class="ph ph-x text-lg"></i>
-    </button>
-
-    <div class="search-panel w-full max-w-3xl">
-      <p class="eyebrow !text-terza-lime">¿Qué estás buscando?</p>
-      <form class="search-form relative mt-6" role="search" action="#">
-        <label for="search-input" class="sr-only">Buscar</label>
-        <input
-          id="search-input"
-          class="search-input h-14 w-full appearance-none rounded-full border-2 border-white bg-transparent pl-7 pr-16 text-lg text-white outline-none transition-colors placeholder:text-white/80 focus:border-terza-lime md:h-16 md:text-xl [&::-webkit-search-cancel-button]:hidden"
-          type="search"
-          placeholder="Buscar pisos, colecciones, productos…"
-          autocomplete="off"
-          enterkeyhint="search"
-        />
-        <button type="submit" class="search-submit absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-terza-lime text-terza-black transition-colors hover:bg-white md:size-12" aria-label="Buscar">
-          <i class="ph ph-magnifying-glass text-lg"></i>
-        </button>
-      </form>
-
-      <!-- Sugerencias cuando el campo está vacío -->
-      <div class="search-popular mt-8">
-        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Búsquedas populares</p>
-        <ul class="mt-4 flex flex-wrap gap-2">
-          {popularSearches.map((term) => (
-            <li>
-              <button type="button" class="search-chip rounded-full border border-white/30 px-4 py-2 text-sm text-white transition-colors hover:border-terza-lime hover:bg-terza-lime hover:text-terza-black" data-term={term}>{term}</button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Resultados en vivo -->
-      <ul class="search-results mt-6 divide-y divide-white/10" aria-live="polite"></ul>
-      <p class="search-empty mt-8 hidden text-white/70">Sin resultados para esa búsqueda. Prueba con otra palabra o <a href="#contacto" class="search-link font-semibold text-terza-lime underline-offset-4 hover:underline">escríbenos</a>.</p>
-    </div>
-    <script type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
-  </div>
+  <SiteHeader />
 
   <main class="lg:pl-24">
     <!-- ============ B. HERO (slider) ============ -->
@@ -683,7 +252,7 @@ const footerCols = [
 
       <div class="mx-auto mt-12 flex max-w-[1440px] items-center gap-8 px-5 md:px-10">
         <div class="products-progress swiper-pagination !static !h-0.5 flex-1"></div>
-        <a href="https://www.terza.com/flexiroc/catalogo" class="hidden items-center gap-2 text-sm font-semibold text-terza-black hover:text-terza-forest sm:inline-flex">
+        <a href="/catalogo/flexiroc" class="hidden items-center gap-2 text-sm font-semibold text-terza-black hover:text-terza-forest sm:inline-flex">
           Ver todo el catálogo <i class="ph ph-arrow-right"></i>
         </a>
         <div class="flex gap-2">
@@ -731,18 +300,18 @@ const footerCols = [
             />
           </figure>
 
-          <dl class="about-stats relative z-10 -mt-12 grid grid-cols-3 gap-2 px-3 sm:gap-4 sm:px-6 lg:absolute lg:inset-y-0 lg:-left-32 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:gap-5 lg:px-0">
+          <dl class="about-stats relative z-10 -mt-12 flex px-3 sm:px-6 lg:absolute lg:inset-y-0 lg:-left-32 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:gap-5 lg:px-0">
             {stats.map((s, i) => (
               <div class:list={[
-                'stat-card rounded-2xl bg-white p-4 shadow-xl shadow-terza-black/10 sm:p-5 lg:w-56 lg:p-6',
+                'stat-card rounded-2xl bg-terza-forest p-5 shadow-xl shadow-terza-black/10 lg:w-56 lg:p-6',
                 ['lg:ml-0', 'lg:ml-8', 'lg:ml-16'][i],
               ]}>
                 <dt class="sr-only">{s.unit ? `${s.unit} ${s.label}` : s.label}</dt>
-                <dd class="flex flex-wrap items-baseline gap-x-2 font-display text-2xl font-light leading-none tracking-tight text-terza-lime sm:text-3xl lg:text-5xl">
+                <dd class="flex flex-wrap items-baseline gap-x-2 font-display text-3xl font-light leading-none tracking-tight !text-white lg:text-5xl">
                   {s.value}
                   {s.unit && <span class="text-sm font-normal tracking-normal sm:text-base lg:text-xl">{s.unit}</span>}
                 </dd>
-                <dd class="mt-2 text-[0.7rem] leading-snug sm:text-xs lg:text-sm">{s.label}</dd>
+                <dd class="mt-2 text-xs leading-snug !text-terza-lime lg:text-sm">{s.label}</dd>
               </div>
             ))}
           </dl>
@@ -789,10 +358,10 @@ const footerCols = [
     <!-- ============ E2. SHAWCONTRACT (estilo acordeón de tarjetas) ============ -->
     <section id="shawcontract" class="pt-24 md:pt-36" aria-labelledby="shaw-title">
       <div class="mx-auto max-w-[1440px] px-5 md:px-10">
-        <div class="mx-auto max-w-4xl text-center" data-reveal>
+        <div class="mx-auto max-w-5xl text-center" data-reveal>
           <p class="eyebrow justify-center">Distribuidor exclusivo en México</p>
-          <h2 id="shaw-title" class="mt-6 text-[clamp(3rem,10vw,9rem)] font-medium leading-[0.9] tracking-[-0.05em]">
-            ShawContract<sup class="ml-1 align-super text-[0.25em] font-light">®</sup>
+          <h2 id="shaw-title" class="mx-auto mt-10 w-[min(100%,1000px)] md:mt-12">
+            <img src="/assets/images/shawcontract-logo.svg" width="274" height="60" alt="Shaw Contract" class="h-auto w-full" />
           </h2>
           <p class="mx-auto mt-8 max-w-2xl text-base leading-relaxed md:text-lg">
             Soluciones en alfombra modular, alfombra de rollo y pisos vinílicos para proyectos comerciales que exigen diseño y desempeño.
@@ -957,231 +526,11 @@ const footerCols = [
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
-  <footer id="contacto" class="mt-24 border-t border-terza-black/5 pt-20 md:mt-36 lg:ml-24">
-    <div class="mx-auto grid max-w-[1440px] gap-12 px-5 sm:grid-cols-2 md:px-10 lg:grid-cols-4">
-      <div>
-        <a href="/" class="flex items-center gap-3" aria-label="Terza, inicio">
-          <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-10 w-auto" />
-        </a>
-        <p class="mt-6 max-w-xs text-sm leading-relaxed">
-          Superficies de alto diseño para espacios que trascienden. Hecho en México desde 1979.
-        </p>
-        <a href="tel:8002283792" class="mt-6 block text-2xl font-light tracking-tight text-terza-black hover:text-terza-forest">800 228 3792</a>
-        <ul class="mt-6 flex gap-2">
-          {socials.map((s) => (
-            <li>
-              <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class="grid size-10 place-items-center rounded-full border border-terza-black/10 text-lg text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime">
-                <i class={`ph-light ${s.icon}`}></i>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {footerCols.map((col) => (
-        <div>
-          <h3 class="text-xs font-semibold uppercase tracking-[0.2em]">{col.title}</h3>
-          <ul class="mt-6 space-y-3">
-            {col.links.map((l) => (
-              <li class:list={[l.sep && '!mt-8']}>
-                <a
-                  href={l.href}
-                  target={l.href.startsWith('http') ? '_blank' : undefined}
-                  rel={l.href.startsWith('http') ? 'noopener' : undefined}
-                  class="text-sm transition-colors hover:text-terza-black"
-                >{l.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-
-    <div class="mx-auto mt-20 flex max-w-[1440px] flex-col gap-4 border-t border-terza-black/5 px-5 py-8 text-xs md:flex-row md:items-center md:justify-between md:px-10">
-      <p>© {new Date().getFullYear()} Terza. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <SiteFooter />
 
   <script is:inline slot="scripts">
     document.addEventListener('DOMContentLoaded', () => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      /* ---------- Header: glassmorphism al hacer scroll ---------- */
-      const header = document.getElementById('site-header');
-      const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-
-      /* ---------- Mega menú: la subcategoría con el cursor cambia las colecciones ---------- */
-      document.querySelectorAll('.mega').forEach((mega) => {
-        const tabs = mega.querySelectorAll('.mega-tab');
-        const panes = mega.querySelectorAll('.mega-pane');
-        const activate = (j) => {
-          tabs.forEach((t) => t.toggleAttribute('data-active', t.dataset.tab === String(j)));
-          panes.forEach((p) => { p.hidden = p.dataset.pane !== String(j); });
-        };
-        tabs.forEach((t) => {
-          t.addEventListener('mouseenter', () => activate(t.dataset.tab));
-          t.addEventListener('focus', () => activate(t.dataset.tab));
-          t.addEventListener('click', (e) => { e.preventDefault(); activate(t.dataset.tab); });
-        });
-        // Al salir del menú vuelve a la primera subcategoría
-        mega.closest('li').addEventListener('mouseleave', () => activate(0));
-      });
-
-      /* ---------- Menú móvil: panel lateral con navegación por niveles ---------- */
-      const toggle = document.getElementById('menu-toggle');
-      const drawer = document.getElementById('mobile-drawer');
-      const drawerPanel = drawer.querySelector('.drawer-panel');
-      const drawerBackdrop = drawer.querySelector('.drawer-backdrop');
-      const drawerClose = drawer.querySelector('.drawer-close');
-      const drawerBack = drawer.querySelector('.drawer-back');
-      const drawerTitle = drawer.querySelector('.drawer-title');
-      const drawerLogo = drawer.querySelector('.drawer-logo');
-      const levels = [...drawer.querySelectorAll('.drawer-level')];
-      let stack = ['root'];
-      let drawerTimer = null;
-
-      const renderLevels = () => {
-        const current = stack[stack.length - 1];
-        levels.forEach((level) => {
-          const id = level.dataset.level;
-          const pos = id === current ? '0%' : stack.includes(id) ? '-30%' : '100%';
-          level.style.transform = `translateX(${pos})`;
-          level.inert = id !== current;
-        });
-        const nested = stack.length > 1;
-        drawerBack.classList.toggle('hidden', !nested);
-        drawerBack.classList.toggle('flex', nested);
-        drawerLogo.classList.toggle('hidden', nested);
-        drawerTitle.textContent = levels.find((l) => l.dataset.level === current).dataset.title;
-      };
-      levels.forEach((level) => level.classList.add('transition-transform', 'duration-500', 'ease-silk'));
-
-      const openDrawer = () => {
-        clearTimeout(drawerTimer);
-        stack = ['root'];
-        renderLevels();
-        drawer.hidden = false;
-        document.documentElement.classList.add('search-sin-scroll');
-        toggle.setAttribute('aria-expanded', 'true');
-        requestAnimationFrame(() => {
-          drawerPanel.classList.remove('-translate-x-full');
-          drawerBackdrop.classList.add('opacity-100');
-          drawerClose.classList.add('opacity-100');
-        });
-      };
-
-      const closeDrawer = () => {
-        drawerPanel.classList.add('-translate-x-full');
-        drawerBackdrop.classList.remove('opacity-100');
-        drawerClose.classList.remove('opacity-100');
-        document.documentElement.classList.remove('search-sin-scroll');
-        toggle.setAttribute('aria-expanded', 'false');
-        drawerTimer = setTimeout(() => { drawer.hidden = true; }, 500);
-      };
-
-      toggle.addEventListener('click', openDrawer);
-      drawerClose.addEventListener('click', closeDrawer);
-      drawerBackdrop.addEventListener('click', closeDrawer);
-      drawerBack.addEventListener('click', () => { stack.pop(); renderLevels(); });
-      drawer.addEventListener('click', (e) => {
-        const go = e.target.closest('[data-go]');
-        if (go) { stack.push(go.dataset.go); renderLevels(); return; }
-        if (e.target.closest('a[href]')) closeDrawer();
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !drawer.hidden) closeDrawer();
-      });
-
-      /* ---------- Buscador de pantalla completa ---------- */
-      const capa = document.getElementById('buscador');
-      const campo = capa.querySelector('.search-input');
-      const lista = capa.querySelector('.search-results');
-      const vacio = capa.querySelector('.search-empty');
-      const populares = capa.querySelector('.search-popular');
-      const indice = JSON.parse(document.getElementById('search-index').textContent);
-      const disparadores = document.querySelectorAll('.search-open');
-      let origen = null;
-      let temporizador = null;
-      const normalizar = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-
-      const pintar = () => {
-        const q = normalizar(campo.value.trim());
-        const palabras = q.split(/\s+/).filter(Boolean);
-        const hallados = palabras.length
-          ? indice.filter((r) => palabras.every((w) => normalizar(`${r.title} ${r.cat}`).includes(w))).slice(0, 8)
-          : [];
-        populares.classList.toggle('hidden', palabras.length > 0);
-        vacio.classList.toggle('hidden', !palabras.length || hallados.length > 0);
-        lista.innerHTML = hallados.map((r) => `
-          <li>
-            <a href="${r.href}" class="search-link group flex items-center justify-between gap-6 py-4 text-white">
-              <span>
-                <span class="block font-display text-xl transition-colors group-hover:text-terza-lime md:text-2xl">${r.title}</span>
-                <span class="mt-1 block text-xs uppercase tracking-[0.16em] text-white/50">${r.cat}</span>
-              </span>
-              <i class="ph ph-arrow-up-right text-xl transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"></i>
-            </a>
-          </li>`).join('');
-      };
-
-      const abrirBuscador = (disparador) => {
-        clearTimeout(temporizador);
-        origen = disparador || document.activeElement;
-        campo.value = '';
-        pintar();
-        capa.hidden = false;
-        document.documentElement.classList.add('search-sin-scroll');
-        disparadores.forEach((d) => d.setAttribute('aria-expanded', 'true'));
-        // El foco va en el mismo toque: en iPhone el teclado solo se abre así
-        campo.focus({ preventScroll: true });
-        requestAnimationFrame(() => capa.classList.add('is-abierta'));
-      };
-
-      const cerrarBuscador = () => {
-        capa.classList.remove('is-abierta');
-        document.documentElement.classList.remove('search-sin-scroll');
-        disparadores.forEach((d) => d.setAttribute('aria-expanded', 'false'));
-        temporizador = setTimeout(() => { capa.hidden = true; }, 400);
-        origen?.focus?.();
-      };
-
-      disparadores.forEach((d) => d.addEventListener('click', () => abrirBuscador(d)));
-      capa.querySelector('.search-close').addEventListener('click', cerrarBuscador);
-      capa.addEventListener('click', (e) => {
-        if (e.target === capa) cerrarBuscador();
-        if (e.target.closest('.search-link')) cerrarBuscador();
-        const chip = e.target.closest('.search-chip');
-        if (chip) { campo.value = chip.dataset.term; pintar(); campo.focus(); }
-      });
-      campo.addEventListener('input', pintar);
-      capa.querySelector('.search-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const primero = lista.querySelector('a');
-        if (primero) { cerrarBuscador(); window.location.href = primero.getAttribute('href'); }
-        else campo.focus();
-      });
-      document.addEventListener('keydown', (e) => {
-        if (capa.hidden) return;
-        if (e.key === 'Escape') cerrarBuscador();
-        if (e.key === 'Tab') {
-          // Mantener el foco dentro de la capa
-          const focos = capa.querySelectorAll('button, input, a[href]');
-          const primero = focos[0];
-          const ultimo = focos[focos.length - 1];
-          if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
-          else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
-        }
-      });
-      window.addEventListener('pageshow', (e) => {
-        if (!e.persisted) return;
-        campo.value = '';
-        capa.classList.remove('is-abierta');
-        capa.hidden = true;
-        document.documentElement.classList.remove('search-sin-scroll');
-      });
 
       /* ---------- Swiper: galería de productos ---------- */
       if (window.Swiper) {
@@ -1339,26 +688,6 @@ const footerCols = [
         if (Math.abs(dx) > 60) dx < 0 ? goNext() : goPrev();
       });
 
-      // Logo: efecto flair (el círculo entra y sale por donde pasa el cursor)
-      document.querySelectorAll('.logo-flair').forEach((logo) => {
-        const dot = logo.querySelector('.logo-flair-dot');
-        gsap.set(dot, { xPercent: -50, yPercent: -50, scale: 0 });
-        const pos = (e) => {
-          const r = logo.getBoundingClientRect();
-          return { x: e.clientX - r.left, y: e.clientY - r.top };
-        };
-        logo.addEventListener('mouseenter', (e) => {
-          gsap.set(dot, pos(e));
-          gsap.to(dot, { scale: 1, duration: 0.7, ease: 'power3.out', overwrite: 'auto' });
-        });
-        logo.addEventListener('mousemove', (e) => {
-          gsap.to(dot, { ...pos(e), duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
-        });
-        logo.addEventListener('mouseleave', (e) => {
-          gsap.to(dot, { ...pos(e), scale: 0, duration: 0.5, ease: 'power3.inOut', overwrite: 'auto' });
-        });
-      });
-
       // Entrada inicial
       gsap.timeline({ delay: 0.15, onComplete: () => { startKenBurns(0); startProgress(0); } })
         .fromTo(imgs[0], { scale: 1.25 }, { scale: 1.12, duration: 2.4, ease: 'power3.out' })
@@ -1430,9 +759,9 @@ const footerCols = [
       });
 
       // Blog: stagger de tarjetas
-      ScrollTrigger.batch('.blog-card', {
-        start: 'top 88%',
-        onEnter: (batch) => gsap.fromTo(batch, { opacity: 0, y: 50 }, { opacity: 1, y: 0, stagger: 0.12, overwrite: true }),
+      // (un trigger por tarjeta: ScrollTrigger.batch puede dejarlas ocultas al recalcular posiciones)
+      gsap.utils.toArray('.blog-card').forEach((card, i) => {
+        gsap.fromTo(card, { opacity: 0, y: 50 }, { opacity: 1, y: 0, delay: i * 0.12, scrollTrigger: { trigger: card, start: 'top 88%' } });
       });
 
       // Banner distribuidor: entrada con escala sutil

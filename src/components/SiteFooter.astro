@@ -1,0 +1,49 @@
+---
+// Footer compartido
+import { socials, footerCols } from '../data/site';
+---
+  <!-- ============ FOOTER ============ -->
+  <footer id="contacto" class="mt-24 border-t border-terza-black/5 pt-20 md:mt-36 lg:ml-24">
+    <div class="mx-auto grid max-w-[1440px] gap-12 px-5 sm:grid-cols-2 md:px-10 lg:grid-cols-4">
+      <div>
+        <a href="/" class="flex items-center gap-3" aria-label="Terza, inicio">
+          <img src="/assets/images/logo_terza.svg" alt="Terza" width="192" height="64" class="h-10 w-auto" />
+        </a>
+        <p class="mt-6 max-w-xs text-sm leading-relaxed">
+          Superficies de alto diseño para espacios que trascienden. Hecho en México desde 1979.
+        </p>
+        <a href="tel:8002283792" class="mt-6 block text-2xl font-light tracking-tight text-terza-black hover:text-terza-forest">800 228 3792</a>
+        <ul class="mt-6 flex gap-2">
+          {socials.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class="grid size-10 place-items-center rounded-full border border-terza-black/10 text-lg text-terza-black transition-colors hover:bg-terza-black hover:text-terza-lime">
+                <i class={`ph-light ${s.icon}`}></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {footerCols.map((col) => (
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em]">{col.title}</h3>
+          <ul class="mt-6 space-y-3">
+            {col.links.map((l) => (
+              <li class:list={[l.sep && '!mt-8']}>
+                <a
+                  href={l.href}
+                  target={l.href.startsWith('http') ? '_blank' : undefined}
+                  rel={l.href.startsWith('http') ? 'noopener' : undefined}
+                  class="text-sm transition-colors hover:text-terza-black"
+                >{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mx-auto mt-20 flex max-w-[1440px] flex-col gap-4 border-t border-terza-black/5 px-5 py-8 text-xs md:flex-row md:items-center md:justify-between md:px-10">
+      <p>© {new Date().getFullYear()} Terza. Todos los derechos reservados.</p>
+    </div>
+  </footer>

@@ -1,0 +1,209 @@
+---
+// Listado de una categoría: barra lateral con categorías y filtros, y cuadrícula de productos
+import PageLayout from '../../../layouts/PageLayout.astro';
+import ProductCard from '../../../components/ProductCard.astro';
+import { categorias, secciones, categoriaDe, productosDe, opcionesDe, urlCategoria, foto, paginasLinea } from '../../../lib/catalogo';
+
+export function getStaticPaths() {
+  return categorias.map((c) => ({ params: { categoria: c.slug } }));
+}
+
+const { categoria } = Astro.params;
+const cat = categoriaDe(categoria!);
+const lista = productosDe(cat.slug);
+const filtros = opcionesDe(cat.slug);
+const linea = paginasLinea[cat.slug];
+---
+
+<PageLayout title={`${cat.nombre} | Catálogo Terza`} description={cat.intro}>
+  <!-- Encabezado de la categoría -->
+  <section class="relative overflow-hidden">
+    <div class="mx-auto grid max-w-[1440px] gap-8 px-5 pb-10 pt-10 md:px-10 md:pt-16 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div>
+        <nav class="text-xs text-terza-gray" aria-label="Ruta">
+          <a href="/" class="hover:text-terza-black">Inicio</a><span class="mx-2">/</span>
+          <a href="/catalogo" class="hover:text-terza-black">Catálogo</a><span class="mx-2">/</span>
+          <span class="text-terza-black">{cat.nombre}</span>
+        </nav>
+        <p class="eyebrow mt-10">{cat.seccion}</p>
+        <h1 class="mt-6 text-[clamp(2.5rem,6vw,5rem)] font-light leading-[1] tracking-[-0.045em]">{cat.nombre}</h1>
+        <p class="mt-6 max-w-xl text-base leading-relaxed md:text-lg">{cat.intro}</p>
+        {linea && (
+          <a href={linea.href} class="btn-ghost mt-8">
+            <i class="ph-light ph-info text-lg"></i> {linea.etiqueta} <i class="ph ph-arrow-right"></i>
+          </a>
+        )}
+      </div>
+      {cat.portada && (
+        <img src={foto(cat.portada)} alt="" class="hidden aspect-[4/3] w-80 rounded-2xl object-cover lg:block" />
+      )}
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-[1440px] gap-10 px-5 md:px-10 lg:grid-cols-[260px_1fr]">
+    <!-- Barra lateral: en móvil se abre como panel con el botón "Filtros" -->
+    <aside id="catalog-filters" class="catalog-aside fixed inset-0 z-[95] hidden overflow-y-auto bg-white px-5 pb-10 pt-6 lg:static lg:z-auto lg:block lg:overflow-visible lg:p-0" aria-label="Categorías y filtros">
+      <div class="mb-6 flex items-center justify-between lg:hidden">
+        <p class="text-lg font-medium text-terza-black">Filtrar productos</p>
+        <button type="button" class="filters-close grid size-11 place-items-center rounded-full border border-terza-black/15 text-terza-black" aria-label="Cerrar filtros">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <div class="lg:sticky lg:top-32 lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto lg:pr-2">
+        <!-- Categorías: primero se elige la línea y abajo se despliegan sus categorías -->
+        <div class="mb-10">
+          <p class="border-b border-terza-black/10 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-terza-black">Categorías</p>
+          <label class="relative mt-5 block">
+            <span class="sr-only">Línea de producto</span>
+            <select class="seccion-select w-full cursor-pointer appearance-none rounded-full border border-terza-black/15 bg-white py-3 pl-5 pr-11 text-sm font-medium text-terza-black transition-colors hover:border-terza-black/40 focus:border-terza-forest focus:outline-none">
+              {secciones.map((sec) => <option value={sec.id} selected={sec.nombre === cat.seccion}>{sec.nombre}</option>)}
+            </select>
+            <i class="ph ph-caret-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-xs text-terza-black"></i>
+          </label>
+          {secciones.map((sec) => (
+            <ul class:list={['seccion-lista mt-3 space-y-1.5', sec.nombre !== cat.seccion && 'hidden']} data-seccion={sec.id}>
+              {sec.categorias.map((c) => (
+                <li>
+                  <a
+                    href={urlCategoria(c.slug)}
+                    class:list={[
+                      'flex items-center justify-between rounded-lg px-3 py-1.5 text-sm transition-colors',
+                      c.slug === cat.slug ? 'bg-terza-light font-medium text-terza-black' : 'text-terza-gray hover:text-terza-black',
+                    ]}
+                    aria-current={c.slug === cat.slug ? 'page' : undefined}
+                  >
+                    {c.nombre} <span class="text-xs text-terza-gray/60">{c.total}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+
+        <!-- Filtros: siempre empiezan cerrados -->
+        {filtros.length > 0 && (
+          <div>
+            <div class="flex items-center justify-between border-b border-terza-black/10 pb-3">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-terza-black">Filtros</p>
+              <button type="button" class="filters-clear text-xs font-medium text-terza-forest hover:text-terza-black">Borrar</button>
+            </div>
+            {filtros.map((f) => (
+              <details class="group/f border-b border-terza-black/10">
+                <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-medium text-terza-black [&::-webkit-details-marker]:hidden">
+                  {f.etiqueta}
+                  <i class="ph ph-caret-down text-xs transition-transform group-open/f:rotate-180"></i>
+                </summary>
+                <ul class="max-h-72 space-y-2.5 overflow-y-auto pb-5 pr-1">
+                  {f.opciones.map((o) => (
+                    <li>
+                      <label class="flex cursor-pointer items-center gap-3 text-sm text-terza-gray hover:text-terza-black">
+                        <input type="checkbox" class="filter-input size-4 rounded border-terza-black/30 accent-terza-forest" data-campo={f.campo} value={o.valor} />
+                        <span class="flex-1">{o.valor}</span>
+                        <span class="text-xs text-terza-gray/60">{o.total}</span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- Móvil: cerrar el panel y ver los resultados -->
+      <div class="sticky bottom-0 -mx-5 mt-8 border-t border-terza-black/10 bg-white px-5 py-4 lg:hidden">
+        <button type="button" class="filters-close btn-lime w-full justify-center"><span>Ver <span class="results-count-mobile"></span> productos</span></button>
+      </div>
+    </aside>
+
+    <!-- Productos -->
+    <div>
+      <div class="flex items-center justify-between gap-4 border-b border-terza-black/10 pb-4">
+        <p class="text-sm"><span class="results-count font-medium text-terza-black">{lista.length}</span> productos</p>
+        {filtros.length > 0 && (
+          <button type="button" class="filters-open inline-flex items-center gap-2 rounded-full border border-terza-black/15 px-4 py-2 text-sm font-medium text-terza-black lg:hidden" aria-controls="catalog-filters">
+            <i class="ph ph-sliders-horizontal"></i> Filtros <span class="filters-badge hidden rounded-full bg-terza-lime px-2 text-xs"></span>
+          </button>
+        )}
+      </div>
+      <div class="active-chips mt-4 flex flex-wrap gap-2 empty:hidden"></div>
+
+      <div class="product-grid mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 2xl:grid-cols-4">
+        {lista.map((p) => <ProductCard producto={p} />)}
+      </div>
+      <p class="no-results mt-10 hidden text-center">No hay productos con esa combinación de filtros. <button type="button" class="filters-clear font-semibold text-terza-forest underline-offset-4 hover:underline">Borrar filtros</button></p>
+    </div>
+  </section>
+
+  <script is:inline slot="scripts">
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = [...document.querySelectorAll('.filter-input')];
+      const cards = [...document.querySelectorAll('.product-card')];
+      const count = document.querySelector('.results-count');
+      const empty = document.querySelector('.no-results');
+      const chips = document.querySelector('.active-chips');
+      const badge = document.querySelector('.filters-badge');
+      const aside = document.getElementById('catalog-filters');
+      const normalizar = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+
+      const aplicar = () => {
+        // Dentro de un mismo filtro se suman opciones (O); entre filtros distintos se cruzan (Y)
+        const activos = {};
+        inputs.filter((i) => i.checked).forEach((i) => (activos[i.dataset.campo] ??= []).push(i.value));
+        let visibles = 0;
+        cards.forEach((card) => {
+          const ok = Object.entries(activos).every(([campo, valores]) => valores.includes(card.dataset[`f${campo[0].toUpperCase()}${campo.slice(1)}`]));
+          card.hidden = !ok;
+          if (ok) visibles++;
+        });
+        count.textContent = visibles;
+        document.querySelectorAll('.results-count-mobile').forEach((el) => { el.textContent = visibles; });
+        empty.classList.toggle('hidden', visibles > 0);
+        const total = Object.values(activos).flat().length;
+        if (badge) { badge.textContent = total; badge.classList.toggle('hidden', !total); }
+        chips.innerHTML = inputs.filter((i) => i.checked).map((i) => `
+          <button type="button" class="chip inline-flex items-center gap-2 rounded-full bg-terza-light px-3 py-1.5 text-xs font-medium text-terza-black" data-campo="${i.dataset.campo}" data-valor="${i.value}">
+            ${i.value} <i class="ph ph-x"></i>
+          </button>`).join('');
+        // Guardar los filtros en la URL para poder compartirla
+        const params = new URLSearchParams();
+        Object.entries(activos).forEach(([campo, valores]) => params.set(campo, valores.join('|')));
+        history.replaceState(null, '', params.toString() ? `?${params}` : location.pathname);
+      };
+
+      // Filtros que llegan en la URL (desde el menú): se aceptan nombres parciales, p. ej. ?estilo=Guerrero
+      new URLSearchParams(location.search).forEach((valor, campo) => {
+        valor.split('|').forEach((v) => {
+          const buscado = normalizar(v);
+          const delCampo = inputs.filter((i) => i.dataset.campo === campo);
+          const exactos = delCampo.filter((i) => normalizar(i.value) === buscado);
+          (exactos.length ? exactos : delCampo.filter((i) => normalizar(i.value).startsWith(buscado))).forEach((i) => { i.checked = true; });
+        });
+      });
+
+      inputs.forEach((i) => i.addEventListener('change', aplicar));
+      document.querySelectorAll('.filters-clear').forEach((b) => b.addEventListener('click', () => { inputs.forEach((i) => { i.checked = false; }); aplicar(); }));
+      chips.addEventListener('click', (e) => {
+        const chip = e.target.closest('.chip');
+        if (!chip) return;
+        inputs.find((i) => i.dataset.campo === chip.dataset.campo && i.value === chip.dataset.valor).checked = false;
+        aplicar();
+      });
+
+      // Selector de línea: muestra las categorías de la línea elegida
+      const listas = document.querySelectorAll('.seccion-lista');
+      document.querySelector('.seccion-select').addEventListener('change', (e) => {
+        listas.forEach((l) => l.classList.toggle('hidden', l.dataset.seccion !== e.target.value));
+      });
+
+      // Panel de filtros en móvil
+      const abrir = () => { aside.classList.remove('hidden'); document.documentElement.classList.add('search-sin-scroll'); };
+      const cerrar = () => { aside.classList.add('hidden'); document.documentElement.classList.remove('search-sin-scroll'); };
+      document.querySelector('.filters-open')?.addEventListener('click', abrir);
+      document.querySelectorAll('.filters-close').forEach((b) => b.addEventListener('click', cerrar));
+
+      aplicar();
+    });
+  </script>
+</PageLayout>
